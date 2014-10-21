@@ -2,6 +2,7 @@ define(
   [
     "jquery"
     "backbone"
+    "bootstrap"
     "app/models/application"
     "app/views/application_view"
     "app/models/repository/repository_search"
@@ -16,6 +17,7 @@ define(
   (
     $
     Backbone
+    Bootstrap
     Application
     ApplicationView
     RepositorySearch
