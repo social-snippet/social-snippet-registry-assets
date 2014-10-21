@@ -52,6 +52,13 @@ gulp.task "build/requirejs", ["build/coffee", "build/bower"], ->
       "app/app_router"
       {
         configFile: gulp.src("assets_config.coffee").pipe(coffee())
+
+        # to not include ext libs
+        exclude: [
+          "jquery"
+          "backbone"
+          "underscore"
+        ]
       }
     )
     .pipe concat ASSETS_SCRIPT_NAME
