@@ -20,12 +20,12 @@ _(global).extend
 # Load test tasks
 # run:    gulp test
 # watch:  gulp test/watch
-require "./gulp_tasks/test"
+require "./tasks/test"
 
 # Load build tasks
 # run:    gulp build
 # watch:  gulp build/watch
-require "./gulp_tasks/build"
+require "./tasks/build"
 
 # Default task
 # gulp = gulp build
