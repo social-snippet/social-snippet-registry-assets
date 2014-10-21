@@ -1,0 +1,19 @@
+language: node_js
+
+node_js:
+  - '0.10'
+# TODO: - '0.11'
+
+before_install:
+  - export NOKOGIRI_USE_SYSTEM_LIBRARIES="YES"
+
+install:
+  - travis_retry gem install juicer
+  - travis_retry gem install sass
+  - travis_retry npm install -g gulp
+  - travis_retry npm install
+
+script:
+  - gulp test
+  - gulp build
+
