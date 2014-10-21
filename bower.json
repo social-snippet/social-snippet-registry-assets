@@ -1,0 +1,26 @@
+{
+  "name": "social-snippet-registry",
+  "version": "0.0.0",
+  "authors": [
+    "Hiroyuki Sano <sh19910711@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone": "~1.1.2",
+    "jquery": "~2.1.1",
+    "requirejs": "~2.1.15",
+    "underscore": "~1.7.0"
+  },
+  "devDependencies": {
+    "mocha": "~1.21.4",
+    "chai": "~1.9.1",
+    "sinon": "~1.10.3"
+  }
+}
