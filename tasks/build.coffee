@@ -58,6 +58,7 @@ gulp.task "build/requirejs", ["build/coffee", "build/bower"], ->
           "jquery"
           "backbone"
           "underscore"
+          "bootstrap"
         ]
       }
     )
