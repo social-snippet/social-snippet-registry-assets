@@ -9,7 +9,6 @@ _(global).extend
   cond              : require "gulp-if"
   coffee            : require "gulp-coffee"
   concat            : require "gulp-concat"
-  mocha_phantom_js  : require "gulp-mocha-phantomjs"
   amd_optimize      : require "amd-optimize"
   shell             : require "gulp-shell"
   watch             : require "gulp-watch"
