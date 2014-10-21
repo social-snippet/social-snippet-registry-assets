@@ -1,3 +1,6 @@
+ASSETS_SCRIPT_NAME = "assets.js"
+ASSETS_STYLE_NAME  = "assets.css"
+
 # gulp build/watch
 gulp.task "build/watch", ->
   # coffee
@@ -23,7 +26,7 @@ gulp.task "build/sass", ->
     .pipe sass(
       'sourcemap=none': true
     )
-    .pipe concat "main.css"
+    .pipe concat ASSETS_STYLE_NAME
     .pipe gulp.dest "dist/"
 
 # gulp bower
@@ -42,6 +45,7 @@ gulp.task "build/coffee", ->
     .pipe gulp.dest "tmp/js/app/"
 
 # gulp build/requirejs
+# generate assets.js
 gulp.task "build/requirejs", ["build/coffee", "build/bower"], ->
   gulp.src(["tmp/js/app/**/*.js"])
     .pipe amd_optimize(
@@ -50,7 +54,7 @@ gulp.task "build/requirejs", ["build/coffee", "build/bower"], ->
         configFile: gulp.src("assets_config.coffee").pipe(coffee())
       }
     )
-    .pipe concat "main.js"
+    .pipe concat ASSETS_SCRIPT_NAME
     .pipe gulp.dest "dist/"
 
 # gulp build/concurrent/coffee
