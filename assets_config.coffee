@@ -2,9 +2,10 @@
 # require.js
 #
 @requirejs_paths = {
-  "jquery": "bower_components/jquery/dist/jquery"
-  "underscore": "bower_components/underscore/underscore"
-  "backbone": "bower_components/backbone/backbone"
+  "jquery": "tmp/js/lib/jquery"
+  "underscore": "tmp/js/lib/underscore"
+  "backbone": "tmp/js/lib/backbone"
+  "bootstrap": "tmp/js/lib/bootstrap"
 }
 
 @requirejs_shim = {
