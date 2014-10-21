@@ -1096,6 +1096,7 @@
     define('app/app_router', [
         'jquery',
         'backbone',
+        'bootstrap',
         'app/models/application',
         'app/views/application_view',
         'app/models/repository/repository_search',
@@ -1106,7 +1107,7 @@
         'app/views/repository/repository_detail_view',
         'app/collections/repository_dependencies',
         'app/views/repository/repository_dependency_view'
-    ], function ($, Backbone, Application, ApplicationView, RepositorySearch, RepositorySearchView, IndexView, NewRepositoryView, Repository, RepositoryDetailView, RepositoryDependencies, RepositoryDependencyView) {
+    ], function ($, Backbone, Bootstrap, Application, ApplicationView, RepositorySearch, RepositorySearchView, IndexView, NewRepositoryView, Repository, RepositoryDetailView, RepositoryDependencies, RepositoryDependencyView) {
         var AppRouter;
         return AppRouter = function (_super) {
             __extends(AppRouter, _super);
