@@ -5,6 +5,7 @@ define(
     "app/models/repository/repository"
   ]
   ->
+    modules = Array::splice.call(arguments, 0)
     class Models
-    Utils.loadModules.bind(@, Models).apply @, arguments
+    Utils.loadModules Models, modules
 )
