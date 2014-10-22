@@ -10,25 +10,23 @@ gulp.task "sinon.js", ["bower"], shell.task(
 )
 
 # gulp test/watch
-gulp.task "test/watch", ["sinon.js"], ->
+gulp.task "test/watch", ->
   gulp.watch(
     [
       "src/coffee/**/*.coffee"
       "spec/**/*.coffee"
     ]
     [
-      "test/phantomochajs"
+      "test"
     ]
   )
   return undefined
 
-# gulp test/phantomochajs
-gulp.task "test/phantomochajs", ->
+# gulp test
+gulp.task "test", ["sinon.js"], ->
   gulp.src ["spec/spec_config.coffee", "spec/spec_helper.coffee", "spec/**/*_spec.coffee"]
-    .pipe phantomochajs()
-
-gulp.task "test", [
-  "test/sinon"
-  "test/phantomochajs"
-]
+    .pipe phantomochajs(
+      test_dependencies: [
+      ]
+    )
 
