@@ -1,7 +1,7 @@
 describe "BaseView", ->
   
   load_modules(
-    "app/views/base_view"
+    "app/views"
   )
 
   describe "toSnake()", ->
@@ -9,7 +9,7 @@ describe "BaseView", ->
     context "create instance", ->
       
       before ->
-        @instance = new BaseView
+        @instance = new Views::BaseView
 
       context "call toSnake()", ->
         
