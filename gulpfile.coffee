@@ -27,6 +27,12 @@ require "./tasks/test"
 # watch:  gulp build/watch
 require "./tasks/build"
 
+# Watch all
+gulp.task "watch", [
+  "build/watch"
+  "test/watch"
+]
+
 # Default task
 # gulp = gulp build
 gulp.task "default", [

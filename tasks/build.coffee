@@ -8,7 +8,7 @@ gulp.task "build/watch", ->
     # watched files
     ["src/**/*.coffee"]
     # fired tasks
-    ["build/concurrent/coffee"]
+    ["build/concurrent/assets.js"]
   )
 
   # sass
@@ -16,12 +16,12 @@ gulp.task "build/watch", ->
     # watched files
     ["src/sass/**/*.sass"]
     # fired tasks
-    ["build/sass"]
+    ["assets.css"]
   )
   return undefined
 
-# gulp build/sass
-gulp.task "build/sass", ->
+# gulp assets.css
+gulp.task "assets.css", ->
   gulp.src(["src/sass/**/*.sass"])
     .pipe sass(
       'sourcemap=none': true
@@ -30,7 +30,7 @@ gulp.task "build/sass", ->
     .pipe gulp.dest "dist/"
 
 # gulp bower
-gulp.task "build/bower", (done)->
+gulp.task "bower", (done)->
   bower.commands.install().on "end", ->
     gulp.src main_bower_files()
       .pipe gulp.dest "tmp/js/lib"
@@ -39,14 +39,13 @@ gulp.task "build/bower", (done)->
   return undefined
 
 # gulp coffee
-gulp.task "build/coffee", ->
+gulp.task "coffee", ->
   gulp.src(["src/coffee/**/*.coffee"])
     .pipe coffee()
     .pipe gulp.dest "tmp/js/app/"
 
-# gulp build/requirejs
-# generate assets.js
-gulp.task "build/requirejs", ["build/coffee", "build/bower"], ->
+# gulp assets.js
+gulp.task "assets.js", ["coffee", "bower"], ->
   gulp.src(["tmp/js/app/**/*.js"])
     .pipe amd_optimize(
       "app/app_router"
@@ -65,17 +64,17 @@ gulp.task "build/requirejs", ["build/coffee", "build/bower"], ->
     .pipe concat ASSETS_SCRIPT_NAME
     .pipe gulp.dest "dist/"
 
-# gulp build/concurrent/coffee
-gulp.task "build/concurrent/coffee", [
-  "build/coffee"
-  "build/requirejs"
+# gulp build/concurrent/assets.js
+gulp.task "build/concurrent/assets.js", [
+  "coffee"
+  "assets.js"
 ]
 
 # gulp build
 gulp.task "build", [
-  "build/bower"
-  "build/concurrent/coffee"
-  "build/sass"
+  "bower"
+  "build/concurrent/assets.js"
+  "assets.css"
 ]
 
 

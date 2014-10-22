@@ -1,7 +1,7 @@
 phantomochajs = require "phantomochajs"
 
-# gulp test/sinon
-gulp.task "test/sinon", ["build/bower"], shell.task(
+# gulp sinon
+gulp.task "sinon.js", ["bower"], shell.task(
   [
     "cd ./bower_components/sinon"
     "npm install"
@@ -10,7 +10,7 @@ gulp.task "test/sinon", ["build/bower"], shell.task(
 )
 
 # gulp test/watch
-gulp.task "test/watch", ["test/sinon"], ->
+gulp.task "test/watch", ["sinon.js"], ->
   gulp.watch(
     [
       "src/coffee/**/*.coffee"
