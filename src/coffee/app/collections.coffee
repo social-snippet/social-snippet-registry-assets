@@ -1,8 +1,10 @@
 define(
   [
     "app/collections/repository_dependencies"
+    "app/collections/repositories"
   ]
   ->
+    modules = Array::splice.call(arguments, 0)
     class Collections
-    Utils.loadModules.bind(@, Collections).apply @, arguments
+    Utils.loadModules Collections, modules
 )
