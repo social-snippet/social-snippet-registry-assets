@@ -2,6 +2,7 @@ define(
   [
     "jquery"
     "backbone"
+    "backbone.marionette"
     "bootstrap"
     "app/models/application"
     "app/views/application_view"
@@ -18,6 +19,7 @@ define(
     $
     Backbone
     Bootstrap
+    Marionette
     Application
     ApplicationView
     RepositorySearch
