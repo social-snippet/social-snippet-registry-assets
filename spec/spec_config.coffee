@@ -8,9 +8,10 @@
 # require.js
 #
 @requirejs_paths = {
-  "jquery": "//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min"
-  "underscore": "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min"
-  "backbone": "//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min"
+  "jquery": "/tmp/js/lib/jquery"
+  "backbone": "/tmp/js/lib/backbone"
+  "underscore": "/tmp/js/lib/underscore"
+  "bootstrap": "/tmp/js/lib/bootstrap"
 }
 
 @requirejs_shim = {
