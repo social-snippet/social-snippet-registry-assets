@@ -8,4 +8,6 @@ define(
     Controllers
   )->
     class IndexRouter extends Marionette.AppRouter
+      appRoutes:
+        "": "index"
 )

@@ -6,4 +6,5 @@ define(
     Marionette
   )->
     class IndexController extends Marionette.Controller
+      index: ->
 )
