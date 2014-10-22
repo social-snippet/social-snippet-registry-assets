@@ -9,6 +9,7 @@ define(
     "app/views/repository/repository_search_view"
   ]
   ->
+    modules = Array::splice.call(arguments, 0)
     class Views
-    Utils.loadModules.bind(@, Views).apply @, arguments
+    Utils.loadModules Views, modules
 )
