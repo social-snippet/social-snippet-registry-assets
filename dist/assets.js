@@ -1,117 +1,20 @@
-(function () {
-    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
-            for (var key in parent) {
-                if (__hasProp.call(parent, key))
-                    child[key] = parent[key];
-            }
-            function ctor() {
-                this.constructor = child;
-            }
-            ctor.prototype = parent.prototype;
-            child.prototype = new ctor();
-            child.__super__ = parent.prototype;
-            return child;
-        };
-    define('app/models/application', ['backbone'], function (Backbone) {
-        var Application;
-        return Application = function (_super) {
-            __extends(Application, _super);
-            function Application() {
-                return Application.__super__.constructor.apply(this, arguments);
-            }
-            Application.prototype.defaults = function () {
-                return {
-                    title: 'SSPM',
-                    sub_title: 'Social SniPpet Manager',
-                    links: {
-                        '/repositories/new': 'Add Repository',
-                        '/search': 'Search Repository'
-                    }
-                };
-            };
-            Application.prototype.initialize = function () {
-            };
-            return Application;
-        }(Backbone.Model);
-    });
-}.call(this));
-(function () {
-    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
-            for (var key in parent) {
-                if (__hasProp.call(parent, key))
-                    child[key] = parent[key];
-            }
-            function ctor() {
-                this.constructor = child;
-            }
-            ctor.prototype = parent.prototype;
-            child.prototype = new ctor();
-            child.__super__ = parent.prototype;
-            return child;
-        };
-    define('app/views/base_view', ['backbone'], function (Backbone) {
-        var BaseView;
-        return BaseView = function (_super) {
-            __extends(BaseView, _super);
-            function BaseView() {
-                return BaseView.__super__.constructor.apply(this, arguments);
-            }
-            BaseView.prototype.toSnake = function () {
-                var name;
-                name = this.constructor.name;
-                name = name.replace(/^([A-Z])/, function ($1) {
-                    return $1.toLowerCase();
-                });
-                return name = name.replace(/([A-Z])/g, function ($1) {
-                    return '-' + $1.toLowerCase();
-                });
-            };
-            BaseView.prototype.className = function () {
-                return 'view';
-            };
-            return BaseView;
-        }(Backbone.View);
-    });
-}.call(this));
-(function () {
-    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
-            for (var key in parent) {
-                if (__hasProp.call(parent, key))
-                    child[key] = parent[key];
-            }
-            function ctor() {
-                this.constructor = child;
-            }
-            ctor.prototype = parent.prototype;
-            child.prototype = new ctor();
-            child.__super__ = parent.prototype;
-            return child;
-        };
-    define('app/views/application_view', [
-        'jquery',
-        'app/views/base_view'
-    ], function ($, BaseView) {
-        var ApplicationView;
-        return ApplicationView = function (_super) {
-            __extends(ApplicationView, _super);
-            function ApplicationView() {
-                return ApplicationView.__super__.constructor.apply(this, arguments);
-            }
-            ApplicationView.prototype.className = function () {
-                return '' + this.toSnake() + ' ' + ApplicationView.__super__.className.apply(this, arguments);
-            };
-            ApplicationView.prototype.initialize = function () {
-            };
-            ApplicationView.prototype.render = function () {
-                var el_title;
-                el_title = $(document.createElement('h1')).append(this.model.get('title'));
-                this.$el.empty().append(el_title);
-                return this;
-            };
-            return ApplicationView;
-        }(BaseView);
-    });
-}.call(this));
+(function() {
+  this.Utils = (function() {
+    function Utils() {}
+
+    Utils.loadModules = function(class_obj, modules) {
+      modules.forEach(function(module_class) {
+        return class_obj.prototype[module_class.name] = module_class;
+      });
+      return class_obj;
+    };
+
+    return Utils;
+
+  })();
+
+}).call(this);
+
 (function () {
     var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
             for (var key in parent) {
@@ -139,6 +42,76 @@
             };
             return Repository;
         }(Backbone.Model);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/models/repository/repository_dependency', ['backbone'], function (Backbone) {
+        var RepositoryDependency;
+        return RepositoryDependency = function (_super) {
+            __extends(RepositoryDependency, _super);
+            function RepositoryDependency() {
+                return RepositoryDependency.__super__.constructor.apply(this, arguments);
+            }
+            RepositoryDependency.prototype.idAttribute = 'name';
+            RepositoryDependency.prototype.initialize = function () {
+            };
+            return RepositoryDependency;
+        }(Backbone.Model);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/collections/repository_dependencies', [
+        'backbone',
+        'app/models/repository/repository',
+        'app/models/repository/repository_dependency'
+    ], function (Backbone, Repository, RepositoryDependency) {
+        var RepositoryDependencies;
+        return RepositoryDependencies = function (_super) {
+            __extends(RepositoryDependencies, _super);
+            function RepositoryDependencies() {
+                return RepositoryDependencies.__super__.constructor.apply(this, arguments);
+            }
+            RepositoryDependencies.prototype.model = RepositoryDependency;
+            RepositoryDependencies.prototype.set_default_options = function () {
+                var _base;
+                return (_base = this.options).repo_name || (_base.repo_name = '');
+            };
+            RepositoryDependencies.prototype.url = function () {
+                this.set_default_options();
+                return '//' + WEB_API_HOST + '/api/' + WEB_API_VERSION + '/repositories/' + this.options.repo_name + '/dependencies';
+            };
+            RepositoryDependencies.prototype.initialize = function (models, new_options) {
+                this.options = new_options;
+                return this.options || (this.options = {});
+            };
+            return RepositoryDependencies;
+        }(Backbone.Collection);
     });
 }.call(this));
 (function () {
@@ -188,6 +161,58 @@
             };
             return Repositories;
         }(Backbone.Collection);
+    });
+}.call(this));
+(function () {
+    define('app/collections', [
+        'app/collections/repository_dependencies',
+        'app/collections/repositories'
+    ], function () {
+        var Collections, modules;
+        modules = Array.prototype.splice.call(arguments, 0);
+        Collections = function () {
+            function Collections() {
+            }
+            return Collections;
+        }();
+        return Utils.loadModules(Collections, modules);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/models/application', ['backbone'], function (Backbone) {
+        var Application;
+        return Application = function (_super) {
+            __extends(Application, _super);
+            function Application() {
+                return Application.__super__.constructor.apply(this, arguments);
+            }
+            Application.prototype.defaults = function () {
+                return {
+                    title: 'SSPM',
+                    sub_title: 'Social SniPpet Manager',
+                    links: {
+                        '/repositories/new': 'Add Repository',
+                        '/search': 'Search Repository'
+                    }
+                };
+            };
+            Application.prototype.initialize = function () {
+            };
+            return Application;
+        }(Backbone.Model);
     });
 }.call(this));
 (function () {
@@ -308,6 +333,296 @@
             };
             return RepositorySearch;
         }(Backbone.Model);
+    });
+}.call(this));
+(function () {
+    define('app/models', [
+        'app/models/application',
+        'app/models/repository/repository_search',
+        'app/models/repository/repository'
+    ], function () {
+        var Models, modules;
+        modules = Array.prototype.splice.call(arguments, 0);
+        Models = function () {
+            function Models() {
+            }
+            return Models;
+        }();
+        return Utils.loadModules(Models, modules);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/views/base_view', ['backbone'], function (Backbone) {
+        var BaseView;
+        return BaseView = function (_super) {
+            __extends(BaseView, _super);
+            function BaseView() {
+                return BaseView.__super__.constructor.apply(this, arguments);
+            }
+            BaseView.prototype.toSnake = function () {
+                var name;
+                name = this.constructor.name;
+                name = name.replace(/^([A-Z])/, function ($1) {
+                    return $1.toLowerCase();
+                });
+                return name = name.replace(/([A-Z])/g, function ($1) {
+                    return '-' + $1.toLowerCase();
+                });
+            };
+            BaseView.prototype.className = function () {
+                return 'view';
+            };
+            return BaseView;
+        }(Backbone.View);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/views/application_view', [
+        'jquery',
+        'app/views/base_view'
+    ], function ($, BaseView) {
+        var ApplicationView;
+        return ApplicationView = function (_super) {
+            __extends(ApplicationView, _super);
+            function ApplicationView() {
+                return ApplicationView.__super__.constructor.apply(this, arguments);
+            }
+            ApplicationView.prototype.className = function () {
+                return '' + this.toSnake() + ' ' + ApplicationView.__super__.className.apply(this, arguments);
+            };
+            ApplicationView.prototype.initialize = function () {
+            };
+            ApplicationView.prototype.render = function () {
+                var el_title;
+                el_title = $(document.createElement('h1')).append(this.model.get('title'));
+                this.$el.empty().append(el_title);
+                return this;
+            };
+            return ApplicationView;
+        }(BaseView);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/views/index_view', [
+        'jquery',
+        'underscore',
+        'app/views/base_view'
+    ], function ($, _, BaseView) {
+        var IndexView;
+        return IndexView = function (_super) {
+            __extends(IndexView, _super);
+            function IndexView() {
+                return IndexView.__super__.constructor.apply(this, arguments);
+            }
+            IndexView.prototype.className = function () {
+                return '' + this.toSnake() + ' ' + IndexView.__super__.className.apply(this, arguments);
+            };
+            IndexView.prototype.initialize = function () {
+            };
+            IndexView.prototype.render = function () {
+                this.$el.empty().append(function (_this) {
+                    return function () {
+                        var el_list, links;
+                        el_list = $(document.createElement('ul'));
+                        links = _this.model.get('links');
+                        _(links).each(function (link_text, link_url) {
+                            return el_list.append('<li><a href="' + link_url + '">' + link_text + '</a></li>');
+                        });
+                        return el_list;
+                    };
+                }(this));
+                return this;
+            };
+            return IndexView;
+        }(BaseView);
+    });
+}.call(this));
+(function () {
+    var __bind = function (fn, me) {
+            return function () {
+                return fn.apply(me, arguments);
+            };
+        }, __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/views/repository/new_repository_view', [
+        'jquery',
+        'app/views/base_view'
+    ], function ($, BaseView) {
+        var NewRepositoryView;
+        return NewRepositoryView = function (_super) {
+            __extends(NewRepositoryView, _super);
+            function NewRepositoryView() {
+                this.add = __bind(this.add, this);
+                return NewRepositoryView.__super__.constructor.apply(this, arguments);
+            }
+            NewRepositoryView.prototype.className = function () {
+                return '' + this.toSnake() + ' ' + NewRepositoryView.__super__.className.apply(this, arguments);
+            };
+            NewRepositoryView.prototype.intialize = function () {
+            };
+            NewRepositoryView.prototype.events = { 'click button.add': 'add' };
+            NewRepositoryView.prototype.add = function () {
+                var deferred, send_data;
+                send_data = { url: this.$el.find('input.url').val() };
+                return deferred = $.ajax({
+                    type: 'post',
+                    url: '/api/v0/repositories',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(send_data)
+                });
+            };
+            NewRepositoryView.prototype.render = function () {
+                this.$el.empty().append([
+                    '<h2>Add new repository</h2>',
+                    '<div>',
+                    '<p>',
+                    'URL: <input type="text" class="url">',
+                    '<button class="add">add</button>',
+                    '</p>',
+                    '</div>'
+                ].join(''));
+                return this;
+            };
+            return NewRepositoryView;
+        }(BaseView);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/views/repository/repository_detail_view', ['app/views/base_view'], function (BaseView) {
+        var RepositoryDetailView;
+        return RepositoryDetailView = function (_super) {
+            __extends(RepositoryDetailView, _super);
+            function RepositoryDetailView() {
+                return RepositoryDetailView.__super__.constructor.apply(this, arguments);
+            }
+            RepositoryDetailView.prototype.className = function () {
+                return '' + this.toSnake() + ' ' + RepositoryDetailView.__super__.className.apply(this, arguments);
+            };
+            RepositoryDetailView.prototype.initialize = function () {
+            };
+            RepositoryDetailView.prototype.render = function () {
+                var el_desc, el_name;
+                this.$el.empty();
+                el_name = $(document.createElement('div'));
+                el_name.append(this.model.get('name'));
+                el_desc = $(document.createElement('div'));
+                el_desc.append(this.model.get('desc'));
+                this.$el.append(el_name);
+                this.$el.append(el_desc);
+                return this;
+            };
+            return RepositoryDetailView;
+        }(BaseView);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/views/repository/repository_dependency_view', ['app/views/base_view'], function (BaseView) {
+        var RepositoryDependencyView;
+        return RepositoryDependencyView = function (_super) {
+            __extends(RepositoryDependencyView, _super);
+            function RepositoryDependencyView() {
+                return RepositoryDependencyView.__super__.constructor.apply(this, arguments);
+            }
+            RepositoryDependencyView.prototype.className = function () {
+                return '' + this.toSnake() + ' ' + RepositoryDependencyView.__super__.className.apply(this, arguments);
+            };
+            RepositoryDependencyView.prototype.initialize = function () {
+            };
+            RepositoryDependencyView.prototype.render = function () {
+                var el_name;
+                this.$el.empty();
+                el_name = $(document.createElement('div'));
+                el_name.append(function (_this) {
+                    return function () {
+                        var anchor;
+                        anchor = $(document.createElement('a'));
+                        anchor.attr('href', '/repositories/' + _this.model.get('name'));
+                        anchor.text(_this.model.get('name'));
+                        return anchor;
+                    };
+                }(this));
+                this.$el.append(el_name);
+                return this;
+            };
+            return RepositoryDependencyView;
+        }(BaseView);
     });
 }.call(this));
 (function () {
@@ -813,301 +1128,48 @@
     });
 }.call(this));
 (function () {
-    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
-            for (var key in parent) {
-                if (__hasProp.call(parent, key))
-                    child[key] = parent[key];
-            }
-            function ctor() {
-                this.constructor = child;
-            }
-            ctor.prototype = parent.prototype;
-            child.prototype = new ctor();
-            child.__super__ = parent.prototype;
-            return child;
-        };
-    define('app/views/index_view', [
-        'jquery',
-        'underscore',
-        'app/views/base_view'
-    ], function ($, _, BaseView) {
-        var IndexView;
-        return IndexView = function (_super) {
-            __extends(IndexView, _super);
-            function IndexView() {
-                return IndexView.__super__.constructor.apply(this, arguments);
-            }
-            IndexView.prototype.className = function () {
-                return '' + this.toSnake() + ' ' + IndexView.__super__.className.apply(this, arguments);
-            };
-            IndexView.prototype.initialize = function () {
-            };
-            IndexView.prototype.render = function () {
-                this.$el.empty().append(function (_this) {
-                    return function () {
-                        var el_list, links;
-                        el_list = $(document.createElement('ul'));
-                        links = _this.model.get('links');
-                        _(links).each(function (link_text, link_url) {
-                            return el_list.append('<li><a href="' + link_url + '">' + link_text + '</a></li>');
-                        });
-                        return el_list;
-                    };
-                }(this));
-                return this;
-            };
-            return IndexView;
-        }(BaseView);
-    });
-}.call(this));
-(function () {
-    var __bind = function (fn, me) {
-            return function () {
-                return fn.apply(me, arguments);
-            };
-        }, __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
-            for (var key in parent) {
-                if (__hasProp.call(parent, key))
-                    child[key] = parent[key];
-            }
-            function ctor() {
-                this.constructor = child;
-            }
-            ctor.prototype = parent.prototype;
-            child.prototype = new ctor();
-            child.__super__ = parent.prototype;
-            return child;
-        };
-    define('app/views/repository/new_repository_view', [
-        'jquery',
-        'app/views/base_view'
-    ], function ($, BaseView) {
-        var NewRepositoryView;
-        return NewRepositoryView = function (_super) {
-            __extends(NewRepositoryView, _super);
-            function NewRepositoryView() {
-                this.add = __bind(this.add, this);
-                return NewRepositoryView.__super__.constructor.apply(this, arguments);
-            }
-            NewRepositoryView.prototype.className = function () {
-                return '' + this.toSnake() + ' ' + NewRepositoryView.__super__.className.apply(this, arguments);
-            };
-            NewRepositoryView.prototype.intialize = function () {
-            };
-            NewRepositoryView.prototype.events = { 'click button.add': 'add' };
-            NewRepositoryView.prototype.add = function () {
-                var deferred, send_data;
-                send_data = { url: this.$el.find('input.url').val() };
-                return deferred = $.ajax({
-                    type: 'post',
-                    url: '/api/v0/repositories',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: JSON.stringify(send_data)
-                });
-            };
-            NewRepositoryView.prototype.render = function () {
-                this.$el.empty().append([
-                    '<h2>Add new repository</h2>',
-                    '<div>',
-                    '<p>',
-                    'URL: <input type="text" class="url">',
-                    '<button class="add">add</button>',
-                    '</p>',
-                    '</div>'
-                ].join(''));
-                return this;
-            };
-            return NewRepositoryView;
-        }(BaseView);
-    });
-}.call(this));
-(function () {
-    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
-            for (var key in parent) {
-                if (__hasProp.call(parent, key))
-                    child[key] = parent[key];
-            }
-            function ctor() {
-                this.constructor = child;
-            }
-            ctor.prototype = parent.prototype;
-            child.prototype = new ctor();
-            child.__super__ = parent.prototype;
-            return child;
-        };
-    define('app/views/repository/repository_detail_view', ['app/views/base_view'], function (BaseView) {
-        var RepositoryDetailView;
-        return RepositoryDetailView = function (_super) {
-            __extends(RepositoryDetailView, _super);
-            function RepositoryDetailView() {
-                return RepositoryDetailView.__super__.constructor.apply(this, arguments);
-            }
-            RepositoryDetailView.prototype.className = function () {
-                return '' + this.toSnake() + ' ' + RepositoryDetailView.__super__.className.apply(this, arguments);
-            };
-            RepositoryDetailView.prototype.initialize = function () {
-            };
-            RepositoryDetailView.prototype.render = function () {
-                var el_desc, el_name;
-                this.$el.empty();
-                el_name = $(document.createElement('div'));
-                el_name.append(this.model.get('name'));
-                el_desc = $(document.createElement('div'));
-                el_desc.append(this.model.get('desc'));
-                this.$el.append(el_name);
-                this.$el.append(el_desc);
-                return this;
-            };
-            return RepositoryDetailView;
-        }(BaseView);
-    });
-}.call(this));
-(function () {
-    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
-            for (var key in parent) {
-                if (__hasProp.call(parent, key))
-                    child[key] = parent[key];
-            }
-            function ctor() {
-                this.constructor = child;
-            }
-            ctor.prototype = parent.prototype;
-            child.prototype = new ctor();
-            child.__super__ = parent.prototype;
-            return child;
-        };
-    define('app/models/repository/repository_dependency', ['backbone'], function (Backbone) {
-        var RepositoryDependency;
-        return RepositoryDependency = function (_super) {
-            __extends(RepositoryDependency, _super);
-            function RepositoryDependency() {
-                return RepositoryDependency.__super__.constructor.apply(this, arguments);
-            }
-            RepositoryDependency.prototype.idAttribute = 'name';
-            RepositoryDependency.prototype.initialize = function () {
-            };
-            return RepositoryDependency;
-        }(Backbone.Model);
-    });
-}.call(this));
-(function () {
-    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
-            for (var key in parent) {
-                if (__hasProp.call(parent, key))
-                    child[key] = parent[key];
-            }
-            function ctor() {
-                this.constructor = child;
-            }
-            ctor.prototype = parent.prototype;
-            child.prototype = new ctor();
-            child.__super__ = parent.prototype;
-            return child;
-        };
-    define('app/collections/repository_dependencies', [
-        'backbone',
-        'app/models/repository/repository',
-        'app/models/repository/repository_dependency'
-    ], function (Backbone, Repository, RepositoryDependency) {
-        var RepositoryDependencies;
-        return RepositoryDependencies = function (_super) {
-            __extends(RepositoryDependencies, _super);
-            function RepositoryDependencies() {
-                return RepositoryDependencies.__super__.constructor.apply(this, arguments);
-            }
-            RepositoryDependencies.prototype.model = RepositoryDependency;
-            RepositoryDependencies.prototype.set_default_options = function () {
-                var _base;
-                return (_base = this.options).repo_name || (_base.repo_name = '');
-            };
-            RepositoryDependencies.prototype.url = function () {
-                this.set_default_options();
-                return '//' + WEB_API_HOST + '/api/' + WEB_API_VERSION + '/repositories/' + this.options.repo_name + '/dependencies';
-            };
-            RepositoryDependencies.prototype.initialize = function (models, new_options) {
-                this.options = new_options;
-                return this.options || (this.options = {});
-            };
-            return RepositoryDependencies;
-        }(Backbone.Collection);
-    });
-}.call(this));
-(function () {
-    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
-            for (var key in parent) {
-                if (__hasProp.call(parent, key))
-                    child[key] = parent[key];
-            }
-            function ctor() {
-                this.constructor = child;
-            }
-            ctor.prototype = parent.prototype;
-            child.prototype = new ctor();
-            child.__super__ = parent.prototype;
-            return child;
-        };
-    define('app/views/repository/repository_dependency_view', ['app/views/base_view'], function (BaseView) {
-        var RepositoryDependencyView;
-        return RepositoryDependencyView = function (_super) {
-            __extends(RepositoryDependencyView, _super);
-            function RepositoryDependencyView() {
-                return RepositoryDependencyView.__super__.constructor.apply(this, arguments);
-            }
-            RepositoryDependencyView.prototype.className = function () {
-                return '' + this.toSnake() + ' ' + RepositoryDependencyView.__super__.className.apply(this, arguments);
-            };
-            RepositoryDependencyView.prototype.initialize = function () {
-            };
-            RepositoryDependencyView.prototype.render = function () {
-                var el_name;
-                this.$el.empty();
-                el_name = $(document.createElement('div'));
-                el_name.append(function (_this) {
-                    return function () {
-                        var anchor;
-                        anchor = $(document.createElement('a'));
-                        anchor.attr('href', '/repositories/' + _this.model.get('name'));
-                        anchor.text(_this.model.get('name'));
-                        return anchor;
-                    };
-                }(this));
-                this.$el.append(el_name);
-                return this;
-            };
-            return RepositoryDependencyView;
-        }(BaseView);
-    });
-}.call(this));
-(function () {
-    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
-            for (var key in parent) {
-                if (__hasProp.call(parent, key))
-                    child[key] = parent[key];
-            }
-            function ctor() {
-                this.constructor = child;
-            }
-            ctor.prototype = parent.prototype;
-            child.prototype = new ctor();
-            child.__super__ = parent.prototype;
-            return child;
-        };
-    define('app/app_router', [
-        'jquery',
-        'backbone',
-        'bootstrap',
-        'app/models/application',
+    define('app/views', [
+        'app/views/base_view',
         'app/views/application_view',
-        'app/models/repository/repository_search',
-        'app/views/repository/repository_search_view',
         'app/views/index_view',
         'app/views/repository/new_repository_view',
-        'app/models/repository/repository',
         'app/views/repository/repository_detail_view',
-        'app/collections/repository_dependencies',
-        'app/views/repository/repository_dependency_view'
-    ], function ($, Backbone, Bootstrap, Application, ApplicationView, RepositorySearch, RepositorySearchView, IndexView, NewRepositoryView, Repository, RepositoryDetailView, RepositoryDependencies, RepositoryDependencyView) {
+        'app/views/repository/repository_dependency_view',
+        'app/views/repository/repository_search_view'
+    ], function () {
+        var Views, modules;
+        modules = Array.prototype.splice.call(arguments, 0);
+        Views = function () {
+            function Views() {
+            }
+            return Views;
+        }();
+        return Utils.loadModules(Views, modules);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/routers/app_router', [
+        'jquery',
+        'backbone',
+        'backbone.marionette',
+        'bootstrap',
+        'app/collections',
+        'app/models',
+        'app/views'
+    ], function ($, Backbone, Bootstrap, Marionette, Collections, Models, Views) {
         var AppRouter;
         return AppRouter = function (_super) {
             __extends(AppRouter, _super);
@@ -1115,8 +1177,8 @@
                 return AppRouter.__super__.constructor.apply(this, arguments);
             }
             AppRouter.prototype.initialize = function () {
-                this.app = new Application();
-                this.app_view = new ApplicationView({ model: this.app });
+                this.app = new Models.prototype.Application();
+                this.app_view = new Views.prototype.ApplicationView({ model: this.app });
                 return $('body').append(this.app_view.render().el);
             };
             AppRouter.prototype.routes = {
@@ -1129,7 +1191,7 @@
             };
             AppRouter.prototype.show_new_repository = function () {
                 var new_repo_view;
-                new_repo_view = new NewRepositoryView();
+                new_repo_view = new Views.prototype.NewRepositoryView();
                 return this.app_view.$el.append(new_repo_view.render().el);
             };
             AppRouter.prototype.show_repositories = function () {
@@ -1137,13 +1199,13 @@
             };
             AppRouter.prototype.show_repository = function (repo_name) {
                 var repo_model;
-                repo_model = new Repository({ name: repo_name });
+                repo_model = new Models.prototype.Repository({ name: repo_name });
                 return repo_model.fetch().done(function (_this) {
                     return function () {
                         var repo_deps, repo_view;
-                        repo_view = new RepositoryDetailView({ model: repo_model });
+                        repo_view = new Views.prototype.RepositoryDetailView({ model: repo_model });
                         _this.app_view.$el.append(repo_view.render().el);
-                        repo_deps = new RepositoryDependencies([], { repo_name: repo_name });
+                        repo_deps = new Collections.prototype.RepositoryDependencies([], { repo_name: repo_name });
                         repo_view.$el.append('<h2>dependencies</h2>');
                         return repo_deps.fetch().done(function () {
                             return repo_deps.each(function (repo_dep) {
@@ -1151,7 +1213,7 @@
                                 if (repo_dep.get('name') === repo_model.get('name')) {
                                     return;
                                 }
-                                repo_dep_view = new RepositoryDependencyView({ model: repo_dep });
+                                repo_dep_view = new Views.prototype.RepositoryDependencyView({ model: repo_dep });
                                 return repo_view.$el.append(repo_dep_view.render().el);
                             });
                         });
@@ -1160,19 +1222,19 @@
             };
             AppRouter.prototype.show_index = function () {
                 var index_view;
-                index_view = new IndexView({ model: this.app });
+                index_view = new Views.prototype.IndexView({ model: this.app });
                 return this.app_view.$el.append(index_view.render().el);
             };
             AppRouter.prototype.show_search_form = function () {
                 var repo_search, repo_search_view;
-                repo_search = new RepositorySearch();
-                repo_search_view = new RepositorySearchView({ model: repo_search });
+                repo_search = new Models.prototype.RepositorySearch();
+                repo_search_view = new Views.prototype.RepositorySearchView({ model: repo_search });
                 return this.app_view.$el.append(repo_search_view.render().el);
             };
             AppRouter.prototype.show_search_result = function (query) {
                 var repo_search_model, repo_search_view;
-                repo_search_model = new RepositorySearch({ query: query });
-                repo_search_view = new RepositorySearchView({ model: repo_search_model });
+                repo_search_model = new Models.prototype.RepositorySearch({ query: query });
+                repo_search_view = new Views.prototype.RepositorySearchView({ model: repo_search_model });
                 return this.app_view.$el.append(repo_search_view.render().el);
             };
             return AppRouter;
