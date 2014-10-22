@@ -3,6 +3,7 @@ define(
     "app/routers/app_router"
   ]
   ->
+    modules = Array::splice.call(arguments, 0)
     class Routers
-    Utils.loadModules.bind(@, Routers).apply @, arguments
+    Utils.loadModules Routers, modules
 )
