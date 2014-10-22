@@ -23,8 +23,7 @@ describe "Routers::IndexRouter", ->
 
         # setup mock
         before ->
-          @stub = @sandbox.stub @controller, "index", ->
-            console.log "this is stub"
+          @stub = @sandbox.stub @controller, "index"
 
         context "create router", ->
 
@@ -40,6 +39,9 @@ describe "Routers::IndexRouter", ->
 
             describe "IndexController#index", ->
 
-              it "is called", ->
+              it "is called once", ->
                 expect(@stub.calledOnce).to.be.true
+
+              it "is called with no args", ->
+                expect(@stub.calledWith()).to.be.true
 
