@@ -1,8 +1,8 @@
-describe "Repositories", ->
+describe "Collections::Repositories", ->
 
   # prepare modules
   load_modules(
-    "app/collections/repositories"
+    "app/collections"
   )
 
   prepare_fake_server()
@@ -10,7 +10,7 @@ describe "Repositories", ->
   context "create instance", ->
 
     before ->
-      @repositories = new Repositories
+      @repositories = new Collections::Repositories
 
     context "fetch all", ->
 
