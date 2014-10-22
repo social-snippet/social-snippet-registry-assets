@@ -1,6 +1,3 @@
-ASSETS_SCRIPT_NAME = "assets.js"
-ASSETS_STYLE_NAME  = "assets.css"
-
 # gulp build/watch
 gulp.task "build/watch", ->
   # coffee
@@ -26,7 +23,7 @@ gulp.task "assets.css", ->
     .pipe sass(
       'sourcemap=none': true
     )
-    .pipe concat ASSETS_STYLE_NAME
+    .pipe concat "assets.css"
     .pipe gulp.dest "dist/"
 
 # gulp bower
@@ -44,11 +41,11 @@ gulp.task "coffee", ->
     .pipe coffee()
     .pipe gulp.dest "tmp/js/app/"
 
-# gulp assets.js
-gulp.task "assets.js", ["coffee", "bower"], ->
+# gulp app.js
+gulp.task "app.js", ["coffee", "bower"], ->
   gulp.src(["tmp/js/app/**/*.js"])
     .pipe amd_optimize(
-      "app/app_router"
+      "app/routers/app_router"
       {
         configFile: gulp.src("assets_config.coffee").pipe(coffee())
 
@@ -56,12 +53,20 @@ gulp.task "assets.js", ["coffee", "bower"], ->
         exclude: [
           "jquery"
           "backbone"
+          "backbone.marionette"
+          "backbone.wreqr"
+          "backbone.babysitter"
           "underscore"
           "bootstrap"
         ]
       }
     )
-    .pipe concat ASSETS_SCRIPT_NAME
+    .pipe concat "app.js"
+    .pipe gulp.dest "tmp/js"
+
+gulp.task "assets.js", ["coffee", "app.js"], ->
+  gulp.src ["tmp/js/app/utils.js", "tmp/js/app.js"]
+    .pipe concat "assets.js"
     .pipe gulp.dest "dist/"
 
 # gulp build/concurrent/assets.js

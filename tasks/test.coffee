@@ -23,11 +23,12 @@ gulp.task "test/watch", ->
   return undefined
 
 # gulp test
-gulp.task "test", ["sinon.js"], ->
+gulp.task "test", ->
   gulp.src ["spec/spec_config.coffee", "spec/spec_helper.coffee", "spec/**/*_spec.coffee"]
     .pipe phantomochajs(
       dependencies: [
         "./bower_components/requirejs/require.js"
+        "./tmp/js/app/utils.js"
       ]
       test_dependencies: [
         "./bower_components/mocha/mocha.js"
