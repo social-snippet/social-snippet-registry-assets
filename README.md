@@ -20,7 +20,7 @@ Node.js: 0.10.x
 
 #### gulp (Build / Test)
 
-    $ gem install gulp
+    $ npm install gulp
 
 #### juicer (Test)
 
