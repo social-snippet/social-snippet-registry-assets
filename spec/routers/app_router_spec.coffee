@@ -1,13 +1,13 @@
 describe "AppRouter", ->
 
   load_modules(
-    "app/app_router"
+    "app/routers"
   )
 
   context "create instance", ->
 
     before ->
-      @router = new AppRouter
+      @router = new Routers::AppRouter
 
     context "constructor", ->
 
