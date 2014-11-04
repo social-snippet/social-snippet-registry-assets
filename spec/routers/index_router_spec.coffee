@@ -8,11 +8,8 @@ describe "Routers::IndexRouter", ->
 
   context "create sinon.sandbox", ->
 
-    before ->
-      @sandbox = sinon.sandbox.create()
-
-    after ->
-      @sandbox.restore()
+    prepare_sinon_sandbox()
+    prepare_backbone_history()
 
     context "create controller", ->
 
