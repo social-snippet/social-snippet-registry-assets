@@ -7,6 +7,7 @@ define(
     "app/views/repository/repository_detail_view"
     "app/views/repository/repository_dependency_view"
     "app/views/repository/repository_search_view"
+    "app/views/links_view"
   ]
   ->
     modules = Array::splice.call(arguments, 0)
