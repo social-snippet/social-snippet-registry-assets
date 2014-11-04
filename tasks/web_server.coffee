@@ -55,7 +55,11 @@ gulp.task "web-server/watch", ->
     ]
   )
 
-gulp.task "web-server/assets.js", ["config.js", "assets-full.js", "main.js", "sinon.js"], ->
+gulp.task "backbone.localStorage.js", ["bower"], ->
+  gulp.src ["./bower_components/backbone.localStorage/backbone.localStorage.js"]
+    .pipe gulp.dest "tmp/web_server/"
+
+gulp.task "web-server/assets.js", ["backbone.localStorage.js", "config.js", "assets-full.js", "main.js", "sinon.js"], ->
   gulp.src ["bower_components/sinon/pkg/sinon.js", "tmp/js/assets-full.js"]
     .pipe concat "assets.js"
     .pipe gulp.dest "tmp/web_server/"
