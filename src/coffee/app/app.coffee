@@ -18,10 +18,10 @@ define(
     Marionette
   )->
     class App extends Marionette.Application
+      regions:
+        main: "#main-container"
+
       initialize: (options)->
-        @addRegions(
-          "main": "#main-container"
-        )
 
         @addInitializer ->
           router = new Routers::IndexRouter(
@@ -35,7 +35,7 @@ define(
             )
           )
 
-        @addInitializer ->
+        @on "start", ->
           Backbone.history.start(
             pushState: true
           )
