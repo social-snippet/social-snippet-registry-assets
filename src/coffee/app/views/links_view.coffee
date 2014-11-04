@@ -11,7 +11,7 @@ define(
       tagName: "li"
 
       template: _.template [
-        '<a href="<%= href %>"><%= text %></a>'
+        '<a href="<%- href %>"><%- text %></a>'
       ].join()
 
     class LinksView extends Marionette.CollectionView
