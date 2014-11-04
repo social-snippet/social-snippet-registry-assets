@@ -13,5 +13,6 @@ requirejs(
         regions:
           main: "#container"
       )
+      Object.freeze(global.app)
       app.start()
 )
