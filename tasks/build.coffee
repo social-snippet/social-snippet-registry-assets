@@ -1,3 +1,11 @@
+gulp    = require "gulp"
+bower   = require "bower"
+coffee  = require "gulp-coffee"
+sass    = require "gulp-ruby-sass"
+concat  = require "gulp-concat"
+main_bower_files  = require "main-bower-files"
+amd_optimize      = require "amd-optimize"
+
 # gulp build/watch
 gulp.task "build/watch", ->
   # coffee
@@ -45,7 +53,7 @@ gulp.task "coffee", ->
 gulp.task "app.js", ["coffee", "bower"], ->
   gulp.src(["tmp/js/app/**/*.js"])
     .pipe amd_optimize(
-      "app/routers/app_router"
+      "app/app"
       {
         configFile: gulp.src("assets_config.coffee").pipe(coffee())
 

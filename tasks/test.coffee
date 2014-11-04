@@ -1,3 +1,6 @@
+gulp  = require "gulp"
+shell = require "gulp-shell"
+
 phantomochajs = require "phantomochajs"
 
 # gulp sinon
