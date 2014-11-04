@@ -1,9 +1,17 @@
+global = @
 requirejs(
   [
-    "app/routers"
+    "jquery"
+    "app/app"
   ]
   (
-    Routers
+    jQuery
+    App
   )->
-    console.log Routers
+    jQuery ->
+      global.app = new App(
+        regions:
+          main: "#container"
+      )
+      app.start()
 )
