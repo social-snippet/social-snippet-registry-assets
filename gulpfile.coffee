@@ -1,37 +1,8 @@
-_ = require "lodash"
-
-_(global).extend
-  gulp              : require "gulp"
-  gulp_util         : require "gulp-util"
-  main_bower_files  : require "main-bower-files"
-  bower             : require "bower"
-  uglify            : require "gulp-uglify"
-  cond              : require "gulp-if"
-  coffee            : require "gulp-coffee"
-  concat            : require "gulp-concat"
-  amd_optimize      : require "amd-optimize"
-  shell             : require "gulp-shell"
-  watch             : require "gulp-watch"
-  sass              : require "gulp-ruby-sass"
-
-_(global).extend
-  isRelease         : ! gulp_util.env.release?
-
-# Load test tasks
-# run:    gulp test
-# watch:  gulp test/watch
 require "./tasks/test"
-
-# Load build tasks
-# run:    gulp build
-# watch:  gulp build/watch
 require "./tasks/build"
+require "./tasks/web_server"
 
-# Watch all
-gulp.task "watch", [
-  "build/watch"
-  "test/watch"
-]
+gulp = require "gulp"
 
 # Default task
 # gulp = gulp build
