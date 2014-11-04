@@ -6,57 +6,56 @@ describe "Routers::SearchRepositoryRouter", ->
     "app/routers"
   )
 
-  context "create sinon.sandbox", ->
+  context "prepare sinon.sandbox", ->
 
-    before ->
-      @sandbox = sinon.sandbox.create()
+    prepare_sinon_sandbox()
 
-    after ->
-      @sandbox.restore()
+    context "prepare backbone.history", ->
 
-    context "create controller", ->
+      prepare_backbone_history()
 
-      before ->
-        @controller = new Controllers::SearchRepositoryController
+      context "create controller", ->
 
-      context "setup mock", ->
-
-        # setup mock
         before ->
-          # @result_stub = @sandbox.stub @controller, "result"
-          @form_stub = @sandbox.stub @controller, "form"
+          @controller = new Controllers::SearchRepositoryController
 
-        context "create router", ->
+        context "setup mock", ->
 
+          # setup mock
           before ->
-            @router = new Routers::SearchRepositoryRouter(
-              controller: @controller
-            )
+            @result_stub = @sandbox.stub @controller, "result"
+            @form_stub = @sandbox.stub @controller, "form"
 
-          context "load /search", ->
-            
+          context "create router", ->
+
             before ->
-              Backbone.history.start(
-                pushState: true
+              @router = new Routers::SearchRepositoryRouter(
+                controller: @controller
               )
-              Backbone.history.loadUrl "/search"
 
-            describe "controller#form", ->
+            context "load /search", ->
+              
+              before ->
+                Backbone.history.loadUrl "search"
 
-              it "is called once", ->
-                expect(@form_stub.calledOnce).to.be.true
+              describe "controller#form", ->
 
-              it "is called with no args", ->
-                expect(@form_stub.calledWith()).to.be.true
+                it "is called once", ->
+                  expect(@form_stub.calledOnce).to.be.true
 
-          context "load /search?q=repo", ->
-            
-            before ->
-              Backbone.history.loadUrl "/search?q=repo"
+                it "is called with no args", ->
+                  expect(@form_stub.calledWith()).to.be.true
 
-            describe "controller#result", ->
+            context "load /search-result?q=repo", ->
+              
+              before ->
+                Backbone.history.loadUrl "/search-result?q=repo"
 
-              it "is callled once" # TODO
+              describe "controller#result", ->
 
-              it "is called with repo" # TODO
+                it "is callled once", ->
+                  expect(@result_stub.calledOnce).to.be.true
+
+                it "is called with repo", ->
+                  expect(@result_stub.calledWith("repo")).to.be.true
 
