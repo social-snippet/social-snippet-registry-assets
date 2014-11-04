@@ -24,14 +24,20 @@ define(
       initialize: (options)->
 
         @addInitializer ->
-          router = new Routers::IndexRouter(
+          new Routers::IndexRouter(
             controller: new Controllers::IndexController(
             )
           )
 
         @addInitializer ->
-          router = new Routers::SearchRepositoryRouter(
+          new Routers::SearchRepositoryRouter(
             controller: new Controllers::SearchRepositoryController(
+            )
+          )
+
+        @addInitializer ->
+          new Routers::RepositoriesRouter(
+            controller: new Controllers::RepositoriesController(
             )
           )
 
