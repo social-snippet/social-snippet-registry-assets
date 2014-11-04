@@ -12,6 +12,23 @@
         @[module_class.name] = module_class
       done()
 
+@prepare_sinon_sandbox = =>
+  before ->
+    @sandbox = sinon.sandbox.create()
+
+  after ->
+    @sandbox.restore()
+
+@prepare_backbone_history = =>
+  before ->
+    Backbone.history.start(
+      pushState: true
+    )
+
+  after ->
+    Backbone.history.started = null
+    Backbone.history.stop()
+
 # prepare fake web server
 @prepare_fake_server = =>
   # prepare fake server
