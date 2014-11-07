@@ -192,179 +192,6 @@
             child.__super__ = parent.prototype;
             return child;
         };
-    define('app/models/application', ['backbone'], function (Backbone) {
-        var Application;
-        return Application = function (_super) {
-            __extends(Application, _super);
-            function Application() {
-                return Application.__super__.constructor.apply(this, arguments);
-            }
-            Application.prototype.defaults = function () {
-                return {
-                    title: 'SSPM',
-                    sub_title: 'Social SniPpet Manager',
-                    links: {
-                        '/repositories/new': 'Add Repository',
-                        '/search': 'Search Repository'
-                    }
-                };
-            };
-            Application.prototype.initialize = function () {
-            };
-            return Application;
-        }(Backbone.Model);
-    });
-}.call(this));
-(function () {
-    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
-            for (var key in parent) {
-                if (__hasProp.call(parent, key))
-                    child[key] = parent[key];
-            }
-            function ctor() {
-                this.constructor = child;
-            }
-            ctor.prototype = parent.prototype;
-            child.prototype = new ctor();
-            child.__super__ = parent.prototype;
-            return child;
-        };
-    define('app/models/element/input_element', ['backbone'], function (Backbone) {
-        var InputElement;
-        return InputElement = function (_super) {
-            __extends(InputElement, _super);
-            function InputElement() {
-                return InputElement.__super__.constructor.apply(this, arguments);
-            }
-            InputElement.prototype.defaults = function () {
-                return {
-                    'type': 'text',
-                    'name': '',
-                    'value': ''
-                };
-            };
-            return InputElement;
-        }(Backbone.Model);
-    });
-}.call(this));
-(function () {
-    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
-            for (var key in parent) {
-                if (__hasProp.call(parent, key))
-                    child[key] = parent[key];
-            }
-            function ctor() {
-                this.constructor = child;
-            }
-            ctor.prototype = parent.prototype;
-            child.prototype = new ctor();
-            child.__super__ = parent.prototype;
-            return child;
-        };
-    define('app/models/repository/repository_search_form', [
-        'backbone',
-        'app/models/element/input_element'
-    ], function (Backbone, InputElement) {
-        var RepositorySearchForm;
-        return RepositorySearchForm = function (_super) {
-            __extends(RepositorySearchForm, _super);
-            function RepositorySearchForm() {
-                return RepositorySearchForm.__super__.constructor.apply(this, arguments);
-            }
-            RepositorySearchForm.prototype.defaults = function () {
-                return {
-                    query: new InputElement({
-                        type: 'text',
-                        name: 'q'
-                    }),
-                    submit: new InputElement({
-                        type: 'submit',
-                        val: 'Go'
-                    })
-                };
-            };
-            return RepositorySearchForm;
-        }(Backbone.Model);
-    });
-}.call(this));
-(function () {
-    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
-            for (var key in parent) {
-                if (__hasProp.call(parent, key))
-                    child[key] = parent[key];
-            }
-            function ctor() {
-                this.constructor = child;
-            }
-            ctor.prototype = parent.prototype;
-            child.prototype = new ctor();
-            child.__super__ = parent.prototype;
-            return child;
-        };
-    define('app/models/repository/repository_search', [
-        'app/collections/repositories',
-        'app/models/repository/repository_search_form'
-    ], function (Repositories, RepositorySearchForm) {
-        var RepositorySearch;
-        return RepositorySearch = function (_super) {
-            __extends(RepositorySearch, _super);
-            function RepositorySearch() {
-                return RepositorySearch.__super__.constructor.apply(this, arguments);
-            }
-            RepositorySearch.prototype.defaults = function () {
-                return {
-                    query: '',
-                    repositories: new Repositories(),
-                    search_form: new RepositorySearchForm()
-                };
-            };
-            RepositorySearch.prototype.initialize = function () {
-                var query, repositories;
-                query = this.get('query');
-                repositories = this.get('repositories');
-                repositories.on('sync', function () {
-                });
-                if (!query) {
-                    query = '';
-                }
-                if (query !== '') {
-                    return repositories.search(query);
-                }
-            };
-            return RepositorySearch;
-        }(Backbone.Model);
-    });
-}.call(this));
-(function () {
-    define('app/models', [
-        'app/models/application',
-        'app/models/repository/repository_search',
-        'app/models/repository/repository'
-    ], function () {
-        var Models, modules;
-        modules = Array.prototype.splice.call(arguments, 0);
-        Models = function () {
-            function Models() {
-            }
-            return Models;
-        }();
-        return Utils.loadModules(Models, modules);
-    });
-}.call(this));
-(function () {
-    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
-            for (var key in parent) {
-                if (__hasProp.call(parent, key))
-                    child[key] = parent[key];
-            }
-            function ctor() {
-                this.constructor = child;
-            }
-            ctor.prototype = parent.prototype;
-            child.prototype = new ctor();
-            child.__super__ = parent.prototype;
-            return child;
-        };
     define('app/views/base_view', ['backbone'], function (Backbone) {
         var BaseView;
         return BaseView = function (_super) {
@@ -443,37 +270,22 @@
             return child;
         };
     define('app/views/index_view', [
-        'jquery',
         'underscore',
-        'app/views/base_view'
-    ], function ($, _, BaseView) {
+        'backbone.marionette'
+    ], function (_, Marionette) {
         var IndexView;
         return IndexView = function (_super) {
             __extends(IndexView, _super);
             function IndexView() {
                 return IndexView.__super__.constructor.apply(this, arguments);
             }
-            IndexView.prototype.className = function () {
-                return '' + this.toSnake() + ' ' + IndexView.__super__.className.apply(this, arguments);
-            };
+            IndexView.prototype.template = _.template(['<section class="menu"></section>'].join(''));
+            IndexView.prototype.regions = { menu: '.menu' };
             IndexView.prototype.initialize = function () {
-            };
-            IndexView.prototype.render = function () {
-                this.$el.empty().append(function (_this) {
-                    return function () {
-                        var el_list, links;
-                        el_list = $(document.createElement('ul'));
-                        links = _this.model.get('links');
-                        _(links).each(function (link_text, link_url) {
-                            return el_list.append('<li><a href="' + link_url + '">' + link_text + '</a></li>');
-                        });
-                        return el_list;
-                    };
-                }(this));
                 return this;
             };
             return IndexView;
-        }(BaseView);
+        }(Marionette.LayoutView);
     });
 }.call(this));
 (function () {
@@ -1128,6 +940,263 @@
     });
 }.call(this));
 (function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/views/links_view', [
+        'underscore',
+        'backbone.marionette'
+    ], function (_, Marionette) {
+        var LinkView, LinksView;
+        LinkView = function (_super) {
+            __extends(LinkView, _super);
+            function LinkView() {
+                return LinkView.__super__.constructor.apply(this, arguments);
+            }
+            LinkView.prototype.tagName = 'li';
+            LinkView.prototype.template = _.template(['<a href="<%- href %>"><%- text %></a>'].join());
+            return LinkView;
+        }(Marionette.ItemView);
+        return LinksView = function (_super) {
+            __extends(LinksView, _super);
+            function LinksView() {
+                return LinksView.__super__.constructor.apply(this, arguments);
+            }
+            LinksView.prototype.tagName = 'ul';
+            LinksView.prototype.childView = LinkView;
+            return LinksView;
+        }(Marionette.CollectionView);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/models/application', ['backbone'], function (Backbone) {
+        var Application;
+        return Application = function (_super) {
+            __extends(Application, _super);
+            function Application() {
+                return Application.__super__.constructor.apply(this, arguments);
+            }
+            Application.prototype.defaults = function () {
+                return {
+                    title: 'SSPM',
+                    sub_title: 'Social SniPpet Manager',
+                    links: {
+                        '/repositories/new': 'Add Repository',
+                        '/search': 'Search Repository'
+                    }
+                };
+            };
+            Application.prototype.initialize = function () {
+            };
+            return Application;
+        }(Backbone.Model);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/models/element/input_element', ['backbone'], function (Backbone) {
+        var InputElement;
+        return InputElement = function (_super) {
+            __extends(InputElement, _super);
+            function InputElement() {
+                return InputElement.__super__.constructor.apply(this, arguments);
+            }
+            InputElement.prototype.defaults = function () {
+                return {
+                    'type': 'text',
+                    'name': '',
+                    'value': ''
+                };
+            };
+            return InputElement;
+        }(Backbone.Model);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/models/repository/repository_search_form', [
+        'backbone',
+        'app/models/element/input_element'
+    ], function (Backbone, InputElement) {
+        var RepositorySearchForm;
+        return RepositorySearchForm = function (_super) {
+            __extends(RepositorySearchForm, _super);
+            function RepositorySearchForm() {
+                return RepositorySearchForm.__super__.constructor.apply(this, arguments);
+            }
+            RepositorySearchForm.prototype.defaults = function () {
+                return {
+                    query: new InputElement({
+                        type: 'text',
+                        name: 'q'
+                    }),
+                    submit: new InputElement({
+                        type: 'submit',
+                        val: 'Go'
+                    })
+                };
+            };
+            return RepositorySearchForm;
+        }(Backbone.Model);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/models/repository/repository_search', [
+        'app/collections/repositories',
+        'app/models/repository/repository_search_form'
+    ], function (Repositories, RepositorySearchForm) {
+        var RepositorySearch;
+        return RepositorySearch = function (_super) {
+            __extends(RepositorySearch, _super);
+            function RepositorySearch() {
+                return RepositorySearch.__super__.constructor.apply(this, arguments);
+            }
+            RepositorySearch.prototype.defaults = function () {
+                return {
+                    query: '',
+                    repositories: new Repositories(),
+                    search_form: new RepositorySearchForm()
+                };
+            };
+            RepositorySearch.prototype.initialize = function () {
+                var query, repositories;
+                query = this.get('query');
+                repositories = this.get('repositories');
+                repositories.on('sync', function () {
+                });
+                if (!query) {
+                    query = '';
+                }
+                if (query !== '') {
+                    return repositories.search(query);
+                }
+            };
+            return RepositorySearch;
+        }(Backbone.Model);
+    });
+}.call(this));
+(function () {
+    define('app/models', [
+        'app/models/application',
+        'app/models/repository/repository_search',
+        'app/models/repository/repository'
+    ], function () {
+        var Models, modules;
+        modules = Array.prototype.splice.call(arguments, 0);
+        Models = function () {
+            function Models() {
+            }
+            return Models;
+        }();
+        return Utils.loadModules(Models, modules);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/views/new_repository_view', [
+        'underscore',
+        'backbone.marionette',
+        'app/models'
+    ], function (_, Marionette, Models) {
+        var NewRepositoryView;
+        return NewRepositoryView = function (_super) {
+            __extends(NewRepositoryView, _super);
+            function NewRepositoryView() {
+                return NewRepositoryView.__super__.constructor.apply(this, arguments);
+            }
+            NewRepositoryView.prototype.template = _.template([
+                '<div class="form-group">',
+                '<input type="text" class="form-control url">',
+                '<button class="btn btn-primary add">Add</button>',
+                '</div>'
+            ].join(''));
+            NewRepositoryView.prototype.events = {
+                'click .add': function () {
+                    var new_repo;
+                    new_repo = new Models.prototype.Repository({ url: this.$('.url').val() });
+                    return new_repo.save();
+                }
+            };
+            NewRepositoryView.prototype.className = 'form-inline';
+            NewRepositoryView.prototype.initialize = function () {
+            };
+            return NewRepositoryView;
+        }(Marionette.ItemView);
+    });
+}.call(this));
+(function () {
     define('app/views', [
         'app/views/base_view',
         'app/views/application_view',
@@ -1135,7 +1204,9 @@
         'app/views/repository/new_repository_view',
         'app/views/repository/repository_detail_view',
         'app/views/repository/repository_dependency_view',
-        'app/views/repository/repository_search_view'
+        'app/views/repository/repository_search_view',
+        'app/views/links_view',
+        'app/views/new_repository_view'
     ], function () {
         var Views, modules;
         modules = Array.prototype.splice.call(arguments, 0);
@@ -1145,6 +1216,134 @@
             return Views;
         }();
         return Utils.loadModules(Views, modules);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/controllers/index_controller', [
+        'backbone',
+        'backbone.marionette',
+        'app/views'
+    ], function (Backbone, Marionette, Views) {
+        var IndexController;
+        return IndexController = function (_super) {
+            __extends(IndexController, _super);
+            function IndexController() {
+                return IndexController.__super__.constructor.apply(this, arguments);
+            }
+            IndexController.prototype.index = function () {
+                var index_view;
+                index_view = new Views.prototype.IndexView();
+                app.main.show(index_view);
+                return index_view.menu.show(new Views.prototype.LinksView({
+                    collection: new Backbone.Collection([
+                        {
+                            text: 'Add',
+                            href: '/repositories/new'
+                        },
+                        {
+                            text: 'Search',
+                            href: '/search'
+                        }
+                    ])
+                }));
+            };
+            return IndexController;
+        }(Marionette.Controller);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/controllers/search_repository_controller', ['backbone.marionette'], function (Marionette) {
+        var SearchRepositoryController;
+        return SearchRepositoryController = function (_super) {
+            __extends(SearchRepositoryController, _super);
+            function SearchRepositoryController() {
+                return SearchRepositoryController.__super__.constructor.apply(this, arguments);
+            }
+            SearchRepositoryController.prototype.form = function () {
+            };
+            SearchRepositoryController.prototype.result = function (repo) {
+                return console.log('this is result');
+            };
+            return SearchRepositoryController;
+        }(Marionette.Controller);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/controllers/repositories_controller', [
+        'backbone',
+        'backbone.marionette',
+        'app/views'
+    ], function (Backbone, Marionette, Views) {
+        var RepositoriesController;
+        return RepositoriesController = function (_super) {
+            __extends(RepositoriesController, _super);
+            function RepositoriesController() {
+                return RepositoriesController.__super__.constructor.apply(this, arguments);
+            }
+            RepositoriesController.prototype.all = function () {
+            };
+            RepositoriesController.prototype.show = function (repo_id) {
+            };
+            RepositoriesController.prototype['new'] = function () {
+                return app.main.show(new Views.prototype.NewRepositoryView({ model: new Backbone.Model({ action: '' + WEB_API_PROTOCOL + '://' + WEB_API_HOST + '/api/' + WEB_API_VERSION + '/repositories' }) }));
+            };
+            return RepositoriesController;
+        }(Marionette.Controller);
+    });
+}.call(this));
+(function () {
+    define('app/controllers', [
+        'app/controllers/index_controller',
+        'app/controllers/search_repository_controller',
+        'app/controllers/repositories_controller'
+    ], function () {
+        var Controllers, modules;
+        modules = Array.prototype.splice.call(arguments, 0);
+        Controllers = function () {
+            function Controllers() {
+            }
+            return Controllers;
+        }();
+        return Utils.loadModules(Controllers, modules);
     });
 }.call(this));
 (function () {
@@ -1239,5 +1438,158 @@
             };
             return AppRouter;
         }(Backbone.Router);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/routers/index_router', [
+        'backbone.marionette',
+        'app/controllers'
+    ], function (Marionette, Controllers) {
+        var IndexRouter;
+        return IndexRouter = function (_super) {
+            __extends(IndexRouter, _super);
+            function IndexRouter() {
+                return IndexRouter.__super__.constructor.apply(this, arguments);
+            }
+            IndexRouter.prototype.appRoutes = { '': 'index' };
+            return IndexRouter;
+        }(Marionette.AppRouter);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/routers/search_repository_router', ['backbone.marionette'], function (Marionette) {
+        var SearchRepositoryRouter;
+        return SearchRepositoryRouter = function (_super) {
+            __extends(SearchRepositoryRouter, _super);
+            function SearchRepositoryRouter() {
+                return SearchRepositoryRouter.__super__.constructor.apply(this, arguments);
+            }
+            SearchRepositoryRouter.prototype.appRoutes = {
+                'search': 'form',
+                'search-result?q=:query': 'result'
+            };
+            return SearchRepositoryRouter;
+        }(Marionette.AppRouter);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/routers/repositories_router', ['backbone.marionette'], function (Marionette) {
+        var RepositoriesRouter;
+        return RepositoriesRouter = function (_super) {
+            __extends(RepositoriesRouter, _super);
+            function RepositoriesRouter() {
+                return RepositoriesRouter.__super__.constructor.apply(this, arguments);
+            }
+            RepositoriesRouter.prototype.appRoutes = {
+                'repositories': 'all',
+                'repositories/new': 'new',
+                'repositories/:repo_id': 'show'
+            };
+            return RepositoriesRouter;
+        }(Marionette.AppRouter);
+    });
+}.call(this));
+(function () {
+    define('app/routers', [
+        'app/routers/app_router',
+        'app/routers/index_router',
+        'app/routers/search_repository_router',
+        'app/routers/repositories_router'
+    ], function () {
+        var Routers, modules;
+        modules = Array.prototype.splice.call(arguments, 0);
+        Routers = function () {
+            function Routers() {
+            }
+            return Routers;
+        }();
+        return Utils.loadModules(Routers, modules);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/app', [
+        'app/collections',
+        'app/controllers',
+        'app/models',
+        'app/routers',
+        'app/views',
+        'backbone',
+        'backbone.marionette'
+    ], function (Collections, Controllers, Models, Routers, Views, Backbone, Marionette) {
+        var App;
+        return App = function (_super) {
+            __extends(App, _super);
+            function App() {
+                return App.__super__.constructor.apply(this, arguments);
+            }
+            App.prototype.regions = { main: '#main-container' };
+            App.prototype.initialize = function (options) {
+                this.addInitializer(function () {
+                    return new Routers.prototype.IndexRouter({ controller: new Controllers.prototype.IndexController() });
+                });
+                this.addInitializer(function () {
+                    return new Routers.prototype.SearchRepositoryRouter({ controller: new Controllers.prototype.SearchRepositoryController() });
+                });
+                this.addInitializer(function () {
+                    return new Routers.prototype.RepositoriesRouter({ controller: new Controllers.prototype.RepositoriesController() });
+                });
+                return this.on('start', function () {
+                    return Backbone.history.start({ pushState: true });
+                });
+            };
+            return App;
+        }(Marionette.Application);
     });
 }.call(this));
