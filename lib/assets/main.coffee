@@ -20,12 +20,14 @@ requirejs(
     __backbone_localstorage__
   )->
 
-    # use localstorage instead of database
-    _(Models::Repository::).extend(
-      localStorage: new Backbone.LocalStorage("repository")
-    )
+    if WITH_LOCAL_STORAGE
+      console.log "enable local storage"
+      # use localstorage instead of database
+      _(Models::Repository::).extend(
+        localStorage: new Backbone.LocalStorage("repository")
+      )
 
-    # TODO: create mock models
+      # TODO: create mock models
 
     #
     jQuery ->
