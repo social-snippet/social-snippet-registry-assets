@@ -22,12 +22,6 @@ map "/js/app" do
   run env
 end
 
-map "/js/bower" do
-  env = Sprockets::Environment.new
-  env.append_path "bower_components/"
-  run env
-end
-
 map "/js" do
   env = Sprockets::Environment.new
 
@@ -37,6 +31,15 @@ map "/js" do
   # utils
   env.append_path "src/coffee/"
 
+  run env
+end
+
+#
+# bower
+#
+map "/bower" do
+  env = Sprockets::Environment.new
+  env.append_path "bower_components/"
   run env
 end
 
