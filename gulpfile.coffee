@@ -1,6 +1,5 @@
 require "./tasks/test"
 require "./tasks/build"
-require "./tasks/web_server"
 
 gulp = require "gulp"
 
