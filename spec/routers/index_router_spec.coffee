@@ -6,39 +6,42 @@ describe "Routers::IndexRouter", ->
     "app/routers"
   )
 
-  context "create sinon.sandbox", ->
+  context "prepare sinon.sandbox", ->
 
     prepare_sinon_sandbox()
-    prepare_backbone_history()
 
-    context "create controller", ->
+    context "prepare backbone.history", ->
 
-      before ->
-        @controller = new Controllers::IndexController
+      prepare_backbone_history()
 
-      context "setup mock", ->
+      context "create controller", ->
 
-        # setup mock
         before ->
-          @stub = @sandbox.stub @controller, "index"
+          @controller = new Controllers::IndexController
 
-        context "create router", ->
+        context "setup mock", ->
 
+          # setup mock
           before ->
-            @router = new Routers::IndexRouter(
-              controller: @controller
-            )
+            @stub = @sandbox.stub @controller, "index"
 
-          context "load /", ->
-            
+          context "create router", ->
+
             before ->
-              Backbone.history.loadUrl "/"
+              @router = new Routers::IndexRouter(
+                controller: @controller
+              )
 
-            describe "IndexController#index", ->
+            context "load /", ->
 
-              it "is called once", ->
-                expect(@stub.calledOnce).to.be.true
+              before ->
+                Backbone.history.loadUrl "/"
 
-              it "is called with no args", ->
-                expect(@stub.calledWith()).to.be.true
+              describe "IndexController#index", ->
+
+                it "is called once", ->
+                  expect(@stub.calledOnce).to.be.true
+
+                it "is called with no args", ->
+                  expect(@stub.calledWith()).to.be.true
 
