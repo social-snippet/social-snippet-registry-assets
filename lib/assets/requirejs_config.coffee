@@ -2,7 +2,7 @@ requirejs.config(
   baseUrl: "/js"
   shim:
     "backbone":
-      deps: ["underscore"]
+      deps: ["underscore", "jquery"]
       exports: "Backbone"
     "bootstrap":
       deps: ["jquery"]
