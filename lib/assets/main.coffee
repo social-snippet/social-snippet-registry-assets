@@ -5,24 +5,27 @@ requirejs(
     "jquery"
     "backbone"
     "underscore"
+    "bootstrap"
     "app/app"
     "app/models"
-    "/backbone.localStorage.js"
+    "/js/bower/backbone.localStorage/backbone.localStorage.js"
   ]
   (
     jQuery
     Backbone
     _
+    __bootstrap__
     App
     Models
+    __backbone_localstorage__
   )->
+
     # use localstorage instead of database
     _(Models::Repository::).extend(
-      defaults:
-        "name": "repo"
-        "desc": "desc desc"
       localStorage: new Backbone.LocalStorage("repository")
     )
+
+    # TODO: create mock models
 
     #
     jQuery ->
