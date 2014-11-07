@@ -18,6 +18,8 @@
 }
 
 @requirejs_shim = {
+  "bootstrap":
+    deps: ["jquery"]
 }
 
 requirejs.config(
