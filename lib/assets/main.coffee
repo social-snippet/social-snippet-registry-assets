@@ -8,7 +8,7 @@ requirejs(
     "bootstrap"
     "app/app"
     "app/models"
-    "/js/bower/backbone.localStorage/backbone.localStorage.js"
+    "/bower/backbone.localStorage/backbone.localStorage.js"
   ]
   (
     jQuery
