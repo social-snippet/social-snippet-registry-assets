@@ -5,10 +5,15 @@ source "https://rubygems.org"
 
 # to check assets
 group :development do
+  gem "sprockets"
+  gem "shotgun"
+
   gem "sinatra"
   gem "sinatra-contrib"
+
   gem "slim"
-  gem "shotgun"
+  gem "sass"
+  gem "coffee-script"
 end
 
 # to build sinon.js
