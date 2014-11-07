@@ -5,11 +5,17 @@ html
   head
     meta charset="UTF-8"
     title SocialSnippet::Registry::Assets
-    link rel="stylesheet" href="/assets.css"
-    script src="/config.js"
-    script src="/assets.js"
-    script src="/main.js"
+
+    link rel="stylesheet" href="/css/main.css"
+
+    script src="/js/require.js"
+    script src="/js/assets/requirejs_config.js"
+    script src="/js/assets/api_config.js"
+    script src="/js/utils.js"
+    script src="/js/assets/main.js"
 
   body
+
     == yield
+
     div#container
