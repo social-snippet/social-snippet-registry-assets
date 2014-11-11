@@ -11,19 +11,19 @@ define(
   )->
     class HomeController extends Marionette.Controller
       index: ->
-        index_view = new Views::HomeView
-        app.main.show index_view
+        home_view = new Views::HomeView
+        app.layout.currentView.contentsRegion.show home_view
 
-        index_view.menu.show new Views::LinksView(
-          collection: new Backbone.Collection [
-            {
-              text: "Add"
-              href: "/repositories/new"
-            }
-            {
-              text: "Search"
-              href: "/search"
-            }
-          ]
-        )
+        welcome_panel = new Views::PanelView
+        home_view.mainRegion.show welcome_panel
+
+        welcome_panel.headRegion.show new Marionette.ItemView
+          template: _.template [
+            '<h4>Welcome to SSPM Registry</h4>'
+          ].join("\n")
+
+        welcome_panel.bodyRegion.show new Marionette.ItemView
+          template: _.template [
+            '$ sspm install {snippet-name}'
+          ].join("\n")
 )
