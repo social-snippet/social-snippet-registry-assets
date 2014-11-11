@@ -25,7 +25,7 @@ requirejs(
       jQuery ->
         global.app = new App(
           regions:
-            main: "#container"
+            layout: "#container"
         )
         Object.freeze(global.app)
 
