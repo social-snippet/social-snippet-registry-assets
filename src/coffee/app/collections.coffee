@@ -1,6 +1,5 @@
 define(
   [
-    "app/collections/repository_dependencies"
     "app/collections/repositories"
   ]
   ->
