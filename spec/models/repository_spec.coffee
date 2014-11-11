@@ -2,7 +2,7 @@ describe "Repository", ->
 
   # prepare modules
   load_modules(
-    "app/models/repository/repository"
+    "app/models/repository"
   )
 
   prepare_fake_server()

@@ -1,4 +1,4 @@
-describe "Routers::IndexRouter", ->
+describe "Routers::HomeRouter", ->
 
   load_modules(
     "backbone"
@@ -17,7 +17,7 @@ describe "Routers::IndexRouter", ->
       context "create controller", ->
 
         before ->
-          @controller = new Controllers::IndexController
+          @controller = new Controllers::HomeController
 
         context "setup mock", ->
 
@@ -28,7 +28,7 @@ describe "Routers::IndexRouter", ->
           context "create router", ->
 
             before ->
-              @router = new Routers::IndexRouter(
+              @router = new Routers::HomeRouter(
                 controller: @controller
               )
 
@@ -37,7 +37,7 @@ describe "Routers::IndexRouter", ->
               before ->
                 Backbone.history.loadUrl "/"
 
-              describe "IndexController#index", ->
+              describe "HomeController#index", ->
 
                 it "is called once", ->
                   expect(@stub.calledOnce).to.be.true
