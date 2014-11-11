@@ -42,8 +42,8 @@ define(
                 href: "/"
               }
               {
-                text: "Add"
-                href: "/repositories/new"
+                text: "Add Repository"
+                href: "/new"
               }
               {
                 text: "Search"
