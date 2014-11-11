@@ -10,6 +10,10 @@ class WebServer < Sinatra::Base
     slim :empty
   end
 
+  get "/new" do
+    slim :empty
+  end
+
   get "/repositories" do
     slim :empty
   end
