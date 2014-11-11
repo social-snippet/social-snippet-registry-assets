@@ -25,12 +25,20 @@ gulp.task "build/watch", ->
   )
   return undefined
 
-# gulp assets.css
-gulp.task "assets.css", ->
+gulp.task "sass", ->
   gulp.src(["src/sass/**/*.sass"])
     .pipe sass(
       'sourcemap=none': true
     )
+    .pipe gulp.dest "tmp/css/"
+
+gulp.task "css", ->
+  gulp.src(["src/css/**/*.css"])
+    .pipe gulp.dest "tmp/css/"
+
+# gulp assets.css
+gulp.task "assets.css", ["sass", "css"], ->
+  gulp.src(["tmp/css/**/*.css"])
     .pipe concat "assets.css"
     .pipe gulp.dest "dist/"
 
