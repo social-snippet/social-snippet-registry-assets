@@ -51,6 +51,7 @@ map "/css" do
 
   #
   env.append_path "src/sass"
+  env.append_path "src/css"
 
   run env
 end
