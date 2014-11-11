@@ -7,7 +7,7 @@ define(
     _
     Marionette
   )->
-    class IndexView extends Marionette.LayoutView
+    class HomeView extends Marionette.LayoutView
       template: _.template [
         '<section class="menu"></section>'
       ].join("")
