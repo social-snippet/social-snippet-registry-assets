@@ -24,8 +24,8 @@ define(
       initialize: (options)->
 
         @addInitializer ->
-          new Routers::IndexRouter(
-            controller: new Controllers::IndexController(
+          new Routers::HomeRouter(
+            controller: new Controllers::HomeController(
             )
           )
 

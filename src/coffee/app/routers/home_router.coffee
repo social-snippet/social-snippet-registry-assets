@@ -7,7 +7,7 @@ define(
     Marionette
     Controllers
   )->
-    class IndexRouter extends Marionette.AppRouter
+    class HomeRouter extends Marionette.AppRouter
       appRoutes:
         "": "index"
 )

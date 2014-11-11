@@ -9,9 +9,9 @@ define(
     Marionette
     Views
   )->
-    class IndexController extends Marionette.Controller
+    class HomeController extends Marionette.Controller
       index: ->
-        index_view = new Views::IndexView
+        index_view = new Views::HomeView
         app.main.show index_view
 
         index_view.menu.show new Views::LinksView(
