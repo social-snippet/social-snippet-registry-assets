@@ -16,7 +16,7 @@ define(
       ].join("")
 
       regions:
-        contents: ".contents"
+        contentsRegion: ".contents"
 
       initialize: ->
         @

@@ -30,11 +30,11 @@ define(
           sidebar_view = new Views::SidebarView()
 
           @layout.show layout_view.render()
-          layout_view.header.show header_view
-          layout_view.footer.show footer_view
-          layout_view.sidebar.show sidebar_view
+          layout_view.headerRegion.show header_view
+          layout_view.footerRegion.show footer_view
+          layout_view.sidebarRegion.show sidebar_view
 
-          sidebar_view.contents.show new Views::LinksView(
+          sidebar_view.contentsRegion.show new Views::LinksView(
             className: "nav"
             collection: new Backbone.Collection [
               {

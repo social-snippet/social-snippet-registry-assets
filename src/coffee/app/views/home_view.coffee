@@ -9,11 +9,11 @@ define(
   )->
     class HomeView extends Marionette.LayoutView
       template: _.template [
-        '<section class="menu"></section>'
+        '<section class="main"></section>'
       ].join("")
 
       regions:
-        menu: ".menu"
+        mainRegion: ".main"
 
       initialize: ->
         @

@@ -18,10 +18,10 @@ define(
       ].join("")
 
       regions:
-        header: "header"
-        sidebar: "#sidebar"
-        contents: "#contents"
-        footer: "footer"
+        headerRegion: "header"
+        sidebarRegion: "#sidebar"
+        contentsRegion: "#contents"
+        footerRegion: "footer"
 
       initialize: ->
         @
