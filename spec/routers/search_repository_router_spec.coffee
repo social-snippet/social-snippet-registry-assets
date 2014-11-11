@@ -46,10 +46,10 @@ describe "Routers::SearchRepositoryRouter", ->
                 it "is called with no args", ->
                   expect(@form_stub.calledWith()).to.be.true
 
-            context "load /search-result?q=repo", ->
+            context "load /search?q=repo", ->
               
               before ->
-                Backbone.history.loadUrl "/search-result?q=repo"
+                Backbone.history.loadUrl "/search?q=repo"
 
               describe "controller#result", ->
 
