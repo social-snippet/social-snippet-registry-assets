@@ -1,5 +1,5 @@
 /*
-A custom Bootstrap 3.2 'Holo' style theme
+A custom Bootstrap 3.2 'Holo' style theme (Custom)
 from http://bootply.com
 
 This CSS code should follow the 'bootstrap.css'
@@ -7,6 +7,7 @@ in your HTML file.
 
 license: MIT
 author: bootply.com
+author: Hiroyuki Sano
 */
 
 @import url(//fonts.googleapis.com/css?family=Droid+Sans+Mono);
@@ -60,35 +61,35 @@ a {
   padding-top: 20px;
 }
 
-#sidebar {
+.sidebar {
   height: 100%;
   padding-right: 0;
   padding-top: 20px;
 }
 
-#sidebar .affix {
+.sidebar .affix {
   position:fixed;
   top:55;
   width:220px;
 }
 
-#sidebar .affix-bottom {
+.sidebar .affix-bottom {
   position:fixed;
   top:55;
   width:220px;
 }
 
-#sidebar .nav {
+.sidebar .nav {
   width: 95%;
 }
-#sidebar li {
+.sidebar li {
   border:0 #1e1e1e solid;
   border-bottom-width:1px;
 }
-#sidebar li a {
+.sidebar li a {
   padding-left:1px;
 }
-#sidebar li a:hover {
+.sidebar li a:hover {
   background-color:#222222;
   color:#ffffff;
 }
@@ -121,36 +122,36 @@ a {
     top: 0;
     width: 41.6%;
   }
-  #sidebar {
+  .sidebar {
     background-color:#3b3b3b;
     padding-top:0;
   }
-  #sidebar .nav>li {
+  .sidebar .nav>li {
     color: #ddd;
     background: linear-gradient(#3E3E3E, #383838);
     border-top: 1px solid #484848;
     border-bottom: 1px solid #2E2E2E;
     padding-left:10px;
   }
-  #sidebar .nav>li:first-child {
+  .sidebar .nav>li:first-child {
     border-top:0;
   }
-  #sidebar .nav>li>a {
+  .sidebar .nav>li>a {
     color: #ddd;
   }
-  #sidebar .nav>li>a>img {
+  .sidebar .nav>li>a>img {
     max-width: 14px;
   }
-  #sidebar .nav>li>a:hover, #sidebar .nav>li>a:focus {
+  .sidebar .nav>li>a:hover, .sidebar .nav>li>a:focus {
     text-decoration: none;
     background: linear-gradient(#373737, #323232);
     color: #fff;  
   }
-  #sidebar .nav .caret {
+  .sidebar .nav .caret {
     border-top-color: #fff;
     border-bottom-color: #fff;
   }
-  #sidebar .nav a:hover .caret{
+  .sidebar .nav a:hover .caret{
     border-top-color: #fff;
     border-bottom-color: #fff;
   }
