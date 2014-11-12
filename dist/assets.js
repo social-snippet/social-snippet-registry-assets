@@ -119,7 +119,7 @@
             child.__super__ = parent.prototype;
             return child;
         };
-    define('app/views/app_layout_view', [
+    define('app/views/layouts/app_layout_view', [
         'underscore',
         'backbone.marionette'
     ], function (_, Marionette) {
@@ -130,17 +130,17 @@
                 return AppLayoutView.__super__.constructor.apply(this, arguments);
             }
             AppLayoutView.prototype.template = _.template([
-                '<header></header>',
+                '<header class="region"></header>',
                 '<div class="container-fluid">',
-                '  <section id="sidebar" class="col-sm-3"></section>',
-                '  <section id="contents" class="col-sm-9"></section>',
+                '  <section class="region sidebar-region col-sm-3"></section>',
+                '  <section class="region contents-region col-sm-9"></section>',
                 '</div>',
-                '<footer></footer>'
+                '<footer class="region"></footer>'
             ].join(''));
             AppLayoutView.prototype.regions = {
                 headerRegion: 'header',
-                sidebarRegion: '#sidebar',
-                contentsRegion: '#contents',
+                sidebarRegion: '.sidebar-region',
+                contentsRegion: '.contents-region',
                 footerRegion: 'footer'
             };
             AppLayoutView.prototype.initialize = function () {
@@ -164,7 +164,7 @@
             child.__super__ = parent.prototype;
             return child;
         };
-    define('app/views/header_view', [
+    define('app/views/commons/header_view', [
         'underscore',
         'backbone.marionette'
     ], function (_, Marionette) {
@@ -197,7 +197,7 @@
             child.__super__ = parent.prototype;
             return child;
         };
-    define('app/views/footer_view', [
+    define('app/views/commons/footer_view', [
         'underscore',
         'backbone.marionette'
     ], function (_, Marionette) {
@@ -209,6 +209,8 @@
             }
             FooterView.prototype.template = _.template([
                 '<ul class="list-unstyled text-right">',
+                '<li class="col-sm-4"><a href="https://social-snippet.github.io">Social Snippet</a></li>',
+                '<li class="col-sm-4"><a href="https://social-snippet.github.io/blog">Blog</a></li>',
                 '<li class="col-sm-4"><a href="https://github.com/social-snippet">GitHub</a></li>',
                 '<li class="col-sm-4"><a href="https://github.com/social-snippet/social-snippet-registry/issues">Feedback</a></li>',
                 '</ul>'
@@ -235,7 +237,7 @@
             child.__super__ = parent.prototype;
             return child;
         };
-    define('app/views/sidebar_view', [
+    define('app/views/commons/sidebar_view', [
         'underscore',
         'backbone',
         'backbone.marionette'
@@ -246,11 +248,9 @@
             function SidebarView() {
                 return SidebarView.__super__.constructor.apply(this, arguments);
             }
-            SidebarView.prototype.template = _.template([
-                '<div class="contents">',
-                '</div>'
-            ].join(''));
-            SidebarView.prototype.regions = { contentsRegion: '.contents' };
+            SidebarView.prototype.template = _.template(['<section class="navigation region"></section>'].join(''));
+            SidebarView.prototype.className = 'view sidebar';
+            SidebarView.prototype.regions = { navigationRegion: '.navigation.region' };
             SidebarView.prototype.initialize = function () {
                 return this;
             };
@@ -272,7 +272,7 @@
             child.__super__ = parent.prototype;
             return child;
         };
-    define('app/views/home_view', [
+    define('app/views/contents/home_view', [
         'underscore',
         'backbone.marionette'
     ], function (_, Marionette) {
@@ -282,8 +282,15 @@
             function HomeView() {
                 return HomeView.__super__.constructor.apply(this, arguments);
             }
-            HomeView.prototype.template = _.template(['<section class="main"></section>'].join(''));
-            HomeView.prototype.regions = { mainRegion: '.main' };
+            HomeView.prototype.template = _.template([
+                '<section class="region main-region col-sm-8"></section>',
+                '<section class="region sub-region col-sm-4"></section>'
+            ].join(''));
+            HomeView.prototype.className = 'row';
+            HomeView.prototype.regions = {
+                mainRegion: '.main-region',
+                subRegion: '.sub-region'
+            };
             HomeView.prototype.initialize = function () {
                 return this;
             };
@@ -305,12 +312,145 @@
             child.__super__ = parent.prototype;
             return child;
         };
-    define('app/views/links_view', [
+    define('app/views/components/panel_view', [
         'underscore',
         'backbone.marionette'
     ], function (_, Marionette) {
-        var LinkView, LinksView;
-        LinkView = function (_super) {
+        var PanelView;
+        return PanelView = function (_super) {
+            __extends(PanelView, _super);
+            function PanelView() {
+                return PanelView.__super__.constructor.apply(this, arguments);
+            }
+            PanelView.prototype.tagName = 'div';
+            PanelView.prototype.template = _.template([
+                '<div class="panel-heading"><%- head %></div>',
+                '<div class="panel-body"><%- body %></div>'
+            ].join(''));
+            PanelView.prototype.className = 'panel panel-default';
+            return PanelView;
+        }(Marionette.ItemView);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/views/contents/home/home_main_region_view', [
+        'backbone',
+        'backbone.marionette',
+        'app/views/components/panel_view'
+    ], function (Backbone, Marionette, PanelView) {
+        var HomeMainRegionView;
+        return HomeMainRegionView = function (_super) {
+            __extends(HomeMainRegionView, _super);
+            function HomeMainRegionView() {
+                return HomeMainRegionView.__super__.constructor.apply(this, arguments);
+            }
+            HomeMainRegionView.prototype.childView = PanelView;
+            return HomeMainRegionView;
+        }(Marionette.CollectionView);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/views/contents/home/home_sub_region_view', [
+        'backbone',
+        'backbone.marionette'
+    ], function (Backbone, Marionette) {
+        var HomeSubRegionView;
+        return HomeSubRegionView = function (_super) {
+            __extends(HomeSubRegionView, _super);
+            function HomeSubRegionView() {
+                return HomeSubRegionView.__super__.constructor.apply(this, arguments);
+            }
+            HomeSubRegionView.prototype.template = _.template(['<section class="region github-login-region"></section>'].join('\n'));
+            HomeSubRegionView.prototype.regions = { githubLoginRegion: '.github-login-region' };
+            return HomeSubRegionView;
+        }(Marionette.LayoutView);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/views/contents/new_repository_view', [
+        'underscore',
+        'backbone.marionette'
+    ], function (_, Marionette) {
+        var NewRepositoryView;
+        return NewRepositoryView = function (_super) {
+            __extends(NewRepositoryView, _super);
+            function NewRepositoryView() {
+                return NewRepositoryView.__super__.constructor.apply(this, arguments);
+            }
+            NewRepositoryView.prototype.template = _.template([
+                '<section class="region by-url-region"></section>',
+                '<section class="region by-github-region"></section>'
+            ].join(''));
+            NewRepositoryView.prototype.regions = {
+                byUrlRegion: '.by-url-region',
+                byGitHubRegion: '.by-github-region'
+            };
+            NewRepositoryView.prototype.initialize = function () {
+                return this;
+            };
+            return NewRepositoryView;
+        }(Marionette.LayoutView);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/views/components/link_view', [
+        'underscore',
+        'backbone.marionette'
+    ], function (_, Marionette) {
+        var LinkView;
+        return LinkView = function (_super) {
             __extends(LinkView, _super);
             function LinkView() {
                 return LinkView.__super__.constructor.apply(this, arguments);
@@ -319,6 +459,28 @@
             LinkView.prototype.template = _.template(['<a href="<%- href %>"><%- text %></a>'].join());
             return LinkView;
         }(Marionette.ItemView);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/views/components/links_view', [
+        'underscore',
+        'backbone.marionette',
+        'app/views/components/link_view'
+    ], function (_, Marionette, LinkView) {
+        var LinksView;
         return LinksView = function (_super) {
             __extends(LinksView, _super);
             function LinksView() {
@@ -328,6 +490,50 @@
             LinksView.prototype.childView = LinkView;
             return LinksView;
         }(Marionette.CollectionView);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/views/contents/sidebar/navigation_region_view', [
+        'backbone',
+        'backbone.marionette',
+        'app/views/components/links_view'
+    ], function (Backbone, Marionette, LinksView) {
+        var NavigationRegionView;
+        return NavigationRegionView = function (_super) {
+            __extends(NavigationRegionView, _super);
+            function NavigationRegionView() {
+                return NavigationRegionView.__super__.constructor.apply(this, arguments);
+            }
+            NavigationRegionView.prototype.className = 'nav';
+            NavigationRegionView.prototype.collection = new Backbone.Collection([
+                {
+                    text: 'Home',
+                    href: '/'
+                },
+                {
+                    text: 'Add Repository',
+                    href: '/new/repository'
+                },
+                {
+                    text: 'Search',
+                    href: '/search'
+                }
+            ]);
+            return NavigationRegionView;
+        }(LinksView);
     });
 }.call(this));
 (function () {
@@ -396,34 +602,37 @@
             child.__super__ = parent.prototype;
             return child;
         };
-    define('app/views/new_repository_view', [
+    define('app/views/components/add_repository_by_url_view', [
         'underscore',
         'backbone.marionette',
         'app/models'
     ], function (_, Marionette, Models) {
-        var NewRepositoryView;
-        return NewRepositoryView = function (_super) {
-            __extends(NewRepositoryView, _super);
-            function NewRepositoryView() {
-                return NewRepositoryView.__super__.constructor.apply(this, arguments);
+        var AddRepositoryByUrlView;
+        return AddRepositoryByUrlView = function (_super) {
+            __extends(AddRepositoryByUrlView, _super);
+            function AddRepositoryByUrlView() {
+                return AddRepositoryByUrlView.__super__.constructor.apply(this, arguments);
             }
-            NewRepositoryView.prototype.template = _.template([
-                '<div class="form-group">',
-                '<input type="text" class="form-control url">',
-                '<button class="btn btn-primary add">Add</button>',
+            AddRepositoryByUrlView.prototype.template = _.template([
+                '<div class="form">',
+                '<h3>Add Repository by URL</h3>',
+                '<div class="row">',
+                '<div class="col-sm-10"><input type="text" class="form-control input-lg" class="new-repo-url" placeholder="Enter the URL of repository"></div>',
+                '<div class="col-sm-2"><button class="btn btn-lg btn-primary add" type="button">Add</button></div>',
+                '</div>',
                 '</div>'
             ].join(''));
-            NewRepositoryView.prototype.events = {
+            AddRepositoryByUrlView.prototype.events = {
                 'click .add': function () {
                     var new_repo;
-                    new_repo = new Models.prototype.Repository({ url: this.$('.url').val() });
+                    new_repo = new Models.prototype.Repository({ url: this.$('.new-repo-url').val() });
                     return new_repo.save();
                 }
             };
-            NewRepositoryView.prototype.className = 'form-inline';
-            NewRepositoryView.prototype.initialize = function () {
+            AddRepositoryByUrlView.prototype.className = 'well';
+            AddRepositoryByUrlView.prototype.initialize = function () {
             };
-            return NewRepositoryView;
+            return AddRepositoryByUrlView;
         }(Marionette.ItemView);
     });
 }.call(this));
@@ -441,34 +650,39 @@
             child.__super__ = parent.prototype;
             return child;
         };
-    define('app/views/repositories_view', [
+    define('app/views/components/add_repository_by_github_view', [
         'underscore',
-        'backbone.marionette'
-    ], function (_, Marionette) {
-        var RepositoriesView, RepositoryView;
-        RepositoryView = function (_super) {
-            __extends(RepositoryView, _super);
-            function RepositoryView() {
-                return RepositoryView.__super__.constructor.apply(this, arguments);
+        'backbone.marionette',
+        'app/models'
+    ], function (_, Marionette, Models) {
+        var AddRepositoryByGitHubView;
+        return AddRepositoryByGitHubView = function (_super) {
+            __extends(AddRepositoryByGitHubView, _super);
+            function AddRepositoryByGitHubView() {
+                return AddRepositoryByGitHubView.__super__.constructor.apply(this, arguments);
             }
-            RepositoryView.prototype.tagName = 'div';
-            RepositoryView.prototype.template = _.template([
-                '<p>name: <%- name %></p>',
-                '<p>desc: <%- desc %></p>'
+            AddRepositoryByGitHubView.prototype.template = _.template([
+                '<div class="form">',
+                '<h3>Add GitHub Repository</h3>',
+                '<div class="row">',
+                '<div class="col-sm-5"><input type="text" class="form-control input-lg" class="new-repo-user" placeholder="Enter the user name"></div>',
+                '<div class="col-sm-5"><input type="text" class="form-control input-lg" class="new-repo-name" placeholder="Enter the repo name"></div>',
+                '<div class="col-sm-2"><button class="btn btn-lg btn-primary add" type="button">Add</button></div>',
+                '</div>',
+                '</div>'
             ].join(''));
-            return RepositoryView;
-        }(Marionette.ItemView);
-        return RepositoriesView = function (_super) {
-            __extends(RepositoriesView, _super);
-            function RepositoriesView() {
-                return RepositoriesView.__super__.constructor.apply(this, arguments);
-            }
-            RepositoriesView.prototype.tagName = 'div';
-            RepositoriesView.prototype.childView = RepositoryView;
-            RepositoriesView.prototype.initialize = function () {
+            AddRepositoryByGitHubView.prototype.events = {
+                'click .add': function () {
+                    var new_repo;
+                    new_repo = new Models.prototype.Repository({ url: this.$('#new-repo-url').val() });
+                    return new_repo.save();
+                }
             };
-            return RepositoriesView;
-        }(Marionette.CollectionView);
+            AddRepositoryByGitHubView.prototype.className = 'well';
+            AddRepositoryByGitHubView.prototype.initialize = function () {
+            };
+            return AddRepositoryByGitHubView;
+        }(Marionette.ItemView);
     });
 }.call(this));
 (function () {
@@ -485,41 +699,38 @@
             child.__super__ = parent.prototype;
             return child;
         };
-    define('app/views/panel_view', [
+    define('app/views/components/github_login_form_view', [
         'underscore',
         'backbone.marionette'
     ], function (_, Marionette) {
-        var PanelView;
-        return PanelView = function (_super) {
-            __extends(PanelView, _super);
-            function PanelView() {
-                return PanelView.__super__.constructor.apply(this, arguments);
+        var GitHubLoginFormView;
+        return GitHubLoginFormView = function (_super) {
+            __extends(GitHubLoginFormView, _super);
+            function GitHubLoginFormView() {
+                return GitHubLoginFormView.__super__.constructor.apply(this, arguments);
             }
-            PanelView.prototype.tagName = 'div';
-            PanelView.prototype.template = _.template([
-                '<div class="panel-heading"></div>',
-                '<div class="panel-body"></div>'
-            ].join(''));
-            PanelView.prototype.regions = {
-                headRegion: '.panel-heading',
-                bodyRegion: '.panel-body'
-            };
-            PanelView.prototype.className = 'panel panel-default';
-            return PanelView;
-        }(Marionette.LayoutView);
+            GitHubLoginFormView.prototype.template = _.template(['<a class="btn btn-block btn-social btn-github"><i class="fa fa-github"></i> Sign in with GitHub</a>'].join());
+            return GitHubLoginFormView;
+        }(Marionette.ItemView);
     });
 }.call(this));
 (function () {
     define('app/views', [
-        'app/views/app_layout_view',
-        'app/views/header_view',
-        'app/views/footer_view',
-        'app/views/sidebar_view',
-        'app/views/home_view',
-        'app/views/links_view',
-        'app/views/new_repository_view',
-        'app/views/repositories_view',
-        'app/views/panel_view'
+        'app/views/layouts/app_layout_view',
+        'app/views/commons/header_view',
+        'app/views/commons/footer_view',
+        'app/views/commons/sidebar_view',
+        'app/views/contents/home_view',
+        'app/views/contents/home/home_main_region_view',
+        'app/views/contents/home/home_sub_region_view',
+        'app/views/contents/new_repository_view',
+        'app/views/contents/sidebar/navigation_region_view',
+        'app/views/components/link_view',
+        'app/views/components/links_view',
+        'app/views/components/panel_view',
+        'app/views/components/add_repository_by_url_view',
+        'app/views/components/add_repository_by_github_view',
+        'app/views/components/github_login_form_view'
     ], function () {
         var Views, modules;
         modules = Array.prototype.splice.call(arguments, 0);
@@ -557,13 +768,24 @@
                 return HomeController.__super__.constructor.apply(this, arguments);
             }
             HomeController.prototype.index = function () {
-                var home_view, welcome_panel;
+                var home_view, sub_region_view;
                 home_view = new Views.prototype.HomeView();
                 app.layout.currentView.contentsRegion.show(home_view);
-                welcome_panel = new Views.prototype.PanelView();
-                home_view.mainRegion.show(welcome_panel);
-                welcome_panel.headRegion.show(new Marionette.ItemView({ template: _.template(['<h4>Welcome to SSPM Registry</h4>'].join('\n')) }));
-                return welcome_panel.bodyRegion.show(new Marionette.ItemView({ template: _.template(['$ sspm install {snippet-name}'].join('\n')) }));
+                home_view.mainRegion.show(new Views.prototype.HomeMainRegionView({
+                    collection: new Backbone.Collection([
+                        {
+                            head: 'Welcome to SSPM Registry System',
+                            body: '$ sspm install {snippet-name}'
+                        },
+                        {
+                            head: 'What\'s New',
+                            body: 'xxxx xxxx'
+                        }
+                    ])
+                }));
+                sub_region_view = new Views.prototype.HomeSubRegionView();
+                home_view.subRegion.show(sub_region_view);
+                return sub_region_view.githubLoginRegion.show(new Views.prototype.GitHubLoginFormView());
             };
             return HomeController;
         }(Marionette.Controller);
@@ -583,7 +805,48 @@
             child.__super__ = parent.prototype;
             return child;
         };
-    define('app/controllers/search_repository_controller', ['backbone.marionette'], function (Marionette) {
+    define('app/controllers/new_controller', [
+        'underscore',
+        'backbone',
+        'backbone.marionette',
+        'app/views',
+        'app/collections'
+    ], function (_, Backbone, Marionette, Views) {
+        var NewController;
+        return NewController = function (_super) {
+            __extends(NewController, _super);
+            function NewController() {
+                return NewController.__super__.constructor.apply(this, arguments);
+            }
+            NewController.prototype.repository = function () {
+                var new_repo_view;
+                new_repo_view = new Views.prototype.NewRepositoryView();
+                app.layout.currentView.contentsRegion.show(new_repo_view);
+                new_repo_view.byUrlRegion.show(new Views.prototype.AddRepositoryByUrlView());
+                return new_repo_view.byGitHubRegion.show(new Views.prototype.AddRepositoryByGitHubView());
+            };
+            return NewController;
+        }(Marionette.Controller);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/controllers/search_repository_controller', [
+        'underscore',
+        'backbone.marionette'
+    ], function (_, Marionette) {
         var SearchRepositoryController;
         return SearchRepositoryController = function (_super) {
             __extends(SearchRepositoryController, _super);
@@ -591,6 +854,23 @@
                 return SearchRepositoryController.__super__.constructor.apply(this, arguments);
             }
             SearchRepositoryController.prototype.form = function () {
+                return app.layout.currentView.contentsRegion.show(new Marionette.LayoutView({
+                    template: _.template([
+                        '<div class="panel panel-default">',
+                        '<div class="panel-heading">',
+                        '<h4>Search Repositories</h4>',
+                        '</div>',
+                        '<div class="panel-body">',
+                        '<form class="form-inline" action="/search" method="get">',
+                        '<div class="form-group">',
+                        '<input type="text" name="q" class="form-control query">',
+                        '<input type="submit" class="btn btn-primary search pull-right" value="Go">',
+                        '</div>',
+                        '</form>',
+                        '</div>',
+                        '</div>'
+                    ].join('\n'))
+                }));
             };
             SearchRepositoryController.prototype.result = function (repo) {
                 return console.log('this is result');
@@ -635,28 +915,6 @@
             };
             RepositoriesController.prototype.show = function (repo_id) {
             };
-            RepositoriesController.prototype['new'] = function () {
-                var new_repo_view, sub_layout;
-                new_repo_view = new Views.prototype.NewRepositoryView({ model: new Backbone.Model({ action: '' + WEB_API_PROTOCOL + '://' + WEB_API_HOST + '/api/' + WEB_API_VERSION + '/repositories' }) });
-                sub_layout = new Marionette.LayoutView({
-                    template: _.template([
-                        '<div class="panel panel-default">',
-                        '<div class="panel-heading"><h4>Add URL</h4></div>',
-                        '<section class="panel-body add-by-url"></section>',
-                        '</div>',
-                        '<div class="panel panel-default">',
-                        '<div class="panel-heading"><h4>Add GitHub Repo<h4></div>',
-                        '<section class="panel-body add-by-github"></section>',
-                        '</div>'
-                    ].join('\n')),
-                    regions: {
-                        urlRegion: '.add-by-url',
-                        githubRegion: '.add-by-url'
-                    }
-                });
-                app.layout.currentView.contentsRegion.show(sub_layout);
-                return sub_layout.urlRegion.show(new_repo_view);
-            };
             return RepositoriesController;
         }(Marionette.Controller);
     });
@@ -664,6 +922,7 @@
 (function () {
     define('app/controllers', [
         'app/controllers/home_controller',
+        'app/controllers/new_controller',
         'app/controllers/search_repository_controller',
         'app/controllers/repositories_controller'
     ], function () {
@@ -720,6 +979,32 @@
             child.__super__ = parent.prototype;
             return child;
         };
+    define('app/routers/new_router', ['backbone.marionette'], function (Marionette) {
+        var NewRouter;
+        return NewRouter = function (_super) {
+            __extends(NewRouter, _super);
+            function NewRouter() {
+                return NewRouter.__super__.constructor.apply(this, arguments);
+            }
+            NewRouter.prototype.appRoutes = { 'new/repository': 'repository' };
+            return NewRouter;
+        }(Marionette.AppRouter);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
     define('app/routers/search_repository_router', ['backbone.marionette'], function (Marionette) {
         var SearchRepositoryRouter;
         return SearchRepositoryRouter = function (_super) {
@@ -728,8 +1013,8 @@
                 return SearchRepositoryRouter.__super__.constructor.apply(this, arguments);
             }
             SearchRepositoryRouter.prototype.appRoutes = {
-                'search': 'form',
-                'search-result?q=:query': 'result'
+                'search?q=:query': 'result',
+                'search': 'form'
             };
             return SearchRepositoryRouter;
         }(Marionette.AppRouter);
@@ -757,7 +1042,6 @@
                 return RepositoriesRouter.__super__.constructor.apply(this, arguments);
             }
             RepositoriesRouter.prototype.appRoutes = {
-                'new': 'new',
                 'repositories': 'all',
                 'repositories/:repo_id': 'show'
             };
@@ -768,6 +1052,7 @@
 (function () {
     define('app/routers', [
         'app/routers/home_router',
+        'app/routers/new_router',
         'app/routers/search_repository_router',
         'app/routers/repositories_router'
     ], function () {
@@ -822,26 +1107,13 @@
                     layout_view.headerRegion.show(header_view);
                     layout_view.footerRegion.show(footer_view);
                     layout_view.sidebarRegion.show(sidebar_view);
-                    return sidebar_view.contentsRegion.show(new Views.prototype.LinksView({
-                        className: 'nav',
-                        collection: new Backbone.Collection([
-                            {
-                                text: 'Home',
-                                href: '/'
-                            },
-                            {
-                                text: 'Add Repository',
-                                href: '/new'
-                            },
-                            {
-                                text: 'Search',
-                                href: '/search'
-                            }
-                        ])
-                    }));
+                    return sidebar_view.navigationRegion.show(new Views.prototype.NavigationRegionView());
                 });
                 this.addInitializer(function () {
                     return new Routers.prototype.HomeRouter({ controller: new Controllers.prototype.HomeController() });
+                });
+                this.addInitializer(function () {
+                    return new Routers.prototype.NewRouter({ controller: new Controllers.prototype.NewController() });
                 });
                 this.addInitializer(function () {
                     return new Routers.prototype.SearchRepositoryRouter({ controller: new Controllers.prototype.SearchRepositoryController() });
