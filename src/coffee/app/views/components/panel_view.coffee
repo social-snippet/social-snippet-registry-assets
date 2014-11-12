@@ -7,17 +7,13 @@ define(
     _
     Marionette
   )->
-    class PanelView extends Marionette.LayoutView
+    class PanelView extends Marionette.ItemView
       tagName: "div"
 
       template: _.template [
-        '<div class="panel-heading"></div>'
-        '<div class="panel-body"></div>'
+        '<div class="panel-heading"><%- head %></div>'
+        '<div class="panel-body"><%- body %></div>'
       ].join("")
-
-      regions:
-        headRegion: ".panel-heading"
-        bodyRegion: ".panel-body"
 
       className: "panel panel-default"
 )
