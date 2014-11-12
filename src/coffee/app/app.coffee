@@ -43,7 +43,7 @@ define(
               }
               {
                 text: "Add Repository"
-                href: "/new"
+                href: "/new/repository"
               }
               {
                 text: "Search"
@@ -55,6 +55,12 @@ define(
         @addInitializer ->
           new Routers::HomeRouter(
             controller: new Controllers::HomeController(
+            )
+          )
+
+        @addInitializer ->
+          new Routers::NewRouter(
+            controller: new Controllers::NewController(
             )
           )
 

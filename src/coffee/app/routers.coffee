@@ -1,6 +1,7 @@
 define(
   [
     "app/routers/home_router"
+    "app/routers/new_router"
     "app/routers/search_repository_router"
     "app/routers/repositories_router"
   ]
