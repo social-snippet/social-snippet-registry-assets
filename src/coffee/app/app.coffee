@@ -34,23 +34,7 @@ define(
           layout_view.footerRegion.show footer_view
           layout_view.sidebarRegion.show sidebar_view
 
-          sidebar_view.contentsRegion.show new Views::LinksView(
-            className: "nav"
-            collection: new Backbone.Collection [
-              {
-                text: "Home"
-                href: "/"
-              }
-              {
-                text: "Add Repository"
-                href: "/new/repository"
-              }
-              {
-                text: "Search"
-                href: "/search"
-              }
-            ]
-          )
+          sidebar_view.navigationRegion.show new Views::NavigationRegionView
 
         @addInitializer ->
           new Routers::HomeRouter(

@@ -2,7 +2,7 @@ define(
   [
     "underscore"
     "backbone.marionette"
-    "./link_view"
+    "app/views/components/link_view"
   ]
   (
     _

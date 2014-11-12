@@ -9,18 +9,18 @@ define(
   )->
     class AppLayoutView extends Marionette.LayoutView
       template: _.template [
-        '<header></header>'
+        '<header class="region"></header>'
         '<div class="container-fluid">'
-        '  <section id="sidebar" class="col-sm-3"></section>'
-        '  <section id="contents" class="col-sm-9"></section>'
+        '  <section class="region sidebar col-sm-3"></section>'
+        '  <section class="region contents col-sm-9"></section>'
         '</div>'
-        '<footer></footer>'
+        '<footer class="region"></footer>'
       ].join("")
 
       regions:
         headerRegion: "header"
-        sidebarRegion: "#sidebar"
-        contentsRegion: "#contents"
+        sidebarRegion: ".sidebar.region"
+        contentsRegion: ".contents.region"
         footerRegion: "footer"
 
       initialize: ->

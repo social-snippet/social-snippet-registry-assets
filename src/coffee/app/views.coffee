@@ -8,6 +8,7 @@ define(
 
     "app/views/contents/home_view"
     "app/views/contents/new_repository_view"
+    "app/views/contents/sidebar/navigation_region_view"
 
     "app/views/components/link_view"
     "app/views/components/links_view"
