@@ -2,7 +2,7 @@ describe "Links View", ->
 
   load_modules(
     "backbone"
-    "app/views/links_view"
+    "app/views/components/links_view"
   )
 
   context "create collection", ->
