@@ -14,16 +14,20 @@ define(
         home_view = new Views::HomeView
         app.layout.currentView.contentsRegion.show home_view
 
-        welcome_panel = new Views::PanelView
-        home_view.mainRegion.show welcome_panel
+        home_view.mainRegion.show new Views::HomeMainRegionView
+          collection: new Backbone.Collection [
+            {
+              head: "Welcome to SSPM Registry System"
+              body: "$ sspm install {snippet-name}"
+            }
+            {
+              head: "What's New"
+              body: "xxxx xxxx"
+            }
+          ]
 
-        welcome_panel.headRegion.show new Marionette.ItemView
-          template: _.template [
-            '<h4>Welcome to SSPM Registry</h4>'
-          ].join("\n")
+        sub_region_view = new Views::HomeSubRegionView
+        home_view.subRegion.show sub_region_view
+        sub_region_view.githubLoginRegion.show new Views::GitHubLoginFormView
 
-        welcome_panel.bodyRegion.show new Marionette.ItemView
-          template: _.template [
-            '$ sspm install {snippet-name}'
-          ].join("\n")
 )
