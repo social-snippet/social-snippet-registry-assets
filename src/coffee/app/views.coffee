@@ -13,6 +13,8 @@ define(
     "app/views/components/link_view"
     "app/views/components/links_view"
     "app/views/components/panel_view"
+    "app/views/components/add_repository_by_url_view"
+    "app/views/components/add_repository_by_github_view"
   ]
   ->
     modules = Array::splice.call(arguments, 0)
