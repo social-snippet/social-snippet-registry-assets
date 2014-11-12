@@ -13,8 +13,4 @@ define(
       template: _.template [
         '<a href="<%- href %>"><%- text %></a>'
       ].join()
-
-    class LinksView extends Marionette.CollectionView
-      tagName: "ul"
-      childView: LinkView
 )
