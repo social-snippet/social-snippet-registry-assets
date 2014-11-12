@@ -2,27 +2,21 @@ define(
   [
     "underscore"
     "backbone.marionette"
-    "app/models"
   ]
   (
     _
     Marionette
-    Models
   )->
-    class NewRepositoryView extends Marionette.ItemView
+    class NewRepositoryView extends Marionette.LayoutView
       template: _.template [
-        '<div class="form-group">'
-        '<input type="text" class="form-control url">'
-        '<button class="btn btn-primary add">Add</button>'
-        '</div>'
+        '<section class="region by-url-region"></section>'
+        '<section class="region by-github-region"></section>'
       ].join("")
 
-      events:
-        "click .add": ->
-          new_repo = new Models::Repository(url: @$(".url").val())
-          new_repo.save()
-
-      className: "form-inline"
+      regions:
+        byUrlRegion: ".by-url-region"
+        byGitHubRegion: ".by-github-region"
 
       initialize: ->
+        @
 )
