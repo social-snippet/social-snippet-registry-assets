@@ -9,8 +9,5 @@ define(
   )->
     class LinkView extends Marionette.ItemView
       tagName: "li"
-
-      template: _.template [
-        '<a href="<%- href %>"><%- text %></a>'
-      ].join()
+      template: "#template-link-view"
 )
