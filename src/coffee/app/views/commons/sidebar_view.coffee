@@ -10,14 +10,12 @@ define(
     Marionette
   )->
     class SidebarView extends Marionette.LayoutView
-      template: _.template [
-        '<section class="navigation region"></section>'
-      ].join("")
+      template: "#template-sidebar-view"
 
       className: "view sidebar"
 
       regions:
-        navigationRegion: ".navigation.region"
+        navigationRegion: ".navigation-region"
 
       initialize: ->
         @
