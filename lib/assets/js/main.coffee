@@ -1,3 +1,8 @@
+#= require api_config
+#= require require
+#= require requirejs_config
+#= require utils
+
 global = @
 
 requirejs(
@@ -25,7 +30,7 @@ requirejs(
       jQuery ->
         global.app = new App(
           regions:
-            layout: "#container"
+            layout: "body"
         )
         Object.freeze(global.app)
 
