@@ -1,17 +1,11 @@
-require_relative "lib/web_server"
+# require_relative "lib/web_server"
+require "padrino"
+require "social_snippet/registry/app/app"
 require "sprockets"
 
 #
 # js
 #
-map "/js/assets" do
-  env = Sprockets::Environment.new
-
-  # entry / config scripts
-  env.append_path "lib/assets/"
-
-  run env
-end
 
 map "/js/app" do
   env = Sprockets::Environment.new
@@ -24,6 +18,9 @@ end
 
 map "/js" do
   env = Sprockets::Environment.new
+
+  # asssts
+  env.append_path "lib/assets/js/"
 
   # bower components
   env.append_path "tmp/js/lib/"
@@ -50,8 +47,21 @@ map "/css" do
   env = Sprockets::Environment.new
 
   #
-  env.append_path "src/sass"
-  env.append_path "src/css"
+  env.append_path "lib/assets/css/"
+  env.append_path "bower_components/"
+  env.append_path "src/sass/"
+  env.append_path "src/css/"
+
+  run env
+end
+
+#
+# fonts
+#
+map "/fonts" do
+  env = Sprockets::Environment.new
+
+  env.append_path "bower_components/font-awesome/fonts/"
 
   run env
 end
@@ -60,5 +70,5 @@ end
 # root
 #
 map "/" do
-  run WebServer
+  run SocialSnippet::Registry::App
 end
