@@ -17,6 +17,7 @@ group :development do
   gem "coffee-script"
 
   gem "social_snippet-registry", :github => "social-snippet/social-snippet-registry", :ref => "heroku/sspm-test"
+  # gem "social_snippet-registry", :path => "../social-snippet-registry/"
 end
 
 # to build sinon.js
