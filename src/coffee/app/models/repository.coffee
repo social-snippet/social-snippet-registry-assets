@@ -7,7 +7,8 @@ define(
   )->
     class Repository extends Backbone.Model
       defaults: ->
-        githubLink: ""
+        latest_version: undefined
+        github_link: undefined
 
       idAttribute: "name"
 
@@ -20,6 +21,6 @@ define(
         repoUrl = @get("url")
         # TODO: improve here
         if /:\/\/github\.com/.test(repoUrl)
-          @set "githubLink", "<a href=\"#{repoUrl}\"><i class=\"fa fa-github\" /></a>"
+          @set "github_link", " - <a href=\"#{repoUrl}\"><i class=\"fa fa-github\" /></a>"
 
 )
