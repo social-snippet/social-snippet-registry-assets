@@ -10,7 +10,7 @@ define(
     class SearchResults extends Repositories
       set_default_options: ->
         super()
-        _(@options).extend
+        _(@options).defaults
           query: ""
 
       url: ->
