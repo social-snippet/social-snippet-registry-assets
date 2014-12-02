@@ -3,6 +3,7 @@ define(
     "underscore"
     "backbone"
     "backbone.marionette"
+    "app/models"
     "app/views"
     "app/collections"
   ]
@@ -10,6 +11,7 @@ define(
     _
     Backbone
     Marionette
+    Models
     Views
     Collections
   )->
@@ -22,5 +24,15 @@ define(
         repos.fetch()
 
       show: (repo_id)->
+        repo = new Models::Repository
+          name: repo_id
+
+        repo
+          .fetch()
+          .done ->
+            repo_view = new Views::RepositoryDetailPanelView
+              model: repo
+            app.layout.currentView.contentsRegion.show repo_view
+
 
 )
