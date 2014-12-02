@@ -36,9 +36,20 @@
             function Repository() {
                 return Repository.__super__.constructor.apply(this, arguments);
             }
+            Repository.prototype.defaults = function () {
+                return { githubLink: '' };
+            };
             Repository.prototype.idAttribute = 'name';
             Repository.prototype.urlRoot = '//' + WEB_API_HOST + '/api/' + WEB_API_VERSION + '/repositories';
             Repository.prototype.initialize = function () {
+                return this.initGitHubLink();
+            };
+            Repository.prototype.initGitHubLink = function () {
+                var repoUrl;
+                repoUrl = this.get('url');
+                if (/:\/\/github\.com/.test(repoUrl)) {
+                    return this.set('githubLink', '<a href="' + repoUrl + '"><i class="fa fa-github" /></a>');
+                }
             };
             return Repository;
         }(Backbone.Model);
@@ -70,24 +81,14 @@
             }
             Repositories.prototype.model = Repository;
             Repositories.prototype.set_default_options = function () {
-                var _base;
-                return (_base = this.options).query || (_base.query = '');
             };
             Repositories.prototype.url = function () {
-                if (this.options.query === '') {
-                    return '//' + WEB_API_HOST + '/api/' + WEB_API_VERSION + '/repositories';
-                } else {
-                    return '//' + WEB_API_HOST + '/api/' + WEB_API_VERSION + '/repositories?q=' + this.options.query;
-                }
+                return '//' + WEB_API_HOST + '/api/' + WEB_API_VERSION + '/repositories';
             };
             Repositories.prototype.initialize = function (models, new_options) {
                 this.options = new_options;
                 this.options || (this.options = {});
                 return this.set_default_options();
-            };
-            Repositories.prototype.search = function (query) {
-                this.options.query = query;
-                return this.fetch();
             };
             return Repositories;
         }(Backbone.Collection);
@@ -129,14 +130,7 @@
             function AppLayoutView() {
                 return AppLayoutView.__super__.constructor.apply(this, arguments);
             }
-            AppLayoutView.prototype.template = _.template([
-                '<header class="region"></header>',
-                '<div class="container-fluid">',
-                '  <section class="region sidebar-region col-sm-3"></section>',
-                '  <section class="region contents-region col-sm-9"></section>',
-                '</div>',
-                '<footer class="region"></footer>'
-            ].join(''));
+            AppLayoutView.prototype.template = '#template-app-layout-view';
             AppLayoutView.prototype.regions = {
                 headerRegion: 'header',
                 sidebarRegion: '.sidebar-region',
@@ -174,7 +168,7 @@
             function HeaderView() {
                 return HeaderView.__super__.constructor.apply(this, arguments);
             }
-            HeaderView.prototype.template = _.template(['<a class="navbar-brand" href="/"><%- "SSPM Registry System" %></a>'].join(''));
+            HeaderView.prototype.template = '#template-header-view';
             HeaderView.prototype.className = 'navbar navbar-inverse navbar-fixed-top';
             HeaderView.prototype.initialize = function () {
                 return this;
@@ -207,14 +201,7 @@
             function FooterView() {
                 return FooterView.__super__.constructor.apply(this, arguments);
             }
-            FooterView.prototype.template = _.template([
-                '<ul class="list-unstyled text-right">',
-                '<li class="col-sm-4"><a href="https://social-snippet.github.io">Social Snippet</a></li>',
-                '<li class="col-sm-4"><a href="https://social-snippet.github.io/blog">Blog</a></li>',
-                '<li class="col-sm-4"><a href="https://github.com/social-snippet">GitHub</a></li>',
-                '<li class="col-sm-4"><a href="https://github.com/social-snippet/social-snippet-registry/issues">Feedback</a></li>',
-                '</ul>'
-            ].join(''));
+            FooterView.prototype.template = '#template-footer-view';
             FooterView.prototype.className = 'container';
             FooterView.prototype.initialize = function () {
                 return this;
@@ -248,9 +235,9 @@
             function SidebarView() {
                 return SidebarView.__super__.constructor.apply(this, arguments);
             }
-            SidebarView.prototype.template = _.template(['<section class="navigation region"></section>'].join(''));
+            SidebarView.prototype.template = '#template-sidebar-view';
             SidebarView.prototype.className = 'view sidebar';
-            SidebarView.prototype.regions = { navigationRegion: '.navigation.region' };
+            SidebarView.prototype.regions = { navigationRegion: '.navigation-region' };
             SidebarView.prototype.initialize = function () {
                 return this;
             };
@@ -456,7 +443,7 @@
                 return LinkView.__super__.constructor.apply(this, arguments);
             }
             LinkView.prototype.tagName = 'li';
-            LinkView.prototype.template = _.template(['<a href="<%- href %>"><%- text %></a>'].join());
+            LinkView.prototype.template = '#template-link-view';
             return LinkView;
         }(Marionette.ItemView);
     });
@@ -613,15 +600,7 @@
             function AddRepositoryByUrlView() {
                 return AddRepositoryByUrlView.__super__.constructor.apply(this, arguments);
             }
-            AddRepositoryByUrlView.prototype.template = _.template([
-                '<div class="form">',
-                '<h3>Add Repository by URL</h3>',
-                '<div class="row">',
-                '<div class="col-sm-10"><input type="text" class="form-control input-lg" class="new-repo-url" placeholder="Enter the URL of repository"></div>',
-                '<div class="col-sm-2"><button class="btn btn-lg btn-primary add" type="button">Add</button></div>',
-                '</div>',
-                '</div>'
-            ].join(''));
+            AddRepositoryByUrlView.prototype.template = '#template-add-repository-by-url-view';
             AddRepositoryByUrlView.prototype.events = {
                 'click .add': function () {
                     var new_repo;
@@ -661,16 +640,7 @@
             function AddRepositoryByGitHubView() {
                 return AddRepositoryByGitHubView.__super__.constructor.apply(this, arguments);
             }
-            AddRepositoryByGitHubView.prototype.template = _.template([
-                '<div class="form">',
-                '<h3>Add GitHub Repository</h3>',
-                '<div class="row">',
-                '<div class="col-sm-5"><input type="text" class="form-control input-lg" class="new-repo-user" placeholder="Enter the user name"></div>',
-                '<div class="col-sm-5"><input type="text" class="form-control input-lg" class="new-repo-name" placeholder="Enter the repo name"></div>',
-                '<div class="col-sm-2"><button class="btn btn-lg btn-primary add" type="button">Add</button></div>',
-                '</div>',
-                '</div>'
-            ].join(''));
+            AddRepositoryByGitHubView.prototype.template = '#template-add-repository-by-github-view';
             AddRepositoryByGitHubView.prototype.events = {
                 'click .add': function () {
                     var new_repo;
@@ -709,7 +679,7 @@
             function GitHubLoginFormView() {
                 return GitHubLoginFormView.__super__.constructor.apply(this, arguments);
             }
-            GitHubLoginFormView.prototype.template = _.template(['<a class="btn btn-block btn-social btn-github"><i class="fa fa-github"></i> Sign in with GitHub</a>'].join());
+            GitHubLoginFormView.prototype.template = '#template-github-login-form-view';
             return GitHubLoginFormView;
         }(Marionette.ItemView);
     });
@@ -843,10 +813,130 @@
             child.__super__ = parent.prototype;
             return child;
         };
+    define('app/views/components/search_form_panel_view', ['app/views/components/panel_view'], function (PanelView) {
+        var SearchFormPanelView;
+        return SearchFormPanelView = function (_super) {
+            __extends(SearchFormPanelView, _super);
+            function SearchFormPanelView() {
+                return SearchFormPanelView.__super__.constructor.apply(this, arguments);
+            }
+            SearchFormPanelView.prototype.template = '#template-search-form-panel-view';
+            return SearchFormPanelView;
+        }(PanelView);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/collections/search_results', [
+        'underscore',
+        'app/collections/repositories'
+    ], function (_, Repositories) {
+        var SearchResults;
+        return SearchResults = function (_super) {
+            __extends(SearchResults, _super);
+            function SearchResults() {
+                return SearchResults.__super__.constructor.apply(this, arguments);
+            }
+            SearchResults.prototype.set_default_options = function () {
+                SearchResults.__super__.set_default_options.call(this);
+                return _(this.options).extend({ query: '' });
+            };
+            SearchResults.prototype.url = function () {
+                return '//' + WEB_API_HOST + '/api/' + WEB_API_VERSION + '/repositories?q=' + this.options.query;
+            };
+            return SearchResults;
+        }(Repositories);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/views/components/repository_panel_view', ['app/views/components/panel_view'], function (PanelView) {
+        var RepositoryPanelView;
+        return RepositoryPanelView = function (_super) {
+            __extends(RepositoryPanelView, _super);
+            function RepositoryPanelView() {
+                return RepositoryPanelView.__super__.constructor.apply(this, arguments);
+            }
+            RepositoryPanelView.prototype.template = '#template-repository-panel-view';
+            return RepositoryPanelView;
+        }(PanelView);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/views/contents/search/search_results_view', [
+        'backbone.marionette',
+        'app/views/components/repository_panel_view'
+    ], function (Marionette, RepositoryPanelView) {
+        var SearchResultsView;
+        return SearchResultsView = function (_super) {
+            __extends(SearchResultsView, _super);
+            function SearchResultsView() {
+                return SearchResultsView.__super__.constructor.apply(this, arguments);
+            }
+            SearchResultsView.prototype.tagName = 'div';
+            SearchResultsView.prototype.childView = RepositoryPanelView;
+            return SearchResultsView;
+        }(Marionette.CollectionView);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
     define('app/controllers/search_repository_controller', [
         'underscore',
-        'backbone.marionette'
-    ], function (_, Marionette) {
+        'backbone.marionette',
+        'app/views/components/search_form_panel_view',
+        'app/collections/search_results',
+        'app/views/contents/search/search_results_view'
+    ], function (_, Marionette, SearchFormPanelView, SearchResults, SearchResultsView) {
         var SearchRepositoryController;
         return SearchRepositoryController = function (_super) {
             __extends(SearchRepositoryController, _super);
@@ -854,26 +944,18 @@
                 return SearchRepositoryController.__super__.constructor.apply(this, arguments);
             }
             SearchRepositoryController.prototype.form = function () {
-                return app.layout.currentView.contentsRegion.show(new Marionette.LayoutView({
-                    template: _.template([
-                        '<div class="panel panel-default">',
-                        '<div class="panel-heading">',
-                        '<h4>Search Repositories</h4>',
-                        '</div>',
-                        '<div class="panel-body">',
-                        '<form class="form-inline" action="/search" method="get">',
-                        '<div class="form-group">',
-                        '<input type="text" name="q" class="form-control query">',
-                        '<input type="submit" class="btn btn-primary search pull-right" value="Go">',
-                        '</div>',
-                        '</form>',
-                        '</div>',
-                        '</div>'
-                    ].join('\n'))
-                }));
+                var search_form_panel_view;
+                search_form_panel_view = new SearchFormPanelView();
+                return app.layout.currentView.contentsRegion.show(search_form_panel_view);
             };
             SearchRepositoryController.prototype.result = function (repo) {
-                return console.log('this is result');
+                var search_results;
+                search_results = new SearchResults([], { query: repo });
+                return search_results.fetch().done(function () {
+                    var search_resutlts_view;
+                    search_resutlts_view = new SearchResultsView({ collection: search_results });
+                    return app.layout.currentView.contentsRegion.show(search_resutlts_view);
+                });
             };
             return SearchRepositoryController;
         }(Marionette.Controller);
