@@ -20,6 +20,8 @@ define(
     "app/views/components/add_repository_by_url_view"
     "app/views/components/add_repository_by_github_view"
     "app/views/components/github_login_form_view"
+    "app/views/components/repository_panel_view"
+    "app/views/components/repository_detail_panel_view"
   ]
   ->
     modules = Array::splice.call(arguments, 0)
