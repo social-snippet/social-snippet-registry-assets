@@ -37,7 +37,10 @@
                 return Repository.__super__.constructor.apply(this, arguments);
             }
             Repository.prototype.defaults = function () {
-                return { githubLink: '' };
+                return {
+                    latest_version: void 0,
+                    github_link: void 0
+                };
             };
             Repository.prototype.idAttribute = 'name';
             Repository.prototype.urlRoot = '//' + WEB_API_HOST + '/api/' + WEB_API_VERSION + '/repositories';
@@ -48,7 +51,7 @@
                 var repoUrl;
                 repoUrl = this.get('url');
                 if (/:\/\/github\.com/.test(repoUrl)) {
-                    return this.set('githubLink', '<a href="' + repoUrl + '"><i class="fa fa-github" /></a>');
+                    return this.set('github_link', ' - <a href="' + repoUrl + '"><i class="fa fa-github" /></a>');
                 }
             };
             return Repository;
@@ -537,6 +540,92 @@
             child.__super__ = parent.prototype;
             return child;
         };
+    define('app/views/components/repository_panel_view', ['app/views/components/panel_view'], function (PanelView) {
+        var RepositoryPanelView;
+        return RepositoryPanelView = function (_super) {
+            __extends(RepositoryPanelView, _super);
+            function RepositoryPanelView() {
+                return RepositoryPanelView.__super__.constructor.apply(this, arguments);
+            }
+            RepositoryPanelView.prototype.template = '#template-repository-panel-view';
+            return RepositoryPanelView;
+        }(PanelView);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/views/contents/search/search_results_view', [
+        'backbone.marionette',
+        'app/views/components/repository_panel_view'
+    ], function (Marionette, RepositoryPanelView) {
+        var SearchResultsView;
+        return SearchResultsView = function (_super) {
+            __extends(SearchResultsView, _super);
+            function SearchResultsView() {
+                return SearchResultsView.__super__.constructor.apply(this, arguments);
+            }
+            SearchResultsView.prototype.tagName = 'div';
+            SearchResultsView.prototype.childView = RepositoryPanelView;
+            return SearchResultsView;
+        }(Marionette.CollectionView);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/views/contents/repositories/all_repositories_view', [
+        'backbone.marionette',
+        'app/views/components/repository_panel_view'
+    ], function (Marionette, RepositoryPanelView) {
+        var AllRepositoriesView;
+        return AllRepositoriesView = function (_super) {
+            __extends(AllRepositoriesView, _super);
+            function AllRepositoriesView() {
+                return AllRepositoriesView.__super__.constructor.apply(this, arguments);
+            }
+            AllRepositoriesView.prototype.tagName = 'div';
+            AllRepositoriesView.prototype.childView = RepositoryPanelView;
+            return AllRepositoriesView;
+        }(Marionette.CollectionView);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
     define('app/models/application', ['backbone'], function (Backbone) {
         var Application;
         return Application = function (_super) {
@@ -685,6 +774,32 @@
     });
 }.call(this));
 (function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/views/components/repository_detail_panel_view', ['app/views/components/panel_view'], function (PanelView) {
+        var RepositoryDetailPanelView;
+        return RepositoryDetailPanelView = function (_super) {
+            __extends(RepositoryDetailPanelView, _super);
+            function RepositoryDetailPanelView() {
+                return RepositoryDetailPanelView.__super__.constructor.apply(this, arguments);
+            }
+            RepositoryDetailPanelView.prototype.template = '#template-repository-detail-panel-view';
+            return RepositoryDetailPanelView;
+        }(PanelView);
+    });
+}.call(this));
+(function () {
     define('app/views', [
         'app/views/layouts/app_layout_view',
         'app/views/commons/header_view',
@@ -695,12 +810,16 @@
         'app/views/contents/home/home_sub_region_view',
         'app/views/contents/new_repository_view',
         'app/views/contents/sidebar/navigation_region_view',
+        'app/views/contents/search/search_results_view',
+        'app/views/contents/repositories/all_repositories_view',
         'app/views/components/link_view',
         'app/views/components/links_view',
         'app/views/components/panel_view',
         'app/views/components/add_repository_by_url_view',
         'app/views/components/add_repository_by_github_view',
-        'app/views/components/github_login_form_view'
+        'app/views/components/github_login_form_view',
+        'app/views/components/repository_panel_view',
+        'app/views/components/repository_detail_panel_view'
     ], function () {
         var Views, modules;
         modules = Array.prototype.splice.call(arguments, 0);
@@ -879,62 +998,6 @@
             child.__super__ = parent.prototype;
             return child;
         };
-    define('app/views/components/repository_panel_view', ['app/views/components/panel_view'], function (PanelView) {
-        var RepositoryPanelView;
-        return RepositoryPanelView = function (_super) {
-            __extends(RepositoryPanelView, _super);
-            function RepositoryPanelView() {
-                return RepositoryPanelView.__super__.constructor.apply(this, arguments);
-            }
-            RepositoryPanelView.prototype.template = '#template-repository-panel-view';
-            return RepositoryPanelView;
-        }(PanelView);
-    });
-}.call(this));
-(function () {
-    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
-            for (var key in parent) {
-                if (__hasProp.call(parent, key))
-                    child[key] = parent[key];
-            }
-            function ctor() {
-                this.constructor = child;
-            }
-            ctor.prototype = parent.prototype;
-            child.prototype = new ctor();
-            child.__super__ = parent.prototype;
-            return child;
-        };
-    define('app/views/contents/search/search_results_view', [
-        'backbone.marionette',
-        'app/views/components/repository_panel_view'
-    ], function (Marionette, RepositoryPanelView) {
-        var SearchResultsView;
-        return SearchResultsView = function (_super) {
-            __extends(SearchResultsView, _super);
-            function SearchResultsView() {
-                return SearchResultsView.__super__.constructor.apply(this, arguments);
-            }
-            SearchResultsView.prototype.tagName = 'div';
-            SearchResultsView.prototype.childView = RepositoryPanelView;
-            return SearchResultsView;
-        }(Marionette.CollectionView);
-    });
-}.call(this));
-(function () {
-    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
-            for (var key in parent) {
-                if (__hasProp.call(parent, key))
-                    child[key] = parent[key];
-            }
-            function ctor() {
-                this.constructor = child;
-            }
-            ctor.prototype = parent.prototype;
-            child.prototype = new ctor();
-            child.__super__ = parent.prototype;
-            return child;
-        };
     define('app/controllers/search_controller', [
         'underscore',
         'backbone.marionette',
@@ -984,9 +1047,10 @@
         'underscore',
         'backbone',
         'backbone.marionette',
+        'app/models',
         'app/views',
         'app/collections'
-    ], function (_, Backbone, Marionette, Views, Collections) {
+    ], function (_, Backbone, Marionette, Models, Views, Collections) {
         var RepositoriesController;
         return RepositoriesController = function (_super) {
             __extends(RepositoriesController, _super);
@@ -994,13 +1058,20 @@
                 return RepositoriesController.__super__.constructor.apply(this, arguments);
             }
             RepositoriesController.prototype.all = function () {
-                var repos, view;
+                var all_repos_view, repos;
                 repos = new Collections.prototype.Repositories();
-                view = new Views.prototype.RepositoriesView({ collection: repos });
-                app.main.show(view);
+                all_repos_view = new Views.prototype.AllRepositoriesView({ collection: repos });
+                app.layout.currentView.contentsRegion.show(all_repos_view);
                 return repos.fetch();
             };
             RepositoriesController.prototype.show = function (repo_id) {
+                var repo;
+                repo = new Models.prototype.Repository({ name: repo_id });
+                return repo.fetch().done(function () {
+                    var repo_view;
+                    repo_view = new Views.prototype.RepositoryDetailPanelView({ model: repo });
+                    return app.layout.currentView.contentsRegion.show(repo_view);
+                });
             };
             return RepositoriesController;
         }(Marionette.Controller);
