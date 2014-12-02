@@ -1,5 +1,6 @@
 require "./tasks/test"
 require "./tasks/build"
+require "./tasks/version"
 
 gulp = require "gulp"
 
