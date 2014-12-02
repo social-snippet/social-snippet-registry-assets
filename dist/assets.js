@@ -849,9 +849,14 @@
             function SearchResults() {
                 return SearchResults.__super__.constructor.apply(this, arguments);
             }
+            SearchResults.prototype.initialize = function (models, new_options) {
+                this.options = new_options;
+                this.options || (this.options = {});
+                return this.set_default_options();
+            };
             SearchResults.prototype.set_default_options = function () {
                 SearchResults.__super__.set_default_options.call(this);
-                return _(this.options).extend({ query: '' });
+                return _(this.options).defaults({ query: '' });
             };
             SearchResults.prototype.url = function () {
                 return '//' + WEB_API_HOST + '/api/' + WEB_API_VERSION + '/repositories?q=' + this.options.query;
@@ -930,25 +935,25 @@
             child.__super__ = parent.prototype;
             return child;
         };
-    define('app/controllers/search_repository_controller', [
+    define('app/controllers/search_controller', [
         'underscore',
         'backbone.marionette',
         'app/views/components/search_form_panel_view',
         'app/collections/search_results',
         'app/views/contents/search/search_results_view'
     ], function (_, Marionette, SearchFormPanelView, SearchResults, SearchResultsView) {
-        var SearchRepositoryController;
-        return SearchRepositoryController = function (_super) {
-            __extends(SearchRepositoryController, _super);
-            function SearchRepositoryController() {
-                return SearchRepositoryController.__super__.constructor.apply(this, arguments);
+        var SearchController;
+        return SearchController = function (_super) {
+            __extends(SearchController, _super);
+            function SearchController() {
+                return SearchController.__super__.constructor.apply(this, arguments);
             }
-            SearchRepositoryController.prototype.form = function () {
+            SearchController.prototype.form = function () {
                 var search_form_panel_view;
                 search_form_panel_view = new SearchFormPanelView();
                 return app.layout.currentView.contentsRegion.show(search_form_panel_view);
             };
-            SearchRepositoryController.prototype.result = function (repo) {
+            SearchController.prototype.result = function (repo) {
                 var search_results;
                 search_results = new SearchResults([], { query: repo });
                 return search_results.fetch().done(function () {
@@ -957,7 +962,7 @@
                     return app.layout.currentView.contentsRegion.show(search_resutlts_view);
                 });
             };
-            return SearchRepositoryController;
+            return SearchController;
         }(Marionette.Controller);
     });
 }.call(this));
@@ -1005,7 +1010,7 @@
     define('app/controllers', [
         'app/controllers/home_controller',
         'app/controllers/new_controller',
-        'app/controllers/search_repository_controller',
+        'app/controllers/search_controller',
         'app/controllers/repositories_controller'
     ], function () {
         var Controllers, modules;
@@ -1087,18 +1092,18 @@
             child.__super__ = parent.prototype;
             return child;
         };
-    define('app/routers/search_repository_router', ['backbone.marionette'], function (Marionette) {
-        var SearchRepositoryRouter;
-        return SearchRepositoryRouter = function (_super) {
-            __extends(SearchRepositoryRouter, _super);
-            function SearchRepositoryRouter() {
-                return SearchRepositoryRouter.__super__.constructor.apply(this, arguments);
+    define('app/routers/search_router', ['backbone.marionette'], function (Marionette) {
+        var SearchRouter;
+        return SearchRouter = function (_super) {
+            __extends(SearchRouter, _super);
+            function SearchRouter() {
+                return SearchRouter.__super__.constructor.apply(this, arguments);
             }
-            SearchRepositoryRouter.prototype.appRoutes = {
+            SearchRouter.prototype.appRoutes = {
                 'search?q=:query': 'result',
                 'search': 'form'
             };
-            return SearchRepositoryRouter;
+            return SearchRouter;
         }(Marionette.AppRouter);
     });
 }.call(this));
@@ -1135,7 +1140,7 @@
     define('app/routers', [
         'app/routers/home_router',
         'app/routers/new_router',
-        'app/routers/search_repository_router',
+        'app/routers/search_router',
         'app/routers/repositories_router'
     ], function () {
         var Routers, modules;
@@ -1198,7 +1203,7 @@
                     return new Routers.prototype.NewRouter({ controller: new Controllers.prototype.NewController() });
                 });
                 this.addInitializer(function () {
-                    return new Routers.prototype.SearchRepositoryRouter({ controller: new Controllers.prototype.SearchRepositoryController() });
+                    return new Routers.prototype.SearchRouter({ controller: new Controllers.prototype.SearchController() });
                 });
                 this.addInitializer(function () {
                     return new Routers.prototype.RepositoriesRouter({ controller: new Controllers.prototype.RepositoriesController() });
