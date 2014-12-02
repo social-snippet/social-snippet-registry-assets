@@ -1,7 +1,19 @@
-#= require api_config
 #= require require
-#= require requirejs_config
 #= require utils
+
+
+@WEB_API_HOST     = "api.server"
+@WEB_API_PROTOCOL = "https"
+@WEB_API_VERSION  = "v0"
+
+@WITH_LOCAL_STORAGE = true
+
+requirejs.config(
+  baseUrl: "/js"
+  shim:
+    "bootstrap":
+      deps: ["jquery"]
+)
 
 global = @
 
@@ -53,12 +65,14 @@ requirejs(
       repo_1.save
         name: "repo-1"
         desc: "this is repo 1"
+        url: "https://github.com/user/repo-1"
       repos.add repo_1
 
       repo_2 = new Models::Repository
       repo_2.save
         name: "repo-2"
         desc: "this is repo 2"
+        url: "https://github.com/user/repo-2"
       repos.add repo_2
 
       entry_func()
