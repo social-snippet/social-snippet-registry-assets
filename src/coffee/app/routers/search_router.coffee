@@ -5,7 +5,7 @@ define(
   (
     Marionette
   )->
-    class SearchRepositoryRouter extends Marionette.AppRouter
+    class SearchRouter extends Marionette.AppRouter
       appRoutes:
         "search?q=:query": "result"
         "search": "form"

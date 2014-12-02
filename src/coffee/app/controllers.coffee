@@ -2,7 +2,7 @@ define(
   [
     "app/controllers/home_controller"
     "app/controllers/new_controller"
-    "app/controllers/search_repository_controller"
+    "app/controllers/search_controller"
     "app/controllers/repositories_controller"
   ]
   ->

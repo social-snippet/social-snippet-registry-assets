@@ -17,7 +17,7 @@ describe "Routers::SearchRepositoryRouter", ->
       context "create controller", ->
 
         before ->
-          @controller = new Controllers::SearchRepositoryController
+          @controller = new Controllers::SearchController
 
         context "setup mock", ->
 
@@ -29,7 +29,7 @@ describe "Routers::SearchRepositoryRouter", ->
           context "create router", ->
 
             before ->
-              @router = new Routers::SearchRepositoryRouter(
+              @router = new Routers::SearchRouter(
                 controller: @controller
               )
 

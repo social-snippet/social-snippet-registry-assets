@@ -49,8 +49,8 @@ define(
           )
 
         @addInitializer ->
-          new Routers::SearchRepositoryRouter(
-            controller: new Controllers::SearchRepositoryController(
+          new Routers::SearchRouter(
+            controller: new Controllers::SearchController(
             )
           )
 

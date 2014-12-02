@@ -19,7 +19,7 @@ define(
     SearchResults
     SearchResultsView
   )->
-    class SearchRepositoryController extends Marionette.Controller
+    class SearchController extends Marionette.Controller
       form: ->
         search_form_panel_view = new SearchFormPanelView
         app.layout.currentView.contentsRegion.show search_form_panel_view
