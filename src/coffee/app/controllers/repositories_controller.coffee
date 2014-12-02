@@ -16,9 +16,9 @@ define(
     class RepositoriesController extends Marionette.Controller
       all: ->
         repos = new Collections::Repositories
-        view = new Views::RepositoriesView
+        all_repos_view = new Views::AllRepositoriesView
           collection: repos
-        app.main.show view
+        app.layout.currentView.contentsRegion.show all_repos_view
         repos.fetch()
 
       show: (repo_id)->
