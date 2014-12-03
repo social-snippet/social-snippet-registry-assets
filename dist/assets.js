@@ -435,111 +435,6 @@
             child.__super__ = parent.prototype;
             return child;
         };
-    define('app/views/components/link_view', [
-        'underscore',
-        'backbone.marionette'
-    ], function (_, Marionette) {
-        var LinkView;
-        return LinkView = function (_super) {
-            __extends(LinkView, _super);
-            function LinkView() {
-                return LinkView.__super__.constructor.apply(this, arguments);
-            }
-            LinkView.prototype.tagName = 'li';
-            LinkView.prototype.template = '#template-link-view';
-            return LinkView;
-        }(Marionette.ItemView);
-    });
-}.call(this));
-(function () {
-    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
-            for (var key in parent) {
-                if (__hasProp.call(parent, key))
-                    child[key] = parent[key];
-            }
-            function ctor() {
-                this.constructor = child;
-            }
-            ctor.prototype = parent.prototype;
-            child.prototype = new ctor();
-            child.__super__ = parent.prototype;
-            return child;
-        };
-    define('app/views/components/links_view', [
-        'underscore',
-        'backbone.marionette',
-        'app/views/components/link_view'
-    ], function (_, Marionette, LinkView) {
-        var LinksView;
-        return LinksView = function (_super) {
-            __extends(LinksView, _super);
-            function LinksView() {
-                return LinksView.__super__.constructor.apply(this, arguments);
-            }
-            LinksView.prototype.tagName = 'ul';
-            LinksView.prototype.childView = LinkView;
-            return LinksView;
-        }(Marionette.CollectionView);
-    });
-}.call(this));
-(function () {
-    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
-            for (var key in parent) {
-                if (__hasProp.call(parent, key))
-                    child[key] = parent[key];
-            }
-            function ctor() {
-                this.constructor = child;
-            }
-            ctor.prototype = parent.prototype;
-            child.prototype = new ctor();
-            child.__super__ = parent.prototype;
-            return child;
-        };
-    define('app/views/contents/sidebar/navigation_region_view', [
-        'backbone',
-        'backbone.marionette',
-        'app/views/components/links_view'
-    ], function (Backbone, Marionette, LinksView) {
-        var NavigationRegionView;
-        return NavigationRegionView = function (_super) {
-            __extends(NavigationRegionView, _super);
-            function NavigationRegionView() {
-                return NavigationRegionView.__super__.constructor.apply(this, arguments);
-            }
-            NavigationRegionView.prototype.className = 'nav';
-            NavigationRegionView.prototype.collection = new Backbone.Collection([
-                {
-                    text: 'Home',
-                    href: '/'
-                },
-                {
-                    text: 'Add Repository',
-                    href: '/new/repository'
-                },
-                {
-                    text: 'Search',
-                    href: '/search'
-                }
-            ]);
-            return NavigationRegionView;
-        }(LinksView);
-    });
-}.call(this));
-(function () {
-    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
-            for (var key in parent) {
-                if (__hasProp.call(parent, key))
-                    child[key] = parent[key];
-            }
-            function ctor() {
-                this.constructor = child;
-            }
-            ctor.prototype = parent.prototype;
-            child.prototype = new ctor();
-            child.__super__ = parent.prototype;
-            return child;
-        };
     define('app/views/components/repository_panel_view', ['app/views/components/panel_view'], function (PanelView) {
         var RepositoryPanelView;
         return RepositoryPanelView = function (_super) {
@@ -609,6 +504,67 @@
             AllRepositoriesView.prototype.tagName = 'div';
             AllRepositoriesView.prototype.childView = RepositoryPanelView;
             return AllRepositoriesView;
+        }(Marionette.CollectionView);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/views/components/link_view', [
+        'underscore',
+        'backbone.marionette'
+    ], function (_, Marionette) {
+        var LinkView;
+        return LinkView = function (_super) {
+            __extends(LinkView, _super);
+            function LinkView() {
+                return LinkView.__super__.constructor.apply(this, arguments);
+            }
+            LinkView.prototype.tagName = 'li';
+            LinkView.prototype.template = '#template-link-view';
+            return LinkView;
+        }(Marionette.ItemView);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/views/components/links_view', [
+        'underscore',
+        'backbone.marionette',
+        'app/views/components/link_view'
+    ], function (_, Marionette, LinkView) {
+        var LinksView;
+        return LinksView = function (_super) {
+            __extends(LinksView, _super);
+            function LinksView() {
+                return LinksView.__super__.constructor.apply(this, arguments);
+            }
+            LinksView.prototype.tagName = 'ul';
+            LinksView.prototype.childView = LinkView;
+            return LinksView;
         }(Marionette.CollectionView);
     });
 }.call(this));
@@ -813,7 +769,6 @@
         'app/views/contents/home/home_main_region_view',
         'app/views/contents/home/home_sub_region_view',
         'app/views/contents/new_repository_view',
-        'app/views/contents/sidebar/navigation_region_view',
         'app/views/contents/search/search_results_view',
         'app/views/contents/repositories/all_repositories_view',
         'app/views/components/link_view',
