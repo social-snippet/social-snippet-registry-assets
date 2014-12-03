@@ -14,8 +14,10 @@ define(
 
       events:
         "click .add": ->
-          new_repo = new Models::Repository(url: @$(".new-repo-url").val())
-          new_repo.save()
+          new_repo = new Models::Repository()
+          new_repo.save(
+            url: @$(".new-repo-url").val()
+          )
 
       className: "well"
 
