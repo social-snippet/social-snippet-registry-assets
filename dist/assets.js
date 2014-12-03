@@ -693,8 +693,9 @@
             AddRepositoryByUrlView.prototype.events = {
                 'click .add': function () {
                     var new_repo;
-                    new_repo = new Models.prototype.Repository({ url: this.$('.new-repo-url').val() });
-                    return new_repo.save();
+                    console.log('add');
+                    new_repo = new Models.prototype.Repository();
+                    return new_repo.save({ url: this.$('.new-repo-url').val() });
                 }
             };
             AddRepositoryByUrlView.prototype.className = 'well';
