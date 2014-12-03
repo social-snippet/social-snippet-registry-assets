@@ -1078,11 +1078,79 @@
     });
 }.call(this));
 (function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/views/contents/user/user_login_view', ['backbone.marionette'], function (Marionette) {
+        var UserLoginView;
+        return UserLoginView = function (_super) {
+            __extends(UserLoginView, _super);
+            function UserLoginView() {
+                return UserLoginView.__super__.constructor.apply(this, arguments);
+            }
+            UserLoginView.prototype.template = '#template-user-login-view';
+            UserLoginView.prototype.regions = { githubLoginRegion: '.region.github-login-region' };
+            UserLoginView.prototype.initialize = function () {
+                return this;
+            };
+            return UserLoginView;
+        }(Marionette.LayoutView);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/controllers/user_controller', [
+        'underscore',
+        'backbone',
+        'backbone.marionette',
+        'app/views/contents/user/user_login_view',
+        'app/views/components/github_login_form_view'
+    ], function (_, Backbone, Marionette, UserLoginView, GitHubLoginFormView) {
+        var UserController;
+        return UserController = function (_super) {
+            __extends(UserController, _super);
+            function UserController() {
+                return UserController.__super__.constructor.apply(this, arguments);
+            }
+            UserController.prototype.login = function () {
+                var user_login_view;
+                user_login_view = new UserLoginView();
+                app.layout.currentView.contentsRegion.show(user_login_view);
+                return user_login_view.githubLoginRegion.show(new GitHubLoginFormView());
+            };
+            return UserController;
+        }(Marionette.Controller);
+    });
+}.call(this));
+(function () {
     define('app/controllers', [
         'app/controllers/home_controller',
         'app/controllers/new_controller',
         'app/controllers/search_controller',
-        'app/controllers/repositories_controller'
+        'app/controllers/repositories_controller',
+        'app/controllers/user_controller'
     ], function () {
         var Controllers, modules;
         modules = Array.prototype.splice.call(arguments, 0);
@@ -1208,11 +1276,38 @@
     });
 }.call(this));
 (function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/routers/user_router', ['backbone.marionette'], function (Marionette) {
+        var UserRouter;
+        return UserRouter = function (_super) {
+            __extends(UserRouter, _super);
+            function UserRouter() {
+                return UserRouter.__super__.constructor.apply(this, arguments);
+            }
+            UserRouter.prototype.appRoutes = { 'user/login': 'login' };
+            return UserRouter;
+        }(Marionette.AppRouter);
+    });
+}.call(this));
+(function () {
     define('app/routers', [
         'app/routers/home_router',
         'app/routers/new_router',
         'app/routers/search_router',
-        'app/routers/repositories_router'
+        'app/routers/repositories_router',
+        'app/routers/user_router'
     ], function () {
         var Routers, modules;
         modules = Array.prototype.splice.call(arguments, 0);
@@ -1278,6 +1373,9 @@
                 });
                 this.addInitializer(function () {
                     return new Routers.prototype.RepositoriesRouter({ controller: new Controllers.prototype.RepositoriesController() });
+                });
+                this.addInitializer(function () {
+                    return new Routers.prototype.UserRouter({ controller: new Controllers.prototype.UserController() });
                 });
                 return this.on('start', function () {
                     return Backbone.history.start({ pushState: true });
