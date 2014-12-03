@@ -693,7 +693,6 @@
             AddRepositoryByUrlView.prototype.events = {
                 'click .add': function () {
                     var new_repo;
-                    console.log('add');
                     new_repo = new Models.prototype.Repository();
                     return new_repo.save({ url: this.$('.new-repo-url').val() });
                 }
@@ -734,8 +733,8 @@
             AddRepositoryByGitHubView.prototype.events = {
                 'click .add': function () {
                     var new_repo;
-                    new_repo = new Models.prototype.Repository({ url: this.$('#new-repo-url').val() });
-                    return new_repo.save();
+                    new_repo = new Models.prototype.Repository();
+                    return new_repo.save({ url: 'https://github.com/' + this.$('.new-repo-user').val() + '/' + this.$('.new-repo-name').val() });
                 }
             };
             AddRepositoryByGitHubView.prototype.className = 'well';
