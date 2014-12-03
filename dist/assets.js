@@ -262,7 +262,7 @@
             child.__super__ = parent.prototype;
             return child;
         };
-    define('app/views/contents/home_view', [
+    define('app/views/contents/home/home_view', [
         'underscore',
         'backbone.marionette'
     ], function (_, Marionette) {
@@ -272,10 +272,7 @@
             function HomeView() {
                 return HomeView.__super__.constructor.apply(this, arguments);
             }
-            HomeView.prototype.template = _.template([
-                '<section class="region main-region col-sm-8"></section>',
-                '<section class="region sub-region col-sm-4"></section>'
-            ].join(''));
+            HomeView.prototype.template = '#template-home-view';
             HomeView.prototype.className = 'row';
             HomeView.prototype.regions = {
                 mainRegion: '.main-region',
@@ -765,7 +762,7 @@
         'app/views/commons/header_view',
         'app/views/commons/footer_view',
         'app/views/commons/sidebar_view',
-        'app/views/contents/home_view',
+        'app/views/contents/home/home_view',
         'app/views/contents/home/home_main_region_view',
         'app/views/contents/home/home_sub_region_view',
         'app/views/contents/new_repository_view',
