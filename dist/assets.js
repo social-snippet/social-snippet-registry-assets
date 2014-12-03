@@ -769,6 +769,11 @@
                 return GitHubLoginFormView.__super__.constructor.apply(this, arguments);
             }
             GitHubLoginFormView.prototype.template = '#template-github-login-form-view';
+            GitHubLoginFormView.prototype.events = { 'click .btn-github': 'login' };
+            GitHubLoginFormView.prototype.login = function () {
+                console.log('login');
+                return app.vent.trigger('login:github');
+            };
             return GitHubLoginFormView;
         }(Marionette.ItemView);
     });
