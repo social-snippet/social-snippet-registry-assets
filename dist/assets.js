@@ -771,7 +771,6 @@
             GitHubLoginFormView.prototype.template = '#template-github-login-form-view';
             GitHubLoginFormView.prototype.events = { 'click .btn-github': 'login' };
             GitHubLoginFormView.prototype.login = function () {
-                console.log('login');
                 return app.vent.trigger('login:github');
             };
             return GitHubLoginFormView;
@@ -1381,6 +1380,9 @@
                 });
                 this.addInitializer(function () {
                     return new Routers.prototype.UserRouter({ controller: new Controllers.prototype.UserController() });
+                });
+                this.vent.on('login:github', function () {
+                    return console.log('start login');
                 });
                 return this.on('start', function () {
                     return Backbone.history.start({ pushState: true });
