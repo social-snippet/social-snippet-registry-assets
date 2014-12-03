@@ -1300,10 +1300,7 @@
             function UserRouter() {
                 return UserRouter.__super__.constructor.apply(this, arguments);
             }
-            UserRouter.prototype.appRoutes = {
-                'user/login': 'login',
-                'user/auth/github': 'authenticateWithGitHub'
-            };
+            UserRouter.prototype.appRoutes = { 'user/login': 'login' };
             return UserRouter;
         }(Marionette.AppRouter);
     });
@@ -1366,8 +1363,7 @@
                     this.layout.show(layout_view.render());
                     layout_view.headerRegion.show(header_view);
                     layout_view.footerRegion.show(footer_view);
-                    layout_view.sidebarRegion.show(sidebar_view);
-                    return sidebar_view.navigationRegion.show(new Views.prototype.NavigationRegionView());
+                    return layout_view.sidebarRegion.show(sidebar_view);
                 });
                 this.addInitializer(function () {
                     return new Routers.prototype.HomeRouter({ controller: new Controllers.prototype.HomeController() });
