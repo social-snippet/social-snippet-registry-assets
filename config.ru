@@ -62,6 +62,7 @@ map "/fonts" do
   env = Sprockets::Environment.new
 
   env.append_path "bower_components/font-awesome/fonts/"
+  env.append_path "bower_components/bootstrap/fonts/"
 
   run env
 end
