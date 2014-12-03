@@ -1144,9 +1144,6 @@
                 app.layout.currentView.contentsRegion.show(user_login_view);
                 return user_login_view.githubLoginRegion.show(new GitHubLoginFormView());
             };
-            UserController.prototype.authenticateWithGitHub = function () {
-                return console.log('foo');
-            };
             return UserController;
         }(Marionette.Controller);
     });
