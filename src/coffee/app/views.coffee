@@ -10,7 +10,6 @@ define(
     "app/views/contents/home/home_main_region_view"
     "app/views/contents/home/home_sub_region_view"
     "app/views/contents/new_repository_view"
-    "app/views/contents/sidebar/navigation_region_view"
     "app/views/contents/search/search_results_view"
     "app/views/contents/repositories/all_repositories_view"
 

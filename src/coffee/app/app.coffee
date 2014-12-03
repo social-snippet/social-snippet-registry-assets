@@ -34,8 +34,6 @@ define(
           layout_view.footerRegion.show footer_view
           layout_view.sidebarRegion.show sidebar_view
 
-          sidebar_view.navigationRegion.show new Views::NavigationRegionView
-
         @addInitializer ->
           new Routers::HomeRouter(
             controller: new Controllers::HomeController(
@@ -60,11 +58,14 @@ define(
             )
           )
 
-        @addInitializer ->
-          new Routers::UserRouter(
+        @addInitializer =>
+          user_router = new Routers::UserRouter(
             controller: new Controllers::UserController(
             )
           )
+
+        @vent.on "login:github", ->
+          location.href = "/user/auth/github"
 
         @on "start", ->
           Backbone.history.start(
