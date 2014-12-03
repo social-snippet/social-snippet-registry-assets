@@ -70,5 +70,10 @@ end
 # root
 #
 map "/" do
+  # GET /user/*
+  SocialSnippet::Registry::App.get "/user/login" do; render :empty; end
+  SocialSnippet::Registry::App.get "/user/dashboard" do; render :empty; end
+
   run SocialSnippet::Registry::App
 end
+
