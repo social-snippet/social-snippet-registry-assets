@@ -6,7 +6,7 @@ define(
     "app/views/commons/footer_view"
     "app/views/commons/sidebar_view"
 
-    "app/views/contents/home_view"
+    "app/views/contents/home/home_view"
     "app/views/contents/home/home_main_region_view"
     "app/views/contents/home/home_sub_region_view"
     "app/views/contents/new_repository_view"
