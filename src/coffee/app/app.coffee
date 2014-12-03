@@ -60,6 +60,12 @@ define(
             )
           )
 
+        @addInitializer ->
+          new Routers::UserRouter(
+            controller: new Controllers::UserController(
+            )
+          )
+
         @on "start", ->
           Backbone.history.start(
             pushState: true
