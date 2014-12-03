@@ -1144,6 +1144,9 @@
                 app.layout.currentView.contentsRegion.show(user_login_view);
                 return user_login_view.githubLoginRegion.show(new GitHubLoginFormView());
             };
+            UserController.prototype.authenticateWithGitHub = function () {
+                return console.log('foo');
+            };
             return UserController;
         }(Marionette.Controller);
     });
@@ -1300,7 +1303,10 @@
             function UserRouter() {
                 return UserRouter.__super__.constructor.apply(this, arguments);
             }
-            UserRouter.prototype.appRoutes = { 'user/login': 'login' };
+            UserRouter.prototype.appRoutes = {
+                'user/login': 'login',
+                'user/auth/github': 'authenticateWithGitHub'
+            };
             return UserRouter;
         }(Marionette.AppRouter);
     });
@@ -1378,11 +1384,14 @@
                 this.addInitializer(function () {
                     return new Routers.prototype.RepositoriesRouter({ controller: new Controllers.prototype.RepositoriesController() });
                 });
-                this.addInitializer(function () {
-                    return new Routers.prototype.UserRouter({ controller: new Controllers.prototype.UserController() });
-                });
+                this.addInitializer(function (_this) {
+                    return function () {
+                        var user_router;
+                        return user_router = new Routers.prototype.UserRouter({ controller: new Controllers.prototype.UserController() });
+                    };
+                }(this));
                 this.vent.on('login:github', function () {
-                    return console.log('start login');
+                    return location.href = '/user/auth/github';
                 });
                 return this.on('start', function () {
                     return Backbone.history.start({ pushState: true });
