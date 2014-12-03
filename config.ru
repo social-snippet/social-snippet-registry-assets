@@ -1,7 +1,16 @@
-# require_relative "lib/web_server"
 require "padrino"
-require "social_snippet/registry/app/app"
 require "sprockets"
+
+# Padrino configuration [before loading classes]
+Padrino.configure_apps do
+  set :sspm_auth, false
+  helpers do
+    def sspm_auth; settings.sspm_auth; end
+  end
+end
+
+require "social_snippet/registry/app/app"
+require "social_snippet/registry/user_pages/app"
 
 #
 # js
@@ -67,14 +76,13 @@ map "/fonts" do
   run env
 end
 
-#
-# root
-#
+# app pages
 map "/" do
-  # GET /user/*
-  SocialSnippet::Registry::App.get "/user/login" do; render :empty; end
-  SocialSnippet::Registry::App.get "/user/dashboard" do; render :empty; end
-
   run SocialSnippet::Registry::App
+end
+
+# user pages
+map "/user" do
+  run SocialSnippet::Registry::UserPages
 end
 
