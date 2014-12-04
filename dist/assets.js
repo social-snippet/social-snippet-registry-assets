@@ -1077,19 +1077,143 @@
             child.__super__ = parent.prototype;
             return child;
         };
-    define('app/controllers/user_controller', [
-        'underscore',
+    define('app/views/contents/user/user_dashboard_view', ['backbone.marionette'], function (Marionette) {
+        var UserDashboardView;
+        return UserDashboardView = function (_super) {
+            __extends(UserDashboardView, _super);
+            function UserDashboardView() {
+                return UserDashboardView.__super__.constructor.apply(this, arguments);
+            }
+            UserDashboardView.prototype.template = '#template-user-dashboard-view';
+            UserDashboardView.prototype.regions = { reposRegion: '.repos-region' };
+            return UserDashboardView;
+        }(Marionette.LayoutView);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/views/components/user_repository_view', ['app/views/components/panel_view'], function (PanelView) {
+        var SearchFormPanelView;
+        return SearchFormPanelView = function (_super) {
+            __extends(SearchFormPanelView, _super);
+            function SearchFormPanelView() {
+                return SearchFormPanelView.__super__.constructor.apply(this, arguments);
+            }
+            SearchFormPanelView.prototype.template = '#template-user-repository-view';
+            return SearchFormPanelView;
+        }(PanelView);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/models/user_repository', ['backbone'], function (Backbone) {
+        var UserRepository;
+        return UserRepository = function (_super) {
+            __extends(UserRepository, _super);
+            function UserRepository() {
+                return UserRepository.__super__.constructor.apply(this, arguments);
+            }
+            UserRepository.prototype.urlRoot = '//' + WEB_API_HOST + '/api/' + WEB_API_VERSION + '/user/repositories';
+            return UserRepository;
+        }(Backbone.Model);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/collections/user_repositories', [
         'backbone',
+        'app/models/user_repository'
+    ], function (Backbone, UserRepository) {
+        var UserRepositories;
+        return UserRepositories = function (_super) {
+            __extends(UserRepositories, _super);
+            function UserRepositories() {
+                return UserRepositories.__super__.constructor.apply(this, arguments);
+            }
+            UserRepositories.prototype.model = UserRepository;
+            UserRepositories.prototype.url = function () {
+                return '//' + WEB_API_HOST + '/api/' + WEB_API_VERSION + '/user/repositories';
+            };
+            return UserRepositories;
+        }(Backbone.Collection);
+    });
+}.call(this));
+(function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/controllers/user_controller', [
         'backbone.marionette',
         'app/views/contents/user/user_login_view',
-        'app/views/components/github_login_form_view'
-    ], function (_, Backbone, Marionette, UserLoginView, GitHubLoginFormView) {
+        'app/views/contents/user/user_dashboard_view',
+        'app/views/components/github_login_form_view',
+        'app/views/components/user_repository_view',
+        'app/collections/user_repositories'
+    ], function (Marionette, UserLoginView, UserDashboardView, GitHubLoginFormView, UserRepositoryView, UserRepositories) {
         var UserController;
         return UserController = function (_super) {
             __extends(UserController, _super);
             function UserController() {
                 return UserController.__super__.constructor.apply(this, arguments);
             }
+            UserController.prototype.dashboard = function () {
+                var repos, user_dashboard_view;
+                user_dashboard_view = new UserDashboardView();
+                app.layout.currentView.contentsRegion.show(user_dashboard_view);
+                repos = new UserRepositories();
+                return repos.fetch().done(function () {
+                    return user_dashboard_view.reposRegion.show(new Marionette.CollectionView({
+                        childView: UserRepositoryView,
+                        collection: repos
+                    }));
+                });
+            };
             UserController.prototype.login = function () {
                 var user_login_view;
                 user_login_view = new UserLoginView();
@@ -1252,7 +1376,10 @@
             function UserRouter() {
                 return UserRouter.__super__.constructor.apply(this, arguments);
             }
-            UserRouter.prototype.appRoutes = { 'user/login': 'login' };
+            UserRouter.prototype.appRoutes = {
+                'user/login': 'login',
+                'user/dashboard': 'dashboard'
+            };
             return UserRouter;
         }(Marionette.AppRouter);
     });
