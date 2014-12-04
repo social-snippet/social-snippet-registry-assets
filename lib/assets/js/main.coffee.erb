@@ -1,15 +1,14 @@
 #= require require
 #= require utils
 
-
-@WEB_API_HOST     = "api.server"
+@WEB_API_HOST     = "<%= ENV["SSPM_WEB_API_HOST"] || "api.server" %>"
 @WEB_API_PROTOCOL = "https"
 @WEB_API_VERSION  = "v0"
 
-@WITH_LOCAL_STORAGE = true
+@WITH_LOCAL_STORAGE = <%= ENV["SSPM_WEB_API_HOST"] ? "false" : "true" %>
 
 requirejs.config(
-  baseUrl: "/js"
+  baseUrl: "http://localhost:19292/js"
   shim:
     "bootstrap":
       deps: ["jquery"]
@@ -26,7 +25,7 @@ requirejs(
     "app/app"
     "app/models"
     "app/collections"
-    "/bower/backbone.localStorage/backbone.localStorage.js"
+    "http://localhost:19292/bower/backbone.localStorage/backbone.localStorage.js"
   ]
   (
     jQuery
