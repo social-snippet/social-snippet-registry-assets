@@ -8,4 +8,5 @@ define(
     class UserRouter extends Marionette.AppRouter
       appRoutes:
         "user/login": "login"
+        "user/dashboard": "dashboard"
 )
