@@ -7,6 +7,9 @@ Padrino.configure_apps do
   helpers do
     def sspm_auth; settings.sspm_auth; end
   end
+
+  require "social_snippet/registry/config_helpers"
+  extend ::SocialSnippet::Registry::ConfigHelpers
 end
 
 require "social_snippet/registry/app/app"
