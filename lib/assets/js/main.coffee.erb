@@ -39,6 +39,11 @@ requirejs(
   )->
     entry_func = ->
       jQuery ->
+        jQuery.ajaxSetup(
+          headers:
+            "X-CSRF-TOKEN": jQuery("meta[csrf_token]").attr("csrf_token")
+        )
+
         global.app = new App(
           regions:
             layout: "body"
