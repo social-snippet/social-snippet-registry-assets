@@ -20,7 +20,13 @@ use(
 
 map "/js/app" do
   env = Sprockets::Environment.new
-  env.append_path "src/coffee"
+  env.append_path "src/coffee/"
+  run env
+end
+
+map "/js/lib" do
+  env = Sprockets::Environment.new
+  env.append_path "tmp/js/lib/"
   run env
 end
 
@@ -47,6 +53,40 @@ end
 map "/bower" do
   env = Sprockets::Environment.new
   env.append_path "bower_components/"
+  run env
+end
+
+map "/mock" do
+  require_relative "lib/mock/app"
+  run Mock::App
+end
+
+map "/mock/js" do
+  env = Sprockets::Environment.new
+
+  env.context_class.class_eval do
+    def assets_host
+      if $env_http_host.nil?
+        ""
+      else
+        "//#{$env_http_host}"
+      end
+    end
+  end
+
+  env.append_path "lib/mock/assets/coffee/"
+  env.append_path "tmp/js/lib/"
+  env.append_path "tmp/js/app/"
+
+  run env
+end
+
+map "/css" do
+  env = Sprockets::Environment.new
+  env.append_path "src/sass/"
+  env.append_path "src/css/"
+  env.append_path "lib/assets/css/"
+  env.append_path "tmp/css/lib/"
   run env
 end
 
