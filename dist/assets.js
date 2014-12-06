@@ -161,10 +161,7 @@
             child.__super__ = parent.prototype;
             return child;
         };
-    define('app/views/commons/header_view', [
-        'underscore',
-        'backbone.marionette'
-    ], function (_, Marionette) {
+    define('app/views/commons/header_view', ['backbone.marionette'], function (Marionette) {
         var HeaderView;
         return HeaderView = function (_super) {
             __extends(HeaderView, _super);
@@ -194,10 +191,7 @@
             child.__super__ = parent.prototype;
             return child;
         };
-    define('app/views/commons/footer_view', [
-        'underscore',
-        'backbone.marionette'
-    ], function (_, Marionette) {
+    define('app/views/commons/footer_view', ['backbone.marionette'], function (Marionette) {
         var FooterView;
         return FooterView = function (_super) {
             __extends(FooterView, _super);
@@ -227,11 +221,7 @@
             child.__super__ = parent.prototype;
             return child;
         };
-    define('app/views/commons/sidebar_view', [
-        'underscore',
-        'backbone',
-        'backbone.marionette'
-    ], function (_, Backbone, Marionette) {
+    define('app/views/commons/sidebar_view', ['backbone.marionette'], function (Marionette) {
         var SidebarView;
         return SidebarView = function (_super) {
             __extends(SidebarView, _super);
@@ -262,10 +252,7 @@
             child.__super__ = parent.prototype;
             return child;
         };
-    define('app/views/contents/home/home_view', [
-        'underscore',
-        'backbone.marionette'
-    ], function (_, Marionette) {
+    define('app/views/contents/home/home_view', ['backbone.marionette'], function (Marionette) {
         var HomeView;
         return HomeView = function (_super) {
             __extends(HomeView, _super);
@@ -334,10 +321,9 @@
             return child;
         };
     define('app/views/contents/home/home_main_region_view', [
-        'backbone',
         'backbone.marionette',
         'app/views/components/panel_view'
-    ], function (Backbone, Marionette, PanelView) {
+    ], function (Marionette, PanelView) {
         var HomeMainRegionView;
         return HomeMainRegionView = function (_super) {
             __extends(HomeMainRegionView, _super);
@@ -364,9 +350,9 @@
             return child;
         };
     define('app/views/contents/home/home_sub_region_view', [
-        'backbone',
+        'underscore',
         'backbone.marionette'
-    ], function (Backbone, Marionette) {
+    ], function (_, Marionette) {
         var HomeSubRegionView;
         return HomeSubRegionView = function (_super) {
             __extends(HomeSubRegionView, _super);
@@ -518,10 +504,7 @@
             child.__super__ = parent.prototype;
             return child;
         };
-    define('app/views/components/link_view', [
-        'underscore',
-        'backbone.marionette'
-    ], function (_, Marionette) {
+    define('app/views/components/link_view', ['backbone.marionette'], function (Marionette) {
         var LinkView;
         return LinkView = function (_super) {
             __extends(LinkView, _super);
@@ -549,10 +532,9 @@
             return child;
         };
     define('app/views/components/links_view', [
-        'underscore',
         'backbone.marionette',
         'app/views/components/link_view'
-    ], function (_, Marionette, LinkView) {
+    ], function (Marionette, LinkView) {
         var LinksView;
         return LinksView = function (_super) {
             __extends(LinksView, _super);
@@ -632,10 +614,9 @@
             return child;
         };
     define('app/views/components/add_repository_by_url_view', [
-        'underscore',
         'backbone.marionette',
         'app/models'
-    ], function (_, Marionette, Models) {
+    ], function (Marionette, Models) {
         var AddRepositoryByUrlView;
         return AddRepositoryByUrlView = function (_super) {
             __extends(AddRepositoryByUrlView, _super);
@@ -672,10 +653,9 @@
             return child;
         };
     define('app/views/components/add_repository_by_github_view', [
-        'underscore',
         'backbone.marionette',
         'app/models'
-    ], function (_, Marionette, Models) {
+    ], function (Marionette, Models) {
         var AddRepositoryByGitHubView;
         return AddRepositoryByGitHubView = function (_super) {
             __extends(AddRepositoryByGitHubView, _super);
@@ -711,10 +691,7 @@
             child.__super__ = parent.prototype;
             return child;
         };
-    define('app/views/components/github_login_form_view', [
-        'underscore',
-        'backbone.marionette'
-    ], function (_, Marionette) {
+    define('app/views/components/github_login_form_view', ['backbone.marionette'], function (Marionette) {
         var GitHubLoginFormView;
         return GitHubLoginFormView = function (_super) {
             __extends(GitHubLoginFormView, _super);
@@ -1256,10 +1233,7 @@
             child.__super__ = parent.prototype;
             return child;
         };
-    define('app/routers/home_router', [
-        'backbone.marionette',
-        'app/controllers'
-    ], function (Marionette, Controllers) {
+    define('app/routers/home_router', ['backbone.marionette'], function (Marionette) {
         var HomeRouter;
         return HomeRouter = function (_super) {
             __extends(HomeRouter, _super);
