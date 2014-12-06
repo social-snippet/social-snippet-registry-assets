@@ -48,10 +48,18 @@ gulp.task "assets.css", ["sass", "css"], ->
 gulp.task "bower", (done)->
   bower.commands.install().on "end", ->
     gulp.src main_bower_files()
-      .pipe gulp.dest "tmp/js/lib"
+      .pipe gulp.dest "tmp/bower"
       .on "end", ->
         done()
   return undefined
+
+gulp.task "bower/js", ["bower"], ->
+  gulp.src ["tmp/bower/**/*.js"]
+    .pipe gulp.dest "tmp/js/lib/"
+
+gulp.task "bower/css", ["bower"], ->
+  gulp.src ["tmp/bower/**/*.css"]
+    .pipe gulp.dest "tmp/css/lib/"
 
 # gulp coffee
 gulp.task "coffee", ->
@@ -60,7 +68,7 @@ gulp.task "coffee", ->
     .pipe gulp.dest "tmp/js/app/"
 
 # gulp app.js
-gulp.task "app.js", ["coffee", "bower"], ->
+gulp.task "app.js", ["coffee", "bower/js"], ->
   amd_paths =
     "lib": "./tmp/js/lib"
     "app": "./tmp/js/app"
@@ -90,16 +98,9 @@ gulp.task "assets.js", ["coffee", "app.js"], ->
     .pipe concat "assets.js"
     .pipe gulp.dest "dist/"
 
-# gulp build/concurrent/assets.js
-gulp.task "build/concurrent/assets.js", [
-  "coffee"
-  "assets.js"
-]
-
 # gulp build
 gulp.task "build", [
-  "bower"
-  "build/concurrent/assets.js"
+  "assets.js"
   "assets.css"
 ]
 
