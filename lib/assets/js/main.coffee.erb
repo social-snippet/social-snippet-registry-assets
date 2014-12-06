@@ -8,10 +8,9 @@
 @WITH_LOCAL_STORAGE = <%= ENV["SSPM_WEB_API_HOST"] ? "false" : "true" %>
 
 requirejs.config(
-  baseUrl: "http://localhost:19292/js"
-  shim:
-    "bootstrap":
-      deps: ["jquery"]
+  baseUrl: "<%= assets_host %>/js/lib/"
+  paths:
+    "app": "<%= assets_host %>/js/app"
 )
 
 global = @
@@ -25,7 +24,7 @@ requirejs(
     "app/app"
     "app/models"
     "app/collections"
-    "http://localhost:19292/bower/backbone.localStorage/backbone.localStorage.js"
+    "<%= assets_host %>/bower/backbone.localStorage/backbone.localStorage.js"
   ]
   (
     jQuery
