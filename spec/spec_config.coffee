@@ -15,6 +15,7 @@
   "backbone.babysitter": "/tmp/js/lib/backbone.babysitter"
   "underscore": "/tmp/js/lib/underscore"
   "bootstrap": "/tmp/js/lib/bootstrap"
+  "app": "/src/coffee"
 }
 
 @requirejs_shim = {
@@ -23,7 +24,6 @@
 }
 
 requirejs.config(
-  baseUrl: "/src/coffee"
   paths: @requirejs_paths
   shim: @requirejs_shim
 )
