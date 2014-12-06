@@ -4,7 +4,5 @@
  *= require bootstrap_holo.css
  *= require bootstrap-social.css
  *= require font-awesome.css
- *= require views/_region
- *= require views/_view
- *= require views/_repository_detail_view
+ *= require main.css
  */

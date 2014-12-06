@@ -1,0 +1,38 @@
+#= require require
+#= require utils
+
+@WEB_API_HOST     = "<%= ENV["SSPM_WEB_API_HOST"] || "api.server" %>"
+@WEB_API_PROTOCOL = "https"
+@WEB_API_VERSION  = "v0"
+
+requirejs.config(
+  baseUrl: "<%= assets_host %>/js/lib"
+  paths:
+    "app": "<%= assets_host %>/js/app"
+  shim:
+    "bootstrap":
+      deps: ["jquery"]
+)
+
+requirejs(
+  [
+    "jquery"
+    "backbone"
+    "underscore"
+    "bootstrap"
+    "app/app"
+    "app/models"
+    "app/collections"
+  ]
+  (
+    jQuery
+    Backbone
+    _
+    __bootstrap__
+    App
+    Models
+    Collections
+  )->
+    jQuery ->
+      console.log "hello"
+)
