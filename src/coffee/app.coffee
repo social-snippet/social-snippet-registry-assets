@@ -18,6 +18,7 @@ define(
     Marionette
   )->
     class App extends Marionette.Application
+
       regions:
         layout: "#main-container"
 

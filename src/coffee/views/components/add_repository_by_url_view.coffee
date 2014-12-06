@@ -1,11 +1,9 @@
 define(
   [
-    "underscore"
     "backbone.marionette"
     "app/models"
   ]
   (
-    _
     Marionette
     Models
   )->

@@ -1,12 +1,8 @@
 define(
   [
-    "underscore"
-    "backbone"
     "backbone.marionette"
   ]
   (
-    _
-    Backbone
     Marionette
   )->
     class SidebarView extends Marionette.LayoutView

@@ -1,11 +1,9 @@
 define(
   [
-    "backbone"
     "backbone.marionette"
     "app/views/components/panel_view"
   ]
   (
-    Backbone
     Marionette
     PanelView
   )->

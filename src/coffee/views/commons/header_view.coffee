@@ -1,10 +1,8 @@
 define(
   [
-    "underscore"
     "backbone.marionette"
   ]
   (
-    _
     Marionette
   )->
     class HeaderView extends Marionette.LayoutView

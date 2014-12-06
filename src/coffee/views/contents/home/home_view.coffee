@@ -1,10 +1,8 @@
 define(
   [
-    "underscore"
     "backbone.marionette"
   ]
   (
-    _
     Marionette
   )->
     class HomeView extends Marionette.LayoutView

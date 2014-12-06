@@ -1,11 +1,9 @@
 define(
   [
-    "underscore"
     "backbone.marionette"
     "app/views/components/link_view"
   ]
   (
-    _
     Marionette
     LinkView
   )->
