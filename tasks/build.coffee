@@ -3,6 +3,8 @@ bower   = require "bower"
 coffee  = require "gulp-coffee"
 sass    = require "gulp-ruby-sass"
 concat  = require "gulp-concat"
+debug   = require "gulp-debug"
+glob    = require "glob"
 main_bower_files  = require "main-bower-files"
 amd_optimize      = require "amd-optimize"
 
@@ -59,24 +61,27 @@ gulp.task "coffee", ->
 
 # gulp app.js
 gulp.task "app.js", ["coffee", "bower"], ->
-  gulp.src(["tmp/js/app/**/*.js"])
-    .pipe amd_optimize(
-      "app/app"
-      {
-        configFile: gulp.src("assets_config.coffee").pipe(coffee())
+  amd_paths =
+    "lib": "./tmp/js/lib"
+    "app": "./tmp/js/app"
 
-        # to not include ext libs
-        exclude: [
-          "jquery"
-          "backbone"
-          "backbone.marionette"
-          "backbone.wreqr"
-          "backbone.babysitter"
-          "underscore"
-          "bootstrap"
-        ]
-      }
-    )
+  amd_exclude = []
+  libs = glob.sync("tmp/js/lib/*.js")
+    .map (lib_path)->
+      lib_path
+        .replace /^tmp\/js\/lib\//, ""
+        .replace /\.js/, ""
+    .forEach (lib_name)->
+      amd_paths[lib_name] = "./tmp/js/lib/#{lib_name}"
+      amd_exclude.push "#{lib_name}"
+      amd_exclude.push "lib/#{lib_name}"
+
+  amd_optimize_options =
+    paths: amd_paths
+    exclude: amd_exclude
+
+  gulp.src(["tmp/js/**/*.js"])
+    .pipe amd_optimize "app/app", amd_optimize_options
     .pipe concat "app.js"
     .pipe gulp.dest "tmp/js"
 
