@@ -8,7 +8,7 @@
 @WITH_LOCAL_STORAGE = <%= ENV["SSPM_WEB_API_HOST"] ? "false" : "true" %>
 
 requirejs.config(
-  baseUrl: "<%= assets_host %>/js/lib/"
+  baseUrl: "<%= assets_host %>/js"
   paths:
     "app": "<%= assets_host %>/js/app"
 )

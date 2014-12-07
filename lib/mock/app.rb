@@ -4,7 +4,7 @@ require "slim"
 module Mock
   class App < Sinatra::Base
     get "/" do
-      slim :empty
+      slim :home
     end
   end
 end
