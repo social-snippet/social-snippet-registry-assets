@@ -5,6 +5,7 @@
 require "bundler/setup"
 require "sprockets"
 
+# pass host name into views
 use(
   Class.new do
     def initialize(app)
@@ -18,15 +19,10 @@ use(
   end
 )
 
+# returns compiled scripts
 map "/js/app" do
   env = Sprockets::Environment.new
   env.append_path "src/coffee/"
-  run env
-end
-
-map "/js/lib" do
-  env = Sprockets::Environment.new
-  env.append_path "tmp/js/lib/"
   run env
 end
 
@@ -56,6 +52,15 @@ map "/bower" do
   run env
 end
 
+map "/css" do
+  env = Sprockets::Environment.new
+  env.append_path "src/sass/"
+  env.append_path "src/css/"
+  env.append_path "lib/assets/css/"
+  env.append_path "tmp/css/lib/"
+  run env
+end
+
 map "/mock" do
   require_relative "lib/mock/app"
   run Mock::App
@@ -78,15 +83,6 @@ map "/mock/js" do
   env.append_path "tmp/js/lib/"
   env.append_path "tmp/js/app/"
 
-  run env
-end
-
-map "/css" do
-  env = Sprockets::Environment.new
-  env.append_path "src/sass/"
-  env.append_path "src/css/"
-  env.append_path "lib/assets/css/"
-  env.append_path "tmp/css/lib/"
   run env
 end
 
