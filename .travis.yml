@@ -23,3 +23,11 @@ script:
   - bundle exec gulp test
   - bundle exec gulp build
 
+deploy:
+  provider: heroku
+  strategy: api
+  api_key:
+    secure: "jSQwjYD/vSV1mEElK50xgND+R/jh520z5OY78DcNm/995B/tWdDrQRLweSwvLpGiZXQulQs+6pYNY9j807OEIwcNIuqJO7iDtJm2SEXmgi4YnfSkDhijlnil3/9FIh1R4jCodAqK/gQqtXwQCipvPb4yPMPPMFjoqFE4Q4CJGVc="
+  app:
+    master: sspm-mock
+
