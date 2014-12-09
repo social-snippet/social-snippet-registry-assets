@@ -32,15 +32,15 @@ gulp.task "sass", ->
     .pipe sass(
       'sourcemap=none': true
     )
-    .pipe gulp.dest "tmp/css/"
+    .pipe gulp.dest "tmp/css/app/"
 
 gulp.task "css", ->
   gulp.src(["src/css/**/*.css"])
-    .pipe gulp.dest "tmp/css/"
+    .pipe gulp.dest "tmp/css/app/"
 
 # gulp assets.css
 gulp.task "assets.css", ["sass", "css", "bower/css"], ->
-  gulp.src(["tmp/css/**/*.css"])
+  gulp.src(["tmp/css/app/**/*.css"])
     .pipe concat "assets.css"
     .pipe gulp.dest "dist/"
 
