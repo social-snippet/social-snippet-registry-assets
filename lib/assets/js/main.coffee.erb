@@ -36,24 +36,9 @@ requirejs(
     Collections
     __backbone_localstorage__
   )->
-    entry_func = ->
-      jQuery ->
-        jQuery.ajaxSetup(
-          headers:
-            "X-CSRF-TOKEN": jQuery("meta[csrf_token]").attr("csrf_token")
-        )
+    enable_localstorage = ->
+      console.debug "enable local storage"
 
-        global.app = new App(
-          regions:
-            layout: "body"
-        )
-        Object.freeze(global.app)
-
-        console.log "start app"
-        global.app.start()
-
-    if WITH_LOCAL_STORAGE
-      console.log "enable local storage"
       # use localstorage instead of database
       _(Models::Repository::).extend(
         localStorage: new Backbone.LocalStorage("repository")
@@ -61,7 +46,11 @@ requirejs(
       _(Collections::Repositories::).extend(
         localStorage: new Backbone.LocalStorage("repository")
       )
+      _(Collections::SearchResults::).extend(
+        localStorage: new Backbone.LocalStorage("repository")
+      )
 
+      # create fake repos
       repos = new Collections::Repositories []
 
       repo_1 = new Models::Repository
@@ -78,8 +67,26 @@ requirejs(
         url: "https://github.com/user/repo-2"
       repos.add repo_2
 
-      entry_func()
+    enable_csrf_token = ->
+      jQuery.ajaxSetup(
+        headers:
+          "X-CSRF-TOKEN": jQuery("meta[csrf_token]").attr("csrf_token")
+      )
 
-    else
-      entry_func()
+    entry_func = ->
+      jQuery ->
+        global.app = new App(
+          regions:
+            layout: "body"
+        )
+        Object.freeze(global.app)
+
+        console.debug "start app"
+        global.app.start()
+
+    if WITH_LOCAL_STORAGE
+      enable_csrf_token()
+      enable_localstorage()
+
+    entry_func()
 )
