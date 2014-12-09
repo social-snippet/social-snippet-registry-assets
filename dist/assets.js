@@ -98,7 +98,50 @@
     });
 }.call(this));
 (function () {
-    define('app/collections', ['app/collections/repositories'], function () {
+    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
+            for (var key in parent) {
+                if (__hasProp.call(parent, key))
+                    child[key] = parent[key];
+            }
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        };
+    define('app/collections/search_results', [
+        'underscore',
+        'app/collections/repositories'
+    ], function (_, Repositories) {
+        var SearchResults;
+        return SearchResults = function (_super) {
+            __extends(SearchResults, _super);
+            function SearchResults() {
+                return SearchResults.__super__.constructor.apply(this, arguments);
+            }
+            SearchResults.prototype.initialize = function (models, new_options) {
+                this.options = new_options;
+                this.options || (this.options = {});
+                return this.set_default_options();
+            };
+            SearchResults.prototype.set_default_options = function () {
+                SearchResults.__super__.set_default_options.call(this);
+                return _(this.options).defaults({ query: '' });
+            };
+            SearchResults.prototype.url = function () {
+                return '//' + WEB_API_HOST + '/api/' + WEB_API_VERSION + '/repositories?q=' + this.options.query;
+            };
+            return SearchResults;
+        }(Repositories);
+    });
+}.call(this));
+(function () {
+    define('app/collections', [
+        'app/collections/repositories',
+        'app/collections/search_results'
+    ], function () {
         var Collections, modules;
         modules = Array.prototype.splice.call(arguments, 0);
         Collections = function () {
@@ -875,46 +918,6 @@
             SearchFormPanelView.prototype.template = '#template-search-form-panel-view';
             return SearchFormPanelView;
         }(PanelView);
-    });
-}.call(this));
-(function () {
-    var __hasProp = {}.hasOwnProperty, __extends = function (child, parent) {
-            for (var key in parent) {
-                if (__hasProp.call(parent, key))
-                    child[key] = parent[key];
-            }
-            function ctor() {
-                this.constructor = child;
-            }
-            ctor.prototype = parent.prototype;
-            child.prototype = new ctor();
-            child.__super__ = parent.prototype;
-            return child;
-        };
-    define('app/collections/search_results', [
-        'underscore',
-        'app/collections/repositories'
-    ], function (_, Repositories) {
-        var SearchResults;
-        return SearchResults = function (_super) {
-            __extends(SearchResults, _super);
-            function SearchResults() {
-                return SearchResults.__super__.constructor.apply(this, arguments);
-            }
-            SearchResults.prototype.initialize = function (models, new_options) {
-                this.options = new_options;
-                this.options || (this.options = {});
-                return this.set_default_options();
-            };
-            SearchResults.prototype.set_default_options = function () {
-                SearchResults.__super__.set_default_options.call(this);
-                return _(this.options).defaults({ query: '' });
-            };
-            SearchResults.prototype.url = function () {
-                return '//' + WEB_API_HOST + '/api/' + WEB_API_VERSION + '/repositories?q=' + this.options.query;
-            };
-            return SearchResults;
-        }(Repositories);
     });
 }.call(this));
 (function () {
