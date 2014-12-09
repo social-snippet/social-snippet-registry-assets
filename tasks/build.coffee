@@ -39,7 +39,7 @@ gulp.task "css", ->
     .pipe gulp.dest "tmp/css/"
 
 # gulp assets.css
-gulp.task "assets.css", ["sass", "css"], ->
+gulp.task "assets.css", ["sass", "css", "bower/css"], ->
   gulp.src(["tmp/css/**/*.css"])
     .pipe concat "assets.css"
     .pipe gulp.dest "dist/"

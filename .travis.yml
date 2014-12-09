@@ -9,14 +9,12 @@ before_install:
   - bundle config build.nokogiri --use-system-libraries
 
 install:
-  - travis_retry gem install juicer
-  - travis_retry gem install sass
-  - travis_retry npm install -g gulp
-  - travis_retry npm install
   - travis_retry bundle install --jobs=3
+  - travis_retry bundle exec npm install -g gulp
+  - travis_retry bundle exec npm install
 
 script:
-  - gulp sinon.js
-  - gulp test
-  - gulp build
+  - bundle exec gulp sinon.js
+  - bundle exec gulp test
+  - bundle exec gulp build
 
