@@ -358,6 +358,7 @@ DEPENDENCIES
   coffee-script
   juicer
   rake
+  rugged
   sass
   shotgun
   sinatra
