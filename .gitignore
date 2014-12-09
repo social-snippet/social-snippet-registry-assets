@@ -1,6 +1,5 @@
 /bower_components/
 /node_modules/
-/Gemfile.lock
 /tmp/
 /dist/
 /npm-debug.log
