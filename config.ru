@@ -3,11 +3,17 @@
 #     -> http://127.0.0.1:19292/js/main.js
 
 require "bundler/setup"
+require "padrino"
+require "social_snippet/registry_core"
+::Padrino.configure_apps do
+  extend ::SocialSnippet::RegistryCore::ConfigHelpers
+end
+
 require "sprockets"
 
 # pass host name into views
 use(
-  Class.new do
+  ::Class.new do
     def initialize(app)
       @app = app
     end
@@ -21,13 +27,13 @@ use(
 
 # returns compiled scripts
 map "/js/app" do
-  env = Sprockets::Environment.new
+  env = ::Sprockets::Environment.new
   env.append_path "src/coffee/"
   run env
 end
 
 map "/js" do
-  env = Sprockets::Environment.new
+  env = ::Sprockets::Environment.new
 
   env.context_class.class_eval do
     def assets_host
@@ -47,17 +53,24 @@ map "/js" do
 end
 
 map "/bower" do
-  env = Sprockets::Environment.new
+  env = ::Sprockets::Environment.new
   env.append_path "bower_components/"
   run env
 end
 
 map "/css" do
-  env = Sprockets::Environment.new
+  env = ::Sprockets::Environment.new
   env.append_path "src/sass/"
   env.append_path "src/css/"
   env.append_path "lib/assets/css/"
   env.append_path "tmp/css/lib/"
+  run env
+end
+
+map "/fonts" do
+  env = ::Sprockets::Environment.new
+  env.append_path "bower_components/bootstrap/fonts"
+  env.append_path "bower_components/font-awesome/fonts"
   run env
 end
 
@@ -67,7 +80,7 @@ map "/mock" do
 end
 
 map "/mock/js" do
-  env = Sprockets::Environment.new
+  env = ::Sprockets::Environment.new
 
   env.context_class.class_eval do
     def assets_host
@@ -84,5 +97,15 @@ map "/mock/js" do
   env.append_path "tmp/js/app/"
 
   run env
+end
+
+map "/" do
+  require "social_snippet/registry/app/app"
+  run ::SocialSnippet::Registry::App
+end
+
+map "/user" do
+  require "social_snippet/registry/user_pages/app"
+  run ::SocialSnippet::Registry::UserPages
 end
 
