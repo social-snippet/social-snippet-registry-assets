@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/social-snippet/social-snippet-registry-core.git
-  revision: 8405c2db012520eeededfa50db792aad22c0fa7a
+  revision: cf6d7d0ce6fa0a5a5421c255d0c7b0366953e1eb
   ref: wip/webapi/1410152639
   specs:
     social_snippet-registry_core (0.0.1)
@@ -20,10 +20,12 @@ GIT
 
 GIT
   remote: git://github.com/social-snippet/social-snippet-registry.git
-  revision: 2638a819feafb3b3ae00400c9a5a8f4b4e94a580
+  revision: 076f523b09129e22a9db61420e860d9115e7aec9
   ref: heroku/sspm-test
   specs:
     social_snippet-registry (0.0.1)
+      bundler
+      social_snippet-registry_core
 
 GEM
   remote: https://rubygems.org/
@@ -156,7 +158,7 @@ GEM
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
     rubyzip (0.9.9)
-    rugged (0.22.0b4)
+    rugged (0.21.2)
     sass (3.4.9)
     sawyer (0.6.0)
       addressable (~> 2.3.5)
@@ -189,160 +191,6 @@ GEM
     tilt (1.4.1)
     treetop (1.4.15)
       polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
       polyglot (>= 0.3.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
