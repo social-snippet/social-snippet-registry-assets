@@ -27,6 +27,16 @@ GIT
       bundler
       social_snippet-registry_core
 
+GIT
+  remote: git://github.com/social-snippet/social-snippet.git
+  revision: 8678b8d41d84dec0974cc7187a981ebee20e731b
+  ref: wip/install-repo/1414477823
+  specs:
+    social_snippet (0.0.1)
+      rest-client
+      rugged
+      version_sorter
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -172,10 +182,6 @@ GEM
     slim (3.0.0)
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
-    social_snippet (1.2.3)
-      rest-client
-      rugged
-      version_sorter
     sprockets (2.12.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -211,6 +217,7 @@ DEPENDENCIES
   shotgun
   sinatra
   slim
+  social_snippet!
   social_snippet-registry!
   social_snippet-registry_core!
   sprockets (~> 2.12)
