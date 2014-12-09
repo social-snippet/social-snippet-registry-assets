@@ -1,5 +1,9 @@
 source "https://rubygems.org"
 
+group :rugged do
+  gem "rugged"
+end
+
 gem "bundler"
 gem "rake"
 gem "thin"
