@@ -6,6 +6,7 @@ require "bundler/setup"
 require "padrino"
 require "social_snippet/registry_core"
 ::Padrino.configure_apps do
+  set :sspm_session, false
   extend ::SocialSnippet::RegistryCore::ConfigHelpers
 end
 
