@@ -20,7 +20,7 @@ GIT
 
 GIT
   remote: git://github.com/social-snippet/social-snippet-registry.git
-  revision: 076f523b09129e22a9db61420e860d9115e7aec9
+  revision: 088a77854f9207ceccb6fbcd5e9df0ed9fe0cf2f
   ref: heroku/sspm-test
   specs:
     social_snippet-registry (0.0.1)
@@ -172,7 +172,7 @@ GEM
     slim (3.0.0)
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
-    social_snippet (0.0.1)
+    social_snippet (1.2.3)
       rest-client
       rugged
       version_sorter
