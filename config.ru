@@ -8,6 +8,13 @@ require "social_snippet/registry_core"
 ::Padrino.configure_apps do
   set :sspm_session, false
   extend ::SocialSnippet::RegistryCore::ConfigHelpers
+
+  helpers do
+    # fake session
+    def logged_in?
+      false
+    end
+  end
 end
 
 require "sprockets"
