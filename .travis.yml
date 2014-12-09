@@ -1,11 +1,12 @@
 language: node_js
 
 node_js:
-  - '0.10'
-# TODO: - '0.11'
+  - "0.10"
+# TODO: - "0.11"
 
 before_install:
-  - export NOKOGIRI_USE_SYSTEM_LIBRARIES="YES"
+  - gem update --system
+  - bundle config build.nokogiri --use-system-libraries
 
 install:
   - travis_retry gem install juicer
