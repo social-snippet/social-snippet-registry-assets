@@ -2,6 +2,7 @@ define(
   [
     "app/models/application"
     "app/models/repository"
+    "app/models/user_repository"
   ]
   ->
     modules = Array::splice.call(arguments, 0)
