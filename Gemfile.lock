@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/social-snippet/social-snippet-registry-core.git
-  revision: cf6d7d0ce6fa0a5a5421c255d0c7b0366953e1eb
+  revision: 2c72803c16b10707d843c0ecdb5e6aaf1279a170
   ref: wip/webapi/1410152639
   specs:
     social_snippet-registry_core (0.0.1)
@@ -20,7 +20,7 @@ GIT
 
 GIT
   remote: git://github.com/social-snippet/social-snippet-registry.git
-  revision: 088a77854f9207ceccb6fbcd5e9df0ed9fe0cf2f
+  revision: 6c817bed0fdae130710c869de2b7c369a4ec44c4
   ref: heroku/sspm-test
   specs:
     social_snippet-registry (0.0.1)
@@ -212,7 +212,6 @@ DEPENDENCIES
   coffee-script
   juicer
   rake
-  rugged
   sass
   shotgun
   sinatra
