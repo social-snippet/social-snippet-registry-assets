@@ -44,7 +44,7 @@ requirejs(
     #
     class App extends Marionette.Application
       initialize: ->
-        global.app = @
+        global.mock_app = @
 
         @addRegions
           "main": "#main"
@@ -66,7 +66,7 @@ requirejs(
     # Views
     #
     class HeaderView extends Marionette.LayoutView
-      template: "#template-header-view"
+      template: "#template-mock-header-view"
 
     class FooterView extends Marionette.ItemView
       template: _.template "footer"
@@ -88,7 +88,7 @@ requirejs(
 
       home: ->
         console.log "show home"
-        app.main.show new class View extends Marionette.ItemView
+        mock_app.main.show new class View extends Marionette.ItemView
           template: _.template "home"
 
       show_panel_view: ->
@@ -96,19 +96,16 @@ requirejs(
           model: new Backbone.Model
             head: "foo"
             body: "bar"
-        app.main.show view
+        mock_app.main.show view
 
       show_repo_panel_view: ->
         view = new Views::RepositoryPanelView
           model: new Models::Repository
             name: "my-repo"
             desc: "this is desc"
-        app.main.show view
+        mock_app.main.show view
 
     jQuery ->
-      _.templateSettings =
-        interpolate: /\{\{(.+?)\}\}/g
-
       jQuery("body")
         .append jQuery('<section id="header"></section>')
         .append jQuery('<section id="main"></section>')
