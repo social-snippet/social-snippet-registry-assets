@@ -5,6 +5,7 @@
 require "bundler/setup"
 require "padrino"
 require "social_snippet/registry_core"
+
 ::Padrino.configure_apps do
   set :sspm_session, false
   extend ::SocialSnippet::RegistryCore::ConfigHelpers
@@ -13,6 +14,14 @@ require "social_snippet/registry_core"
     # fake session
     def logged_in?
       false
+    end
+
+    def assets_host
+      if $env_http_host.nil?
+        ""
+      else
+        "//#{$env_http_host}"
+      end
     end
   end
 end
