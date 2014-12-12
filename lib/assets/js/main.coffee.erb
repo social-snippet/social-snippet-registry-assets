@@ -78,17 +78,28 @@ requirejs(
 
       repo_1 = new Models::UserRepository
         name: "user/repo1"
+        repos: [
+          "repo-1"
+          "other-repo-1"
+        ]
 
       repo_2 = new Models::UserRepository
         name: "user/repo2"
+        repos: []
 
       repo_3 = new Models::UserRepository
         name: "org/repo1"
+        repos: [
+          "repo-1"
+        ]
 
       add_model repos, repo_1
       add_model repos, repo_2
       add_model repos, repo_3
 
+      repo_1.save()
+      repo_2.save()
+      repo_3.save()
 
     enable_localstorage = ->
       console.debug "enable local storage"
@@ -99,6 +110,8 @@ requirejs(
         localStorage: new Backbone.LocalStorage("search-results")
       _(Collections::UserRepositories::).extend
         localStorage: new Backbone.LocalStorage("user-repos")
+      _(Models::UserRepository::).extend
+        localStorage: new Backbone.LocalStorage("user-repo")
 
       # create fake repos
       create_fake_repos()
