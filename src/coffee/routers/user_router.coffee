@@ -9,4 +9,5 @@ define(
       appRoutes:
         "user/login": "login"
         "user/dashboard": "dashboard"
+        "user/repos/:owner_id/:repo_id": "repos"
 )
