@@ -5,14 +5,21 @@
 require "bundler/setup"
 require "padrino"
 
+$debug_logged_in = false
+
 ::Padrino.configure_apps do
+  logger.info "Configure: #{self}"
+
   set :sspm_session, false
   @app_no_config = true
+
+  set :sspm_debug, ENV["SSPM_DEBUG"] === "true"
+  logger.info "Enable Debug Mode: #{self}" if settings.sspm_debug
 
   helpers do
     # fake session
     def logged_in?
-      false
+      $debug_logged_in
     end
 
     def assets_host
@@ -123,5 +130,28 @@ end
 map "/user" do
   require "social_snippet/registry/user_pages/app"
   run ::SocialSnippet::Registry::UserPages
+end
+
+#
+# Fake Authentication (it works on local debug mode)
+#
+map "/user/auth/github" do
+  class FakeLogin < ::Padrino::Application
+    get :index do
+      $debug_logged_in = (not $debug_logged_in) if settings.sspm_debug
+      redirect "/"
+    end
+  end
+  run FakeLogin
+end
+
+map "/user/logout" do
+  class FakeLogout < ::Padrino::Application
+    get :index do
+      $debug_logged_in = false if settings.sspm_debug
+      redirect "/"
+    end
+  end
+  run FakeLogout
 end
 
