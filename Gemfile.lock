@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git://github.com/social-snippet/social-snippet-registry.git
-  revision: 6f0fb20020dd992a49a1c24c4e3dc6664a8ddb36
+  revision: e68a934a4b76ed2f2787b8d1e90c7519ecd5a32d
   ref: heroku/sspm-test
   specs:
     social_snippet-registry (0.0.1)
