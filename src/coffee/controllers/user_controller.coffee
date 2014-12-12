@@ -4,7 +4,7 @@ define(
     "app/views/contents/user/user_login_view"
     "app/views/contents/user/user_dashboard_view"
     "app/views/components/github_login_form_view"
-    "app/views/components/user_repository_view"
+    "app/views/components/user_repositories_view"
     "app/collections/user_repositories"
   ]
   (
@@ -13,7 +13,7 @@ define(
     UserLoginView
     UserDashboardView
     GitHubLoginFormView
-    UserRepositoryView
+    UserRepositoriesView
 
     UserRepositories
   )->
@@ -24,9 +24,9 @@ define(
 
         repos = new UserRepositories()
         repos.fetch().done ->
-          user_dashboard_view.reposRegion.show new Marionette.CollectionView
-            childView: UserRepositoryView
+          user_dashboard_view.reposRegion.show new UserRepositoriesView
             collection: repos
+            childViewContainer: ".repositories"
 
       login: ->
         user_login_view = new UserLoginView
