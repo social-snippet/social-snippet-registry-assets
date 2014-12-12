@@ -122,9 +122,9 @@ requirejs(
         console.debug "start app"
         global.app.start()
 
+    # start
+    enable_csrf_token()
     if WITH_LOCAL_STORAGE
-      enable_csrf_token()
       enable_localstorage()
-
     entry_func()
 )
