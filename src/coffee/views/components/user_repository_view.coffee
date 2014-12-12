@@ -1,10 +1,11 @@
 define(
   [
-    "app/views/components/panel_view"
+    "backbone.marionette"
   ]
   (
-    PanelView
+    Marionette
   )->
-    class SearchFormPanelView extends PanelView
+    class SearchFormPanelView extends Marionette.ItemView
+      tagName: "tr"
       template: "#template-user-repository-view"
 )
