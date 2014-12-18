@@ -4,6 +4,8 @@ node_js:
   - "0.10"
 # TODO: - "0.11"
 
+sudo: false
+
 before_install:
   - rvm use 2.1 --install --binary --fuzzy
   - ruby --version
