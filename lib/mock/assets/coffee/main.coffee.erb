@@ -1,0 +1,115 @@
+#= require require
+#= require utils
+
+@WEB_API_HOST     = "<%= ENV["SSPM_WEB_API_HOST"] || "api.server" %>"
+@WEB_API_PROTOCOL = "https"
+@WEB_API_VERSION  = "v0"
+
+requirejs.config(
+  baseUrl: "<%= assets_host %>/js"
+  paths:
+    "app": "<%= assets_host %>/js/app"
+  shim:
+    "bootstrap":
+      deps: ["jquery"]
+)
+
+global = @
+
+requirejs(
+  [
+    "jquery"
+    "underscore"
+    "backbone"
+    "backbone.marionette"
+    "bootstrap"
+    "app/app"
+    "app/models"
+    "app/collections"
+    "app/views"
+  ]
+  (
+    jQuery
+    _
+    Backbone
+    Marionette
+    __bootstrap__
+    App
+    Models
+    Collections
+    Views
+  )->
+    #
+    # App
+    #
+    class App extends Marionette.Application
+      initialize: ->
+        global.mock_app = @
+
+        @addRegions
+          "main": "#main"
+          "header": "#header"
+          "footer": "#footer"
+
+        @header.show new HeaderView()
+
+        @footer.show new FooterView()
+
+        @router = new Router
+          controller: new Controller
+
+        Backbone.history.start
+          pushState: false
+          root: "/mock"
+
+    #
+    # Views
+    #
+    class HeaderView extends Marionette.LayoutView
+      template: "#template-mock-header-view"
+
+    class FooterView extends Marionette.ItemView
+      template: _.template "footer"
+
+    #
+    # Routing
+    #
+    class Router extends Marionette.AppRouter
+      appRoutes:
+        "": "home"
+        "home": "home"
+        "PanelView": "show_panel_view"
+        "RepositoryPanelView": "show_repo_panel_view"
+
+    #
+    # Controller
+    #
+    class Controller extends Marionette.Controller
+
+      home: ->
+        console.log "show home"
+        mock_app.main.show new class View extends Marionette.ItemView
+          template: _.template "home"
+
+      show_panel_view: ->
+        view = new Views::PanelView
+          model: new Backbone.Model
+            head: "foo"
+            body: "bar"
+        mock_app.main.show view
+
+      show_repo_panel_view: ->
+        view = new Views::RepositoryPanelView
+          model: new Models::Repository
+            name: "my-repo"
+            desc: "this is desc"
+        mock_app.main.show view
+
+    jQuery ->
+      jQuery("body")
+        .append jQuery('<section id="header"></section>')
+        .append jQuery('<section id="main"></section>')
+        .append jQuery('<section id="footer"></section>')
+
+      new App()
+)
