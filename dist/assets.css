@@ -207,4 +207,7 @@ h3,h4,h5,.panel {
   color: black; }
 
 hr {
-  border: 1px solid rgba(255, 255, 255, 0.2); }
+  border-color: rgba(255, 255, 255, 0.2); }
+
+.table-hover tr {
+  cursor: pointer; }
