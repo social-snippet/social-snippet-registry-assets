@@ -1,0 +1,33 @@
+{
+  "name": "social-snippet-registry-assets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "./node_modules/gulp/bin/gulp.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "amd-optimize": "^0.2.9",
+    "bower": "^1.3.12",
+    "coffee-script": "^1.8.0",
+    "glob": "^4.3.1",
+    "gulp": "^3.8.10",
+    "gulp-bump": "^0.1.11",
+    "gulp-coffee": "^2.2.0",
+    "gulp-concat": "^2.4.3",
+    "gulp-debug": "^1.0.1",
+    "gulp-git": "^0.5.5",
+    "gulp-if": "^1.2.5",
+    "gulp-ruby-sass": "^0.7.1",
+    "gulp-shell": "^0.2.9",
+    "gulp-uglify": "^1.0.2",
+    "gulp-util": "^3.0.1",
+    "gulp-watch": "^1.2.1",
+    "lodash": "^2.4.1",
+    "main-bower-files": "^2.4.1",
+    "phantomochajs": "^1.0.16"
+  }
+}
