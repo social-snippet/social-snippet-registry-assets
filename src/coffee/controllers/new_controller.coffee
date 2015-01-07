@@ -2,9 +2,9 @@ define(
   [
     "underscore"
     "backbone"
-    "backbone.marionette"
-    "app/views"
-    "app/collections"
+    "marionette"
+    "views"
+    "collections"
   ]
   (
     _

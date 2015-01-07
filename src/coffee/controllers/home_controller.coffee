@@ -1,8 +1,8 @@
 define(
   [
     "backbone"
-    "backbone.marionette"
-    "app/views"
+    "marionette"
+    "views"
   ]
   (
     Backbone

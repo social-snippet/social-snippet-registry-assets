@@ -1,14 +1,14 @@
 define(
   [
     "underscore"
-    "backbone.marionette"
+    "marionette"
 
     # form deps
-    "app/views/components/search_form_panel_view"
+    "views/components/search_form_panel_view"
 
     # result deps
-    "app/collections/search_results"
-    "app/views/contents/search/search_results_view"
+    "collections/search_results"
+    "views/contents/search/search_results_view"
   ]
   (
     _

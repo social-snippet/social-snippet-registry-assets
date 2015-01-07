@@ -2,10 +2,10 @@ define(
   [
     "underscore"
     "backbone"
-    "backbone.marionette"
-    "app/models"
-    "app/views"
-    "app/collections"
+    "marionette"
+    "models"
+    "views"
+    "collections"
   ]
   (
     _

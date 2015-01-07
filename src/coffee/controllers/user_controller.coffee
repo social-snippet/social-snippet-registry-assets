@@ -1,13 +1,13 @@
 define(
   [
-    "backbone.marionette"
-    "app/views/contents/user/user_login_view"
-    "app/views/contents/user/user_dashboard_view"
-    "app/views/contents/user/user_repository_detail_view"
-    "app/views/components/github_login_form_view"
-    "app/views/components/user_repositories_view"
-    "app/collections/user_repositories"
-    "app/models/user_repository"
+    "marionette"
+    "views/contents/user/user_login_view"
+    "views/contents/user/user_dashboard_view"
+    "views/contents/user/user_repository_detail_view"
+    "views/components/github_login_form_view"
+    "views/components/user_repositories_view"
+    "collections/user_repositories"
+    "models/user_repository"
   ]
   (
     Marionette
