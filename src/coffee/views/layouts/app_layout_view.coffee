@@ -2,7 +2,7 @@ define(
   [
     "underscore"
     "jquery"
-    "backbone.marionette"
+    "marionette"
   ]
   (
     _

@@ -1,7 +1,7 @@
 define(
   [
     "underscore"
-    "backbone.marionette"
+    "marionette"
   ]
   (
     _

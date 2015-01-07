@@ -1,7 +1,7 @@
 define(
   [
-    "backbone.marionette"
-    "app/models"
+    "marionette"
+    "models"
   ]
   (
     Marionette

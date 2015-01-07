@@ -1,7 +1,7 @@
 define(
   [
-    "backbone.marionette"
-    "app/views/components/panel_view"
+    "marionette"
+    "views/components/panel_view"
   ]
   (
     Marionette
