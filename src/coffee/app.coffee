@@ -1,12 +1,12 @@
 define(
   [
-    "app/collections"
-    "app/controllers"
-    "app/models"
-    "app/routers"
-    "app/views"
+    "collections"
+    "controllers"
+    "models"
+    "routers"
+    "views"
     "backbone"
-    "backbone.marionette"
+    "marionette"
   ]
   (
     Collections
