@@ -1,6 +1,6 @@
 define(
   [
-    "backbone.marionette"
+    "marionette"
   ]
   (
     Marionette
