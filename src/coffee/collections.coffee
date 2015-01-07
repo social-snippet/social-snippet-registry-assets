@@ -1,5 +1,5 @@
 define ->
   class Collections
-    @::Repositories = "collections/repositories"
-    @::SearchResults = "collections/search_results"
-    @::UserRepositories = "collections/user_repositories"
+    @::Repositories = require "collections/repositories"
+    @::SearchResults = require "collections/search_results"
+    @::UserRepositories = require "collections/user_repositories"
