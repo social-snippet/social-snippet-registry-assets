@@ -1,7 +1,7 @@
 define(
   [
     "backbone"
-    "app/models/user_repository"
+    "models/user_repository"
   ]
   (
     Backbone

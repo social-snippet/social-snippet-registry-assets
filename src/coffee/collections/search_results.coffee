@@ -1,7 +1,7 @@
 define(
   [
     "underscore"
-    "app/collections/repositories"
+    "collections/repositories"
   ]
   (
     _
