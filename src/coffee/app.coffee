@@ -1,34 +1,35 @@
 define(
   [
+    "backbone"
+    "marionette"
     "collections"
     "controllers"
     "models"
     "routers"
     "views"
-    "backbone"
-    "marionette"
   ]
   (
+    Backbone
+    Marionette
     Collections
     Controllers
     Models
     Routers
     Views
-    Backbone
-    Marionette
   )->
-    class App extends Marionette.Application
+    # export instance
+    new class App extends Marionette.Application
 
       regions:
-        layout: "#main-container"
+        layout: "#app-root"
 
       initialize: (options)->
 
         @addInitializer ->
-          layout_view = new Views::AppLayoutView()
-          header_view = new Views::HeaderView()
-          footer_view = new Views::FooterView()
-          sidebar_view = new Views::SidebarView()
+          layout_view = new Views::Layouts::AppLayoutView()
+          header_view = new Views::Commons::HeaderView()
+          footer_view = new Views::Commons::FooterView()
+          sidebar_view = new Views::Commons::SidebarView()
 
           @layout.show layout_view.render()
           layout_view.headerRegion.show header_view
