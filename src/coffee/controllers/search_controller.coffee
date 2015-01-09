@@ -1,33 +1,27 @@
 define(
   [
-    "underscore"
     "marionette"
-
-    # form deps
-    "views/components/search_form_panel_view"
-
-    # result deps
-    "collections/search_results"
-    "views/contents/search/search_results_view"
+    "views"
+    "collections"
   ]
   (
-    _
     Marionette
-
-    SearchFormPanelView
-
-    SearchResults
-    SearchResultsView
+    Views
+    Collections
   )->
     class SearchController extends Marionette.Controller
+
+      initialize: ->
+        @app = require("app")
+
       form: ->
-        search_form_panel_view = new SearchFormPanelView
-        app.layout.currentView.contentsRegion.show search_form_panel_view
+        search_form_panel_view = new Views::Components::SearchFormPanelView
+        @app.layout.currentView.contentsRegion.show search_form_panel_view
 
       result: (repo)->
-        search_results = new SearchResults([], {query: repo})
+        search_results = new Collections::SearchResults([], {query: repo})
         search_results.fetch().done ->
-          search_resutlts_view = new SearchResultsView(collection: search_results)
-          app.layout.currentView.contentsRegion.show search_resutlts_view
+          search_resutlts_view = new Views::Contents::Search::SearchResultsView(collection: search_results)
+          @app.layout.currentView.contentsRegion.show search_resutlts_view
 
 )
