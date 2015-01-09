@@ -1,9 +1,7 @@
 describe "Collections::Repositories", ->
 
   # prepare modules
-  load_modules(
-    "app/collections"
-  )
+  Collections = require("collections")
 
   prepare_fake_server()
 

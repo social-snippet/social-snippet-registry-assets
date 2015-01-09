@@ -1,10 +1,8 @@
 describe "Routers::NewRouter", ->
 
-  load_modules(
-    "backbone"
-    "app/controllers"
-    "app/routers"
-  )
+  Backbone = require("backbone")
+  Controllers = require("controllers")
+  Routers = require("routers")
 
   context "prepare sinon.sandbox", ->
 

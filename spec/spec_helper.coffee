@@ -1,17 +1,6 @@
 @expect = chai.expect
 @sinon = sinon
 
-# Load Modules
-@load_modules = =>
-  module_names = Array::splice.call(arguments, 0)
-
-  before (done)=>
-    requirejs module_names, =>
-      module_classes = Array::splice.call(arguments, 0)
-      module_classes.forEach (module_class)=>
-        @[module_class.name] = module_class
-      done()
-
 @prepare_sinon_sandbox = =>
   before ->
     @sandbox = sinon.sandbox.create()

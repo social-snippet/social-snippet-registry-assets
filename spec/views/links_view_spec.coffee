@@ -1,10 +1,8 @@
 describe "Links View", ->
 
-  load_modules(
-    "jquery"
-    "backbone"
-    "app/views/components/links_view"
-  )
+  $ = jQuery = require("jquery")
+  Backbone = require("backbone")
+  Views = require("views")
 
   # prepare template
   before ->
@@ -31,7 +29,7 @@ describe "Links View", ->
     context "create links view", ->
 
       before ->
-        @view = new LinksView(
+        @view = new Views::Components::LinksView(
           collection: @collection
         )
 
