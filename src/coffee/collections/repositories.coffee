@@ -13,7 +13,7 @@ define(
       set_default_options: ->
 
       url: ->
-        "//#{WEB_API_HOST}/api/#{WEB_API_VERSION}/repositories"
+        "//#{SSPM_WEBAPI_HOST}/api/#{SSPM_WEBAPI_VERSION}/repositories"
 
       initialize: (models, new_options)->
         @options = new_options

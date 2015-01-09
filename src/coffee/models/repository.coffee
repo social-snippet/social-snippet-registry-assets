@@ -12,7 +12,7 @@ define(
 
       idAttribute: "name"
 
-      urlRoot: "//#{WEB_API_HOST}/api/#{WEB_API_VERSION}/repositories"
+      urlRoot: "//#{SSPM_WEBAPI_HOST}/api/#{SSPM_WEBAPI_VERSION}/repositories"
 
       initialize: ->
         @initGitHubLink()
