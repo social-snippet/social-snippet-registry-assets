@@ -19,5 +19,5 @@ define(
           query: ""
 
       url: ->
-        "//#{SSPM_WEBAPI_HOST}/api/#{SSPM_WEBAPI_VERSION}/repositories?q=#{options.query}"
+        "//#{SSPM_WEBAPI_HOST}/api/#{SSPM_WEBAPI_VERSION}/repositories?q=#{@options.query}"
 )
