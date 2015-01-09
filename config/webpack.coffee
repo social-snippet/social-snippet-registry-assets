@@ -15,8 +15,11 @@ module.exports =
       ".js"
     ]
 
+  externals:
+    "jquery": "jQuery"
+
   output:
-    filename: "assets.js"
+    filename: "[name].js"
 
   module:
     loaders: [
