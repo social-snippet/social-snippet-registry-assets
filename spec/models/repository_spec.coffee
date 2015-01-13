@@ -3,7 +3,7 @@ describe "Repository", ->
   # prepare modules
   Models = require("models")
 
-  prepare_fake_server()
+  SpecHelpers.prepare_fake_server()
 
   context "create instance", ->
 

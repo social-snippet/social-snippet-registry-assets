@@ -6,11 +6,11 @@ describe "Routers::SearchRepositoryRouter", ->
 
   context "prepare sinon.sandbox", ->
 
-    prepare_sinon_sandbox()
+    SpecHelpers.prepare_sinon_sandbox()
 
     context "prepare backbone.history", ->
 
-      prepare_backbone_history()
+      SpecHelpers.prepare_backbone_history()
 
       context "create controller", ->
 

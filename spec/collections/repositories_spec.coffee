@@ -1,9 +1,8 @@
 describe "Collections::Repositories", ->
 
-  # prepare modules
   Collections = require("collections")
 
-  prepare_fake_server()
+  SpecHelpers.prepare_fake_server()
 
   context "create instance", ->
 
