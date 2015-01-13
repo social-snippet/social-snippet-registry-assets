@@ -10,6 +10,7 @@ gem "tilt", "~> 1.4"
 gem "sass"
 gem "coffee-script"
 gem "juicer"
+gem "rack-reverse-proxy"
 
 # fake gem
 gem "social_snippet-registry_core", :github => "social-snippet/social-snippet-registry-core", :ref => "tmp/fake"
