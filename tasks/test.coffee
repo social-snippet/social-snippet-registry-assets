@@ -17,6 +17,7 @@ gulp.task "test", ["bower", "sinon.js"], (done)->
     "bower_components/sinon/pkg/sinon.js"
     "spec/spec_helper.coffee"
     "spec/**/*_spec.coffee"
+    "spec/fixtures/**/*.html"
   ]
   gulp.src testScripts
     .pipe karma
