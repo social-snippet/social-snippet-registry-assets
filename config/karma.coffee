@@ -26,6 +26,11 @@ module.exports = (config) ->
     # web server port
     port: 9876
 
+    client:
+      mocha:
+        reporter: "html"
+        ui: "bdd"
+
     # enable / disable colors in the output (reporters and logs)
     colors: true
 
