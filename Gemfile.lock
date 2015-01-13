@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git://github.com/social-snippet/social-snippet-registry.git
-  revision: 0a0a895a0da20224c295dec37fe866ca179d893e
+  revision: 06de9c8a21866f76e6dfb51fc938e60fb4abbb02
   ref: develop
   specs:
     social_snippet-registry (0.0.1)
@@ -51,7 +51,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.25.1)
     mini_portile (0.6.2)
-    minitest (5.5.0)
+    minitest (5.5.1)
     moneta (0.7.20)
     multi_json (1.10.1)
     multipart-post (2.0.0)
