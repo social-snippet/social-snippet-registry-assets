@@ -1,7 +1,7 @@
 define(
   [
     "underscore"
-    "app/collections/repositories"
+    "collections/repositories"
   ]
   (
     _
@@ -19,5 +19,5 @@ define(
           query: ""
 
       url: ->
-        "//#{WEB_API_HOST}/api/#{WEB_API_VERSION}/repositories?q=#{@options.query}"
+        "//#{SSPM_WEBAPI_HOST}/api/#{SSPM_WEBAPI_VERSION}/repositories?q=#{@options.query}"
 )

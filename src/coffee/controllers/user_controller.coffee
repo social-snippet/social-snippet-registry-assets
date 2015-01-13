@@ -1,52 +1,42 @@
 define(
   [
-    "backbone.marionette"
-    "app/views/contents/user/user_login_view"
-    "app/views/contents/user/user_dashboard_view"
-    "app/views/contents/user/user_repository_detail_view"
-    "app/views/components/github_login_form_view"
-    "app/views/components/user_repositories_view"
-    "app/collections/user_repositories"
-    "app/models/user_repository"
+    "marionette"
+    "views"
+    "collections"
+    "models"
   ]
   (
     Marionette
-
-    # views
-    UserLoginView
-    UserDashboardView
-    UserRepositoryDetailView
-    GitHubLoginFormView
-    UserRepositoriesView
-
-    # collections
-    UserRepositories
-
-    # models
-    UserRepository
+    Views
+    Collections
+    Models
   )->
     class UserController extends Marionette.Controller
-      dashboard: ->
-        user_dashboard_view = new UserDashboardView
-        app.layout.currentView.contentsRegion.show user_dashboard_view
 
-        repos = new UserRepositories()
+      initialize: ->
+        @App = require("app")
+
+      dashboard: ->
+        user_dashboard_view = new Views::Contents::User::UserDashboardView
+        @App.layout.currentView.contentsRegion.show user_dashboard_view
+
+        repos = new Collections::UserRepositories()
         repos.fetch().done ->
-          user_dashboard_view.reposRegion.show new UserRepositoriesView
+          user_dashboard_view.reposRegion.show new Views::Components::UserRepositoriesView
             collection: repos
             childViewContainer: ".repositories"
 
       repos: (owner_id, repo_id)->
-        user_repo = new UserRepository
+        user_repo = new Collections::UserRepository
           name: "#{owner_id}/#{repo_id}"
-        user_repos_view = new UserRepositoryDetailView
+        user_repos_view = new Views::Components::UserRepositoryDetailView
           model: user_repo
-        app.layout.currentView.contentsRegion.show user_repos_view
+        @App.layout.currentView.contentsRegion.show user_repos_view
         user_repo.fetch().done =>
 
       login: ->
-        user_login_view = new UserLoginView
-        app.layout.currentView.contentsRegion.show user_login_view
-        user_login_view.githubLoginRegion.show new GitHubLoginFormView
+        user_login_view = new Views::Contents::User::UserLoginView
+        @App.layout.currentView.contentsRegion.show user_login_view
+        user_login_view.githubLoginRegion.show new Views::Components::GitHubLoginFormView
 )
 

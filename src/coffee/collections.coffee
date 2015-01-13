@@ -1,11 +1,5 @@
-define(
-  [
-    "app/collections/repositories"
-    "app/collections/search_results"
-    "app/collections/user_repositories"
-  ]
-  ->
-    modules = Array::splice.call(arguments, 0)
-    class Collections
-    Utils.loadModules Collections, modules
-)
+define ->
+  class Collections
+    @::Repositories = require "collections/repositories"
+    @::SearchResults = require "collections/search_results"
+    @::UserRepositories = require "collections/user_repositories"

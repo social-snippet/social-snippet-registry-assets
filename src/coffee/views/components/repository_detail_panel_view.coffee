@@ -1,6 +1,6 @@
 define(
   [
-    "app/views/components/panel_view"
+    "views/components/panel_view"
   ]
   (
     PanelView

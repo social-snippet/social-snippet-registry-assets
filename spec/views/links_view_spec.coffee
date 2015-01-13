@@ -1,18 +1,11 @@
 describe "Links View", ->
 
-  load_modules(
-    "jquery"
-    "backbone"
-    "app/views/components/links_view"
-  )
+  Backbone = require("backbone")
+  Views = require("views")
 
   # prepare template
   before ->
-    $("body").append [
-      '<script id="template-link-view" type="text/html">'
-      '<a href="<%= href %>"><%= text %></a>'
-      '</script>'
-    ].join("\n")
+    stage_element.innerHTML = __html__["spec/fixtures/template_link_view.html"]
 
   context "create collection", ->
 
@@ -31,7 +24,7 @@ describe "Links View", ->
     context "create links view", ->
 
       before ->
-        @view = new LinksView(
+        @view = new Views::Components::LinksView(
           collection: @collection
         )
 

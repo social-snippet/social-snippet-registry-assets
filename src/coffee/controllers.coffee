@@ -1,13 +1,7 @@
-define(
-  [
-    "app/controllers/home_controller"
-    "app/controllers/new_controller"
-    "app/controllers/search_controller"
-    "app/controllers/repositories_controller"
-    "app/controllers/user_controller"
-  ]
-  ->
-    modules = Array::splice.call(arguments, 0)
-    class Controllers
-    Utils.loadModules Controllers, modules
-)
+define ->
+  class Controllers
+    @::HomeController = require "controllers/home_controller"
+    @::NewController = require "controllers/new_controller"
+    @::SearchController = require "controllers/search_controller"
+    @::RepositoriesController = require "controllers/repositories_controller"
+    @::UserController = require "controllers/user_controller"

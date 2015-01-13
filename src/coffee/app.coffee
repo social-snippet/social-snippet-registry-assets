@@ -1,34 +1,31 @@
 define(
   [
-    "app/collections"
-    "app/controllers"
-    "app/models"
-    "app/routers"
-    "app/views"
     "backbone"
-    "backbone.marionette"
+    "marionette"
+    "controllers"
+    "routers"
+    "views"
   ]
   (
-    Collections
-    Controllers
-    Models
-    Routers
-    Views
     Backbone
     Marionette
+    Controllers
+    Routers
+    Views
   )->
-    class App extends Marionette.Application
+    # NOTE: returns instance of App
+    new class App extends Marionette.Application
 
       regions:
-        layout: "#main-container"
+        layout: "#app-root"
 
       initialize: (options)->
 
         @addInitializer ->
-          layout_view = new Views::AppLayoutView()
-          header_view = new Views::HeaderView()
-          footer_view = new Views::FooterView()
-          sidebar_view = new Views::SidebarView()
+          layout_view = new Views::Layouts::AppLayoutView()
+          header_view = new Views::Commons::HeaderView()
+          footer_view = new Views::Commons::FooterView()
+          sidebar_view = new Views::Commons::SidebarView()
 
           @layout.show layout_view.render()
           layout_view.headerRegion.show header_view
@@ -65,7 +62,8 @@ define(
             )
           )
 
-        @vent.on "login:github", ->
+        ch = Backbone.Wreqr.radio.channel("global")
+        ch.vent.on "login:github", ->
           location.href = "/user/auth/github"
 
         @on "start", ->

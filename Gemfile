@@ -10,11 +10,12 @@ gem "tilt", "~> 1.4"
 gem "sass"
 gem "coffee-script"
 gem "juicer"
+gem "rack-reverse-proxy"
 
 # fake gem
 gem "social_snippet-registry_core", :github => "social-snippet/social-snippet-registry-core", :ref => "tmp/fake"
 
-gem "social_snippet-registry", :github => "social-snippet/social-snippet-registry", :ref => "heroku/sspm-test"
+gem "social_snippet-registry", :github => "social-snippet/social-snippet-registry", :ref => "develop"
 # gem "social_snippet-registry", :path => "../social-snippet-registry"
 
 group :development do

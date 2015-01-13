@@ -1,94 +1,85 @@
-@expect = chai.expect
-@sinon = sinon
+global.stage_element = document.createElement("div")
+stage_element.id = "stage"
+document.body.appendChild stage_element
 
-# Load Modules
-@load_modules = =>
-  module_names = Array::splice.call(arguments, 0)
+class global.SpecHelpers
 
-  before (done)=>
-    requirejs module_names, =>
-      module_classes = Array::splice.call(arguments, 0)
-      module_classes.forEach (module_class)=>
-        @[module_class.name] = module_class
-      done()
+  Backbone = require("backbone")
 
-@prepare_sinon_sandbox = =>
-  before ->
-    @sandbox = sinon.sandbox.create()
+  @prepare_sinon_sandbox: ->
+    before ->
+      @sandbox = sinon.sandbox.create()
 
-  after ->
-    @sandbox.restore()
+    after ->
+      @sandbox.restore()
 
-@prepare_backbone_history = =>
-  before ->
-    Backbone.history.start(
-      pushState: true
-    )
+  @prepare_backbone_history: ->
+    before ->
+      Backbone.history.start(
+        pushState: true
+      )
 
-  after ->
-    Backbone.history.started = null
-    Backbone.history.stop()
+    after ->
+      Backbone.history.started = null
+      Backbone.history.stop()
 
-# prepare fake web server
-@prepare_fake_server = =>
-  # prepare fake server
-  before ->
-    @web_server = sinon.fakeServer.create()
+  # prepare fake web server
+  @prepare_fake_server: ->
+    # prepare fake server
+    before ->
+      @web_server = sinon.fakeServer.create()
 
-    my_repo_info = {
-      "name": "my-repo",
-      "desc": "This is my repository",
-      "url": "git://github.com/user/my-repo",
-      "website": "http://url/to/website"
-    }
+      my_repo_info = {
+        "name": "my-repo",
+        "desc": "This is my repository",
+        "url": "git://github.com/user/my-repo",
+        "website": "http://url/to/website"
+      }
 
-    # GET /api/v0/repositories/my-repo
-    @web_server.respondWith(
-      "GET"
-      "http://#{WEB_API_HOST}/api/v0/repositories/my-repo"
-      [
-        # status
-        200
+      # GET /api/v0/repositories/my-repo
+      @web_server.respondWith(
+        "GET"
+        "http://#{SSPM_WEBAPI_HOST}/api/v0/repositories/my-repo"
+        [
+          # status
+          200
 
-        # headers
-        {
-          "Content-Type": "application/json"
-        }
+          # headers
+          {
+            "Content-Type": "application/json"
+          }
 
-        # body
-        JSON.stringify my_repo_info
-      ]
-    )
+          # body
+          JSON.stringify my_repo_info
+        ]
+      )
 
-    # GET /api/v0/repositories
-    @web_server.respondWith(
-      "GET"
-      "http://#{WEB_API_HOST}/api/v0/repositories"
-      [
-        # status
-        200
+      # GET /api/v0/repositories
+      @web_server.respondWith(
+        "GET"
+        "http://#{SSPM_WEBAPI_HOST}/api/v0/repositories"
+        [
+          # status
+          200
 
-        # headers
-        {
-          "Content-Type": "application/json"
-        }
+          # headers
+          {
+            "Content-Type": "application/json"
+          }
 
-        # body
-        JSON.stringify(
-          [
-            my_repo_info
-            my_repo_info # must be ignored
-            my_repo_info # must be ignored
-          ]
-        )
-      ]
-    )
+          # body
+          JSON.stringify(
+            [
+              my_repo_info
+              my_repo_info # must be ignored
+              my_repo_info # must be ignored
+            ]
+          )
+        ]
+      )
 
-  after ->
-    # reset stub
-    @web_server.restore()
-    delete @web_server
-
-# overwrite config
-@WEB_API_HOST = "api.server"
+    after ->
+      # reset stub
+      @web_server.restore()
+      delete @web_server
 

@@ -1,16 +1,14 @@
 describe "Repository", ->
 
   # prepare modules
-  load_modules(
-    "app/models/repository"
-  )
+  Models = require("models")
 
-  prepare_fake_server()
+  SpecHelpers.prepare_fake_server()
 
   context "create instance", ->
 
     before ->
-      @repo = new Repository(
+      @repo = new Models::Repository(
         name: "my-repo",
       )
 

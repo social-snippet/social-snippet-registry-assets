@@ -1,7 +1,7 @@
 define(
   [
     "backbone"
-    "app/models/user_repository"
+    "models/user_repository"
   ]
   (
     Backbone
@@ -11,5 +11,5 @@ define(
       model: UserRepository
 
       url: ->
-        "//#{WEB_API_HOST}/api/#{WEB_API_VERSION}/user/repositories"
+        "//#{SSPM_WEBAPI_HOST}/api/#{SSPM_WEBAPI_VERSION}/user/repositories"
 )

@@ -1,8 +1,8 @@
 define(
   [
     "backbone"
-    "backbone.marionette"
-    "app/views"
+    "marionette"
+    "views"
   ]
   (
     Backbone
@@ -10,11 +10,17 @@ define(
     Views
   )->
     class HomeController extends Marionette.Controller
-      index: ->
-        home_view = new Views::HomeView
-        app.layout.currentView.contentsRegion.show home_view
 
-        home_view.mainRegion.show new Views::HomeMainRegionView
+      initialize: ->
+        @app = require("app")
+
+      index: ->
+
+        home_view = new Views::Contents::Home::HomeView
+
+        @app.layout.currentView.contentsRegion.show home_view
+
+        home_view.mainRegion.show new Views::Contents::Home::HomeMainRegionView
           collection: new Backbone.Collection [
             {
               head: "Welcome to SSPM Registry System"
@@ -26,8 +32,8 @@ define(
             }
           ]
 
-        sub_region_view = new Views::HomeSubRegionView
+        sub_region_view = new Views::Contents::Home::HomeSubRegionView
         home_view.subRegion.show sub_region_view
-        sub_region_view.githubLoginRegion.show new Views::GitHubLoginFormView
+        sub_region_view.githubLoginRegion.show new Views::Components::GitHubLoginFormView
 
 )

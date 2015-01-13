@@ -1,8 +1,10 @@
 define(
   [
-    "backbone.marionette"
+    "backbone"
+    "marionette"
   ]
   (
+    Backbone
     Marionette
   )->
     class GitHubLoginFormView extends Marionette.ItemView
@@ -12,5 +14,5 @@ define(
         "click .btn-github": "login"
 
       login: ->
-        app.vent.trigger "login:github"
+        Backbone.Wreqr.radio.vent.trigger("global", "login:github")
 )

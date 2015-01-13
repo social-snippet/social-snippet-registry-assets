@@ -1,7 +1,7 @@
 define(
   [
-    "backbone.marionette"
-    "app/views/components/link_view"
+    "marionette"
+    "views/components/link_view"
   ]
   (
     Marionette
