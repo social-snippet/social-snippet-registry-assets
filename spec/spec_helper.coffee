@@ -1,83 +1,81 @@
-@expect = chai.expect
-@sinon = sinon
+class global.SpecHelpers
 
-@prepare_sinon_sandbox = =>
-  before ->
-    @sandbox = sinon.sandbox.create()
+  Backbone = require("backbone")
 
-  after ->
-    @sandbox.restore()
+  @prepare_sinon_sandbox: ->
+    before ->
+      @sandbox = sinon.sandbox.create()
 
-@prepare_backbone_history = =>
-  before ->
-    Backbone.history.start(
-      pushState: true
-    )
+    after ->
+      @sandbox.restore()
 
-  after ->
-    Backbone.history.started = null
-    Backbone.history.stop()
+  @prepare_backbone_history: ->
+    before ->
+      Backbone.history.start(
+        pushState: true
+      )
 
-# prepare fake web server
-@prepare_fake_server = =>
-  # prepare fake server
-  before ->
-    @web_server = sinon.fakeServer.create()
+    after ->
+      Backbone.history.started = null
+      Backbone.history.stop()
 
-    my_repo_info = {
-      "name": "my-repo",
-      "desc": "This is my repository",
-      "url": "git://github.com/user/my-repo",
-      "website": "http://url/to/website"
-    }
+  # prepare fake web server
+  @prepare_fake_server: ->
+    # prepare fake server
+    before ->
+      @web_server = sinon.fakeServer.create()
 
-    # GET /api/v0/repositories/my-repo
-    @web_server.respondWith(
-      "GET"
-      "http://#{WEB_API_HOST}/api/v0/repositories/my-repo"
-      [
-        # status
-        200
+      my_repo_info = {
+        "name": "my-repo",
+        "desc": "This is my repository",
+        "url": "git://github.com/user/my-repo",
+        "website": "http://url/to/website"
+      }
 
-        # headers
-        {
-          "Content-Type": "application/json"
-        }
+      # GET /api/v0/repositories/my-repo
+      @web_server.respondWith(
+        "GET"
+        "http://#{SSPM_WEBAPI_HOST}/api/v0/repositories/my-repo"
+        [
+          # status
+          200
 
-        # body
-        JSON.stringify my_repo_info
-      ]
-    )
+          # headers
+          {
+            "Content-Type": "application/json"
+          }
 
-    # GET /api/v0/repositories
-    @web_server.respondWith(
-      "GET"
-      "http://#{WEB_API_HOST}/api/v0/repositories"
-      [
-        # status
-        200
+          # body
+          JSON.stringify my_repo_info
+        ]
+      )
 
-        # headers
-        {
-          "Content-Type": "application/json"
-        }
+      # GET /api/v0/repositories
+      @web_server.respondWith(
+        "GET"
+        "http://#{SSPM_WEBAPI_HOST}/api/v0/repositories"
+        [
+          # status
+          200
 
-        # body
-        JSON.stringify(
-          [
-            my_repo_info
-            my_repo_info # must be ignored
-            my_repo_info # must be ignored
-          ]
-        )
-      ]
-    )
+          # headers
+          {
+            "Content-Type": "application/json"
+          }
 
-  after ->
-    # reset stub
-    @web_server.restore()
-    delete @web_server
+          # body
+          JSON.stringify(
+            [
+              my_repo_info
+              my_repo_info # must be ignored
+              my_repo_info # must be ignored
+            ]
+          )
+        ]
+      )
 
-# overwrite config
-@WEB_API_HOST = "api.server"
+    after ->
+      # reset stub
+      @web_server.restore()
+      delete @web_server
 
