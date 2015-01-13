@@ -13,6 +13,7 @@ module.exports = (config) ->
     # available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors:
       "spec/**/*.coffee": ["webpack"]
+      "spec/fixtures/*.html": ["html2js"]
 
     webpack: require("./webpack")
 
