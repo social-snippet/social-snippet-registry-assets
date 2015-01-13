@@ -23,9 +23,11 @@
   },
   "resolutions": {
     "backbone": "~1.1.2",
-    "underscore": "~1.7.0"
+    "underscore": "~1.7.0",
+    "sinon": "~1.12.2"
   },
   "devDependencies": {
-    "backbone.localStorage": "~1.1.15"
+    "backbone.localStorage": "~1.1.15",
+    "sinon": "~1.12.2"
   }
 }
