@@ -1,3 +1,7 @@
+global.stage_element = document.createElement("div")
+stage_element.id = "stage"
+document.body.appendChild stage_element
+
 class global.SpecHelpers
 
   Backbone = require("backbone")
