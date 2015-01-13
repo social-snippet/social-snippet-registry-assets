@@ -14,11 +14,11 @@ define(
     class UserController extends Marionette.Controller
 
       initialize: ->
-        @app = require("app")
+        @App = require("app")
 
       dashboard: ->
         user_dashboard_view = new Views::Contents::User::UserDashboardView
-        @app.layout.currentView.contentsRegion.show user_dashboard_view
+        @App.layout.currentView.contentsRegion.show user_dashboard_view
 
         repos = new Collections::UserRepositories()
         repos.fetch().done ->
@@ -31,12 +31,12 @@ define(
           name: "#{owner_id}/#{repo_id}"
         user_repos_view = new Views::Components::UserRepositoryDetailView
           model: user_repo
-        @app.layout.currentView.contentsRegion.show user_repos_view
+        @App.layout.currentView.contentsRegion.show user_repos_view
         user_repo.fetch().done =>
 
       login: ->
         user_login_view = new Views::Contents::User::UserLoginView
-        @app.layout.currentView.contentsRegion.show user_login_view
+        @App.layout.currentView.contentsRegion.show user_login_view
         user_login_view.githubLoginRegion.show new Views::Components::GitHubLoginFormView
 )
 
