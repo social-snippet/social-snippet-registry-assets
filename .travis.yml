@@ -6,6 +6,7 @@ node_js:
 sudo: false
 
 install:
+  - travis_retry bundle install -j4 --path vendor/bundle
   - travis_retry npm install -g gulp
   - travis_retry npm install -g bower
   - npm prune
