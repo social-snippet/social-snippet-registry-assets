@@ -3,6 +3,10 @@ path = require("path")
 
 module.exports =
 
+  entry: [
+    path.join(__dirname, "..", "src/coffee/main.coffee")
+  ]
+
   resolve:
     root: [
       path.join(__dirname, "..", "bower_components")
@@ -20,6 +24,8 @@ module.exports =
 
   output:
     filename: "[name].js"
+    path: path.join(__dirname, "..", "dist/js/")
+    publicPath: "/js/"
 
   module:
     loaders: [
