@@ -2,22 +2,18 @@ define(
   [
     "backbone"
     "marionette"
-    "collections"
     "controllers"
-    "models"
     "routers"
     "views"
   ]
   (
     Backbone
     Marionette
-    Collections
     Controllers
-    Models
     Routers
     Views
   )->
-    # export instance
+    # NOTE: returns instance of App
     new class App extends Marionette.Application
 
       regions:
@@ -66,7 +62,8 @@ define(
             )
           )
 
-        @vent.on "login:github", ->
+        ch = Backbone.Wreqr.radio.channel("global")
+        ch.vent.on "login:github", ->
           location.href = "/user/auth/github"
 
         @on "start", ->
