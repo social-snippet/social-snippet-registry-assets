@@ -1,16 +1,11 @@
 describe "Links View", ->
 
-  $ = jQuery = require("jquery")
   Backbone = require("backbone")
   Views = require("views")
 
   # prepare template
   before ->
-    $("body").append [
-      '<script id="template-link-view" type="text/html">'
-      '<a href="<%= href %>"><%= text %></a>'
-      '</script>'
-    ].join("\n")
+    document.body.innerHTML = __html__["spec/fixtures/template_link_view.html"]
 
   context "create collection", ->
 
