@@ -16,6 +16,9 @@ module.exports = (config) ->
 
     webpack: require("./webpack")
 
+    webpackMiddleware:
+      noInfo: true
+
     # available reporters: https://npmjs.org/browse/keyword/karma-reporter
     reporters: ["spec"]
 
