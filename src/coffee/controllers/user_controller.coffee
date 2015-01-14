@@ -27,7 +27,7 @@ define(
             childViewContainer: ".repositories"
 
       repos: (owner_id, repo_id)->
-        user_repo = new Collections::UserRepository
+        user_repo = new Models::UserRepository
           name: "#{owner_id}/#{repo_id}"
         user_repos_view = new Views::Components::UserRepositoryDetailView
           model: user_repo
