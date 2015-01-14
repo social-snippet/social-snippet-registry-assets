@@ -39,7 +39,7 @@ class global.SpecHelpers
       # GET /api/v0/repositories/my-repo
       @web_server.respondWith(
         "GET"
-        "http://#{SSPM_WEBAPI_HOST}/api/v0/repositories/my-repo"
+        "#{SSPM_WEBAPI_PROTOCOL}://#{SSPM_WEBAPI_HOST}/api/#{SSPM_WEBAPI_VERSION}/repositories/my-repo"
         [
           # status
           200
@@ -57,7 +57,7 @@ class global.SpecHelpers
       # GET /api/v0/repositories
       @web_server.respondWith(
         "GET"
-        "http://#{SSPM_WEBAPI_HOST}/api/v0/repositories"
+        "#{SSPM_WEBAPI_PROTOCOL}://#{SSPM_WEBAPI_HOST}/api/#{SSPM_WEBAPI_VERSION}/repositories"
         [
           # status
           200
