@@ -13,7 +13,9 @@ webpackPlugins.push new webpack.DefinePlugin
   SSPM_WEBAPI_PROTOCOL: JSON.stringify(process.env.SSPM_WEBAPI_PROTOCOL || "https")
   SSPM_LOCAL_STORAGE: process.env.SSPM_LOCAL_STORAGE == "true"
 
-unless process.env.SSPM_DEBUG == "true"
+if process.env.SSPM_DISABLE_UGLIFYJS == "true"
+  console.log "webpack: disable uglifyjs"
+else
   console.log "webpack: enable uglifyjs"
   webpackPlugins.push new webpack.optimize.UglifyJsPlugin
     compress:
