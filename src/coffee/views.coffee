@@ -16,9 +16,8 @@ define ->
       class @::Search
         @::SearchResultsView = require "views/contents/search/search_results_view"
       class @::User
-        @::UserDashBoardView = require "views/contents/user/user_dashboard_view"
+        @::UserDashboardView = require "views/contents/user/user_dashboard_view"
         @::UserLoginView = require "views/contents/user/user_login_view"
-        @::UserRepositoryDetailView = require "views/contents/user/user_repository_detail_view"
       @::NewRepositoryView = require "views/contents/new_repository_view"
       @::AllRepositoriesView = require "views/contents/repositories/all_repositories_view"
 
@@ -32,4 +31,6 @@ define ->
       @::RepositoryPanelView = require "views/components/repository_panel_view"
       @::RepositoryDetailPanelView = require "views/components/repository_detail_panel_view"
       @::SearchFormPanelView = require "views/components/search_form_panel_view"
+      @::UserRepositoriesView = require "views/components/user_repositories_view"
+      @::UserRepositoryDetailView = require "views/components/user_repository_detail_view"
 
