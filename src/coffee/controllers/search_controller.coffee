@@ -20,7 +20,7 @@ define(
 
       result: (repo)->
         search_results = new Collections::SearchResults([], {query: repo})
-        search_results.fetch().done ->
+        search_results.fetch().done =>
           search_resutlts_view = new Views::Contents::Search::SearchResultsView(collection: search_results)
           @app.layout.currentView.contentsRegion.show search_resutlts_view
 
