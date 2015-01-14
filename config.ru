@@ -89,16 +89,12 @@ use(
 $debug_logged_in = false
 
 Padrino.configure_apps do
-  def self.is_debug_mode?
-    ENV["SSPM_DEBUG"] === "true"
-  end
-
   logger.info "Configure [Assets]: #{self}"
 
   set :sspm_session, false
   @app_no_config = true
 
-  set :sspm_debug, is_debug_mode?
+  set :sspm_debug, ENV["SSPM_DEBUG"] === "true"
   logger.info "Enable Debug Mode: #{self}" if settings.sspm_debug
 
   helpers do
@@ -132,7 +128,7 @@ map "/user/auth/github" do
   class FakeLogin < Padrino::Application
     get :index do
       $debug_logged_in = (not $debug_logged_in) if settings.sspm_debug
-      redirect "/"
+      redirect "/user/dashboard"
     end
   end
   run FakeLogin
@@ -142,7 +138,7 @@ map "/user/logout" do
   class FakeLogout < Padrino::Application
     get :index do
       $debug_logged_in = false if settings.sspm_debug
-      redirect "/"
+      redirect "/user/login"
     end
   end
   run FakeLogout

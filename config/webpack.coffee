@@ -1,6 +1,24 @@
 webpack = require("webpack")
 path = require("path")
 
+webpackPlugins = []
+
+webpackPlugins.push new webpack.ResolverPlugin [
+  new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin "bower.json", ["main"]
+]
+
+webpackPlugins.push new webpack.DefinePlugin
+  SSPM_WEBAPI_HOST: JSON.stringify(process.env.SSPM_WEBAPI_HOST || "sspm.herokuapp.com")
+  SSPM_WEBAPI_VERSION: JSON.stringify(process.env.SSPM_WEBAPI_VERSION || "v0")
+  SSPM_WEBAPI_PROTOCOL: JSON.stringify(process.env.SSPM_WEBAPI_PROTOCOL || "https")
+  SSPM_LOCAL_STORAGE: process.env.SSPM_LOCAL_STORAGE == "true"
+
+unless process.env.SSPM_DEBUG == "true"
+  console.log "webpack: enable uglifyjs"
+  webpackPlugins.push new webpack.optimize.UglifyJsPlugin
+    compress:
+      warnings: false
+
 module.exports =
 
   entry: [
@@ -32,17 +50,4 @@ module.exports =
       { test: /\.coffee$/, loader: "coffee" }
     ]
  
-  plugins: [
-    new webpack.ResolverPlugin [
-      new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin "bower.json", ["main"]
-    ]
-
-    new webpack.DefinePlugin
-      SSPM_WEBAPI_HOST: JSON.stringify(process.env.SSPM_WEBAPI_HOST || "sspm.herokuapp.com")
-      SSPM_WEBAPI_VERSION: JSON.stringify("v0")
-      SSPM_WEBAPI_PROTOCOL: JSON.stringify("https")
-
-    new webpack.optimize.UglifyJsPlugin
-      compress:
-        warnings: false
-  ]
+  plugins: webpackPlugins
