@@ -18,7 +18,7 @@ define(
 
       all: ->
         repos = new Collections::Repositories
-        all_repos_view = new Views::Components::AllRepositoriesView
+        all_repos_view = new Views::Contents::Repositories::AllRepositoriesView
           collection: repos
         @app.layout.currentView.contentsRegion.show all_repos_view
         repos.fetch()
@@ -27,12 +27,13 @@ define(
         repo = new Models::Repository
           name: repo_id
 
-        repo
-          .fetch()
-          .done ->
+        repo.fetch()
+          .then =>
             repo_view = new Views::Components::RepositoryDetailPanelView
               model: repo
             @app.layout.currentView.contentsRegion.show repo_view
+          .then null, (error)->
+            console.error "error: repository not found?"
 
 
 )
