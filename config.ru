@@ -150,12 +150,20 @@ map "/api/v0" do
 
   class FakeAPI < Padrino::Application
 
-    before { sleep 3 } # fake wait
-
-    post :repositories do
+    post "repositories" do
+      sleep 3 # fake wait
       {
-        :name => "name-#{Random.rand(100)}",
+        :name => "repo-#{Random.rand(100)}",
         :desc => "desc-#{Random.rand(100)}",
+      }.to_json
+    end
+
+    get "repositories", :with => :repo_name do
+      raise "error" if /[^a-z0-9\.\-\_]/ === params[:repo_name]
+      {
+        :name => params[:repo_name],
+        :desc => "desc-#{Random.rand(100)}",
+        :url => "git://github.com/dummy/#{params[:repo_name]}",
       }.to_json
     end
 
