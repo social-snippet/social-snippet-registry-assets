@@ -21,6 +21,8 @@ define(
 
       initialize: (options)->
 
+        channel = Backbone.Wreqr.radio.channel("global")
+
         @addInitializer ->
           layout_view = new Views::Layouts::AppLayoutView()
           header_view = new Views::Commons::HeaderView()
@@ -33,41 +35,34 @@ define(
           layout_view.sidebarRegion.show sidebar_view
 
         @addInitializer ->
-          new Routers::HomeRouter(
-            controller: new Controllers::HomeController(
-            )
-          )
+          new Routers::HomeRouter
+            controller: new Controllers::HomeController
 
         @addInitializer ->
-          new Routers::NewRouter(
-            controller: new Controllers::NewController(
-            )
-          )
+          new Routers::NewRouter
+            controller: new Controllers::NewController
 
         @addInitializer ->
-          new Routers::SearchRouter(
-            controller: new Controllers::SearchController(
-            )
-          )
+          new Routers::SearchRouter
+            controller: new Controllers::SearchController
 
         @addInitializer ->
-          new Routers::RepositoriesRouter(
-            controller: new Controllers::RepositoriesController(
-            )
-          )
+          router = new Routers::RepositoriesRouter
+            controller: new Controllers::RepositoriesController
+
+          channel.vent.on "router:repositories:navigate", (repo_name)->
+            router.navigate "repositories/#{repo_name}", trigger: true
 
         @addInitializer =>
-          user_router = new Routers::UserRouter(
-            controller: new Controllers::UserController(
-            )
-          )
+          user_router = new Routers::UserRouter
+            controller: new Controllers::UserController
 
-        ch = Backbone.Wreqr.radio.channel("global")
-        ch.vent.on "login:github", ->
+        channel.vent.on "login:github", ->
           location.href = "/user/auth/github"
 
         @on "start", ->
           Backbone.history.start(
+            root: "/"
             pushState: true
           )
 )
