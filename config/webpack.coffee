@@ -24,7 +24,7 @@ else
 module.exports =
 
   entry: [
-    path.join(__dirname, "..", "src/coffee/main.coffee")
+    "main"
   ]
 
   resolve:
