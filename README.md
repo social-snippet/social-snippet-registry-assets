@@ -1,5 +1,8 @@
 # SocialSnippet::Registry::Assets
 
+![Bower version](https://img.shields.io/bower/v/social-snippet-registry-assets.svg?style=flat)
+[![Build Status](https://img.shields.io/travis/social-snippet/social-snippet-registry-assets/master.svg?style=flat)](https://travis-ci.org/social-snippet/social-snippet-registry-assets)
+
 ## Installation
 
 ```bash
