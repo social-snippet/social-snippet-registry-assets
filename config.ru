@@ -144,9 +144,20 @@ map "/user/logout" do
   run FakeLogout
 end
 
-map "/api" do
+map "/api/v0" do
+
+  require "json"
+
   class FakeAPI < Padrino::Application
+
     before { sleep 3 } # fake wait
+
+    post :repositories do
+      {
+        :name => "name-#{Random.rand(100)}",
+        :desc => "desc-#{Random.rand(100)}",
+      }.to_json
+    end
 
     get "*" do
       "ok"
@@ -155,7 +166,9 @@ map "/api" do
     post "*" do
       "ok"
     end
+
   end
+
   run FakeAPI
 end
 
