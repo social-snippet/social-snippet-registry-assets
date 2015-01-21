@@ -143,3 +143,19 @@ map "/user/logout" do
   end
   run FakeLogout
 end
+
+map "/api" do
+  class FakeAPI < Padrino::Application
+    before { sleep 3 } # fake wait
+
+    get "*" do
+      "ok"
+    end
+
+    post "*" do
+      "ok"
+    end
+  end
+  run FakeAPI
+end
+
