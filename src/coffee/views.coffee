@@ -18,6 +18,8 @@ define ->
       class @::User
         UserDashboardView: require "views/contents/user/user_dashboard_view"
         UserLoginView: require "views/contents/user/user_login_view"
+      class @::Repositories
+        AllRepositoriesView: require "views/contents/repositories/all_repositories_view"
       NewRepositoryView: require "views/contents/new_repository_view"
       AllRepositoriesView: require "views/contents/repositories/all_repositories_view"
 
