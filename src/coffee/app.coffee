@@ -60,6 +60,10 @@ define(
           channel.vent.on "login:github", ->
             location.href = "/user/auth/github"
 
+          channel.vent.on "change:title", (new_title)->
+            document.title = "#{new_title} - SSPM Registry System"
+
+          # start history manager
           Backbone.history.start(
             root: "/"
             pushState: true
