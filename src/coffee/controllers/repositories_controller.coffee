@@ -16,7 +16,7 @@ define(
       initialize: ->
         @app = require("app")
 
-      all: ->
+      showAll: ->
         repos = new Collections::Repositories
         all_repos_view = new Views::Contents::Repositories::AllRepositoriesView
           collection: repos
