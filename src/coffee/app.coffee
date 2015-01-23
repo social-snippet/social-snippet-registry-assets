@@ -47,11 +47,12 @@ define(
           new Routers::SearchRouter
             controller: new Controllers::SearchController
 
+          # repositories
           repos_router = new Routers::RepositoriesRouter
             controller: new Controllers::RepositoriesController
 
           channel.vent.on "router:repositories:navigate", (repo_name)->
-            repos_router.navigate "repositories/#{repo_name}", trigger: true
+            repos_router.navigate "repos/r/#{repo_name}", trigger: true
 
           user_router = new Routers::UserRouter
             controller: new Controllers::UserController
