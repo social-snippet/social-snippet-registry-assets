@@ -34,22 +34,6 @@ define(
       add_model repos, repo_1
       add_model repos, repo_2
 
-    create_fake_search_results = ->
-      repos = new Collections::SearchResults []
-
-      repo_1 = new Models::Repository
-        name: "found-repo-1"
-        desc: "this is repo 1"
-        url: "https://github.com/user/repo-1"
-
-      repo_2 = new Models::Repository
-        name: "found-repo-2"
-        desc: "this is repo 2"
-        url: "https://github.com/user/repo-2"
-
-      add_model repos, repo_1
-      add_model repos, repo_2
-
     create_fake_user_repos = ->
       repos = new Collections::UserRepositories []
 
@@ -84,14 +68,15 @@ define(
       _(Collections::Repositories::).extend
         localStorage: new Backbone.LocalStorage("repos")
       _(Collections::SearchResults::).extend
-        localStorage: new Backbone.LocalStorage("search-results")
+        localStorage: new Backbone.LocalStorage("repos")
       _(Collections::UserRepositories::).extend
         localStorage: new Backbone.LocalStorage("user-repos")
+      _(Models::Repository::).extend
+        localStorage: new Backbone.LocalStorage("repos")
       _(Models::UserRepository::).extend
-        localStorage: new Backbone.LocalStorage("user-repo")
+        localStorage: new Backbone.LocalStorage("user-repos")
 
       # create fake repos
       create_fake_repos()
-      create_fake_search_results()
       create_fake_user_repos()
 )
