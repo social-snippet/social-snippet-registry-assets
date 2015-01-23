@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git://github.com/social-snippet/social-snippet-registry.git
-  revision: 894281509005a901da39deec3105d85a0280d9df
+  revision: a3f2e09100f5d5efc3b6de9872be846cf37cd067
   ref: develop
   specs:
     social_snippet-registry (0.0.1)
