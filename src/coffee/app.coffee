@@ -44,9 +44,6 @@ define(
           new Routers::HomeRouter
             controller: new Controllers::HomeController
 
-          new Routers::NewRouter
-            controller: new Controllers::NewController
-
           new Routers::SearchRouter
             controller: new Controllers::SearchController
 
