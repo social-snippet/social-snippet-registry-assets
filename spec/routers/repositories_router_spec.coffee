@@ -20,7 +20,7 @@ describe "Routers::RepositoriesRouter", ->
         context "setup stub", ->
 
           before ->
-            @stub_all = @sandbox.stub @controller, "all"
+            @stub_all = @sandbox.stub @controller, "showAll"
 
           context "create router", ->
 
@@ -29,10 +29,10 @@ describe "Routers::RepositoriesRouter", ->
                 controller: @controller
               )
 
-            context "load /repositories", ->
+            context "load /repos", ->
 
               before ->
-                Backbone.history.loadUrl "/repositories"
+                Backbone.history.loadUrl "/repos"
 
               describe "RepositoriesController#all", ->
 
