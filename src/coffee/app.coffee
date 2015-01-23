@@ -23,7 +23,11 @@ define(
 
         channel = Backbone.Wreqr.radio.channel("global")
 
-        @addInitializer ->
+        @on "start", ->
+
+          #
+          # views
+          #
           layout_view = new Views::Layouts::AppLayoutView()
           header_view = new Views::Commons::HeaderView()
           footer_view = new Views::Commons::FooterView()
@@ -34,33 +38,32 @@ define(
           layout_view.footerRegion.show footer_view
           layout_view.sidebarRegion.show sidebar_view
 
-        @addInitializer ->
+          #
+          # routers
+          #
           new Routers::HomeRouter
             controller: new Controllers::HomeController
 
-        @addInitializer ->
-          new Routers::NewRouter
-            controller: new Controllers::NewController
-
-        @addInitializer ->
           new Routers::SearchRouter
             controller: new Controllers::SearchController
 
-        @addInitializer ->
-          router = new Routers::RepositoriesRouter
+          # repositories
+          repos_router = new Routers::RepositoriesRouter
             controller: new Controllers::RepositoriesController
 
           channel.vent.on "router:repositories:navigate", (repo_name)->
-            router.navigate "repositories/#{repo_name}", trigger: true
+            repos_router.navigate "repos/r/#{repo_name}", trigger: true
 
-        @addInitializer =>
           user_router = new Routers::UserRouter
             controller: new Controllers::UserController
 
-        channel.vent.on "login:github", ->
-          location.href = "/user/auth/github"
+          channel.vent.on "login:github", ->
+            location.href = "/user/auth/github"
 
-        @on "start", ->
+          channel.vent.on "change:title", (new_title)->
+            document.title = "#{new_title} - SSPM Registry System"
+
+          # start history manager
           Backbone.history.start(
             root: "/"
             pushState: true
