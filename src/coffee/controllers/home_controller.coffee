@@ -15,6 +15,7 @@ define(
         @app = require("app")
 
       index: ->
+        Backbone.Wreqr.radio.vent.trigger "global", "change:title", "Social Snippet Registry System"
 
         home_view = new Views::Contents::Home::HomeView
 
