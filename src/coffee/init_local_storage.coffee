@@ -4,6 +4,7 @@ define(
     "backbone"
     "models"
     "collections"
+    "views"
     "backbone.localStorage"
   ]
   (
@@ -11,6 +12,7 @@ define(
     Backbone
     Models
     Collections
+    Views
     __backbone_LocalStorage__
   )->
     add_model = (collection, model)->
@@ -75,6 +77,26 @@ define(
         localStorage: new Backbone.LocalStorage("repos")
       _(Models::UserRepository::).extend
         localStorage: new Backbone.LocalStorage("user-repos")
+
+      _(Views::Components::AddRepositoryByGitHubView::).extend
+        addRepository: ->
+          repo = new Models::Repository
+          random_id = parseInt(Math.random() * 100, 10)
+          repo.save
+            name: "new-repo-#{random_id}"
+            desc: "new repo ##{random_id}"
+            url: "https://github.com/#{@$(".new-repo-user").val()}/#{@$(".new-repo-name").val()}"
+          Backbone.Wreqr.radio.vent.trigger "global", "router:repositories:navigate", repo.get("name")
+
+      _(Views::Components::AddRepositoryByUrlView::).extend
+        addRepository: ->
+          repo = new Models::Repository
+          random_id = parseInt(Math.random() * 100, 10)
+          repo.save
+            name: "new-repo-#{random_id}"
+            desc: "new repo ##{random_id}"
+            url: @$(".new-repo-url").val()
+          Backbone.Wreqr.radio.vent.trigger "global", "router:repositories:navigate", repo.get("name")
 
       # create fake repos
       create_fake_repos()
