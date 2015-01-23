@@ -11,11 +11,13 @@ define(
       template: "#template-add-repository-by-url-view"
 
       events:
-        "click .add": ->
-          new_repo = new Models::Repository()
-          new_repo.save(
-            url: @$(".new-repo-url").val()
-          )
+        "click .add": "addRepository"
+
+      addRepository: ->
+        new_repo = new Models::Repository()
+        new_repo.save(
+          url: @$(".new-repo-url").val()
+        )
 
       className: "well"
 
