@@ -7,6 +7,7 @@ define(
   )->
     class RepositoriesRouter extends Marionette.AppRouter
       appRoutes:
-        "repositories": "all"
-        "repositories/:repo_name": "show"
+        "repos": "showAll"
+        "repos/new": "create"
+        "repos/r/:repo_name": "show"
 )
