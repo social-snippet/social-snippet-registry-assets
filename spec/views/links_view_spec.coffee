@@ -5,7 +5,7 @@ describe "Links View", ->
 
   # prepare template
   before ->
-    stage_element.innerHTML = __html__["spec/fixtures/template_link_view.html"]
+    stage_element.innerHTML = __html__["tmp/template.html"]
 
   context "create collection", ->
 

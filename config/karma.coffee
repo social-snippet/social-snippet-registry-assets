@@ -14,6 +14,7 @@ module.exports = (config) ->
     preprocessors:
       "spec/**/*.coffee": ["webpack"]
       "spec/fixtures/*.html": ["html2js"]
+      "tmp/template.html": ["html2js"]
 
     webpack: require("./webpack")
 
