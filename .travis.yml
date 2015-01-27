@@ -11,6 +11,7 @@ install:
   - travis_retry npm install -g bower
   - npm prune
   - bower prune
+  - bundle update -j4
   - travis_retry npm install
 
 script:
