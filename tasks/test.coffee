@@ -21,8 +21,7 @@ gulp.task "test/html", ["test/html/clean", "bower"], ->
 gulp.task "sinon.js", ["bower"], shell.task(
   [
     "cd ./bower_components/sinon"
-    "npm install"
-    "[ -f ./bower_components/sinon/pkg/sinon.js ] || bundle exec ./build"
+    "if [ ! -f ./pkg/sinon.js ]; then npm install && bundle exec ./build; fi"
   ].join(" && ")
 )
 
