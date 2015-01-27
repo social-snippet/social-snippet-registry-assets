@@ -2,7 +2,7 @@ gulp = require("gulp")
 shell = require("gulp-shell")
 
 gulp.task "test/html/clean", shell.task [
-  "[ -f tmp/template.html ] && rm tmp/template.html"
+  "if [ -e tmp/template.html ]; then rm tmp/template.html; fi"
 ]
 
 gulp.task "test/html", ["test/html/clean", "bower"], ->
