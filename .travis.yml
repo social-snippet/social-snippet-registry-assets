@@ -5,6 +5,10 @@ node_js:
 
 sudo: false
 
+before_install:
+  - rvm use 2.2 --install --binary --fuzzy
+  - ruby --version
+
 install:
   - travis_retry bundle install -j4 --path vendor/bundle
   - travis_retry npm install -g gulp
