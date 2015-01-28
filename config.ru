@@ -19,9 +19,11 @@ map "/js" do
   if ENV["SSPM_WEBPACK_DEV_SERVER"] === "true"
     # need to run webpack dev server
     logger.info "Enable Webpack Dev Server"
+    env = Sprockets::Environment.new
     use Rack::ReverseProxy do
       reverse_proxy /^\/(.*)/, "http://localhost:18181/$1"
     end
+    run env
   else
     # need to run `$ gulp build`
     logger.info "Disable Webpack Dev Server"
