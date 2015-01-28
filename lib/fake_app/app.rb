@@ -44,7 +44,7 @@ module FakeApp
     end
     
     get "*" do
-      render :empty_view
+      render :all_view
     end
 
   end
