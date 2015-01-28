@@ -6,7 +6,7 @@ gulp.task "template.html", ["bower"], ->
   concat = require("gulp-concat")
   streamify = require("gulp-streamify")
 
-  slimSrc = "./bower_components/social-snippet-registry-views/lib/social_snippet/registry_views/views/**/*.slim"
+  slimSrc = "./bower_components/social-snippet-registry-views/lib/social_snippet/registry_views/views/templates/**/*.slim"
   slimData =
     csrf_token: "dummy"
     assets_host: "api.test"
