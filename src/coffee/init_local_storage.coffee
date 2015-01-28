@@ -39,18 +39,18 @@ define(
     create_fake_user_repos = ->
       repos = new Collections::UserRepositories []
 
-      repo_1 = new Models::UserRepository
+      repo_1 = repos.create
         name: "user/repo1"
         repos: [
           "repo-1"
           "other-repo-1"
         ]
 
-      repo_2 = new Models::UserRepository
+      repo_2 = repos.create
         name: "user/repo2"
         repos: []
 
-      repo_3 = new Models::UserRepository
+      repo_3 = repos.create
         name: "org/repo1"
         repos: [
           "repo-1"

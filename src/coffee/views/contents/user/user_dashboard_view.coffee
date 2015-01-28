@@ -16,6 +16,8 @@ define(
         "click .sync": "sync"
 
       sync: ->
-        @reposRegion.currentView.collection.save
-          patch: true
+        @reposRegion.currentView.collection.fetch(type: "PUT")
+          .then ->
+            console.log "success"
+
 )
