@@ -14,3 +14,6 @@ gem "sprockets", "~> 2.12"
 gem "padrino"
 gem "rack-reverse-proxy"
 gem "social_snippet-registry_views" #, :path => "../social-snippet-registry-views/"
+
+# build sinon.js
+gem "juicer"
